@@ -105,3 +105,10 @@ venv.bak/
 
 # pycharm
 .idea/
+
+# pickle files
+*.pkl
+
+# datafiles
+train.csv
+test.csv
