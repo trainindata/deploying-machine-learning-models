@@ -55,7 +55,7 @@ price_pipe = Pipeline(
         (
             "temporal_variable",
             pp.TemporalVariableEstimator(
-                variables=TEMPORAL_VARS, reference_variable=TEMPORAL_VARS
+                variables=TEMPORAL_VARS, reference_variable=DROP_FEATURES
             ),
         ),
         (
