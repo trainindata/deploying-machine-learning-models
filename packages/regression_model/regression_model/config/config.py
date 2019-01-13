@@ -23,3 +23,35 @@ FEATURES = ['MSSubClass', 'MSZoning', 'Neighborhood',
             'LotFrontage',
             # this one is only to calculate temporal variable:
             'YrSold']
+
+# this variable is to calculate the temporal variable,
+# can be dropped afterwards
+DROP_FEATURES = 'YrSold'
+
+# numerical variables with NA in train set
+NUMERICAL_VARS_WITH_NA = ['LotFrontage']
+
+# categorical variables with NA in train set
+CATEGORICAL_VARS_WITH_NA = ['MasVnrType', 'BsmtQual', 'BsmtExposure',
+                            'FireplaceQu', 'GarageType', 'GarageFinish']
+
+TEMPORAL_VARS = 'YearRemodAdd'
+
+# variables to log transform
+NUMERICALS_LOG_VARS = ['LotFrontage', '1stFlrSF', 'GrLivArea']
+
+# categorical variables to encode
+CATEGORICAL_VARS = ['MSZoning', 'Neighborhood', 'RoofStyle', 'MasVnrType',
+                    'BsmtQual', 'BsmtExposure', 'HeatingQC', 'CentralAir',
+                    'KitchenQual', 'FireplaceQu', 'GarageType', 'GarageFinish',
+                    'PavedDrive']
+
+NUMERICAL_NA_NOT_ALLOWED = [
+    feature for feature in FEATURES
+    if feature not in CATEGORICAL_VARS + NUMERICAL_VARS_WITH_NA
+]
+
+CATEGORICAL_NA_NOT_ALLOWED = [
+    feature for feature in CATEGORICAL_VARS
+    if feature not in CATEGORICAL_VARS_WITH_NA
+]
