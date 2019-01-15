@@ -3,6 +3,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 
 from regression_model.processing import preprocessors as pp
+from regression_model.processing import features
 from regression_model.config import config
 
 
@@ -30,7 +31,10 @@ price_pipe = Pipeline(
             "categorical_encoder",
             pp.CategoricalEncoder(variables=config.CATEGORICAL_VARS),
         ),
-        ("log_transformer", pp.LogTransformer(variables=config.NUMERICALS_LOG_VARS)),
+        (
+            "log_transformer",
+            features.LogTransformer(variables=config.NUMERICALS_LOG_VARS),
+        ),
         (
             "drop_features",
             pp.DropUnecessaryFeatures(variables_to_drop=config.DROP_FEATURES),
