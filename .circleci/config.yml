@@ -23,6 +23,9 @@ jobs:
       - image: circleci/python:3.7.2
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
       - run:
           name: Runnning tests
           command: |
@@ -31,6 +34,10 @@ jobs:
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
+      - save_cache:
+          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+          paths:
+            - "/venv"
 
   train_and_upload_regression_model:
     working_directory: ~/project
@@ -59,7 +66,11 @@ workflows:
     jobs:
       - test_regression_model
       - test_ml_api
-      - train_and_upload_regression_model
-      - test_ml_api:
+      - train_and_upload_regression_model:
           requires:
-            - train_and_upload_regression_model
+            - test_regression_model
+            - test_ml_api
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
