@@ -1,28 +1,56 @@
 version: 2
+
+defaults: &defaults
+  docker:
+    - image: circleci/python:3.7.2
+  working_directory: ~/project
+
+prepare_venv: &prepare_venv
+  run:
+    name: Create venv
+    command: |
+      python3 -m venv venv
+      source venv/bin/activate
+      pip install --upgrade pip
+
+fetch_data: &fetch_data
+  run:
+    name: Set script permissions and fetch data
+    command: |
+      source venv/bin/activate
+      chmod +x ./scripts/fetch_kaggle_dataset.sh
+      ./scripts/fetch_kaggle_dataset.sh
+
 jobs:
   test_regression_model:
-    working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.2
+    <<: *defaults
     steps:
       - checkout
+      - *prepare_venv
       - run:
-          name: Runnning tests
+          name: Install requirements
           command: |
-            virtualenv venv
             . venv/bin/activate
-            pip install --upgrade pip
             pip install -r packages/regression_model/requirements.txt
-            chmod +x ./scripts/fetch_kaggle_dataset.sh
-            ./scripts/fetch_kaggle_dataset.sh
+      - *fetch_data
+      - run:
+          name: Train model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
             py.test -vv packages/regression_model/tests
 
   test_ml_api:
-    working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.2
+    <<: *defaults
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
       - run:
           name: Runnning tests
           command: |
@@ -31,26 +59,32 @@ jobs:
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
+      - save_cache:
+          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+          paths:
+            - "/venv"
 
   train_and_upload_regression_model:
-    working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.2
+    <<: *defaults
     steps:
       - checkout
+      - *prepare_venv
       - run: 
-          name: Setup env
+          name: Install requirements
           command: |
-            virtualenv venv
             . venv/bin/activate
             pip install -r packages/regression_model/requirements.txt
+      - *fetch_data
       - run: 
-          name: Publish model
+          name: Train model
           command: |
             . venv/bin/activate
-            chmod +x ./scripts/fetch_kaggle_dataset.sh ./scripts/publish_model.sh
-            ./scripts/fetch_kaggle_dataset.sh
             PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+      - run: 
+          name: Publish model to Gemfury
+          command: |
+            . venv/bin/activate
+            chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/regression_model/
 
 workflows:
@@ -59,7 +93,11 @@ workflows:
     jobs:
       - test_regression_model
       - test_ml_api
-      - train_and_upload_regression_model
-      - test_ml_api:
+      - train_and_upload_regression_model:
           requires:
-            - train_and_upload_regression_model
+            - test_regression_model
+            - test_ml_api
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
