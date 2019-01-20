@@ -106,9 +106,6 @@ venv.bak/
 # pycharm
 .idea/
 
-# pickle files
-*.pkl
-
 # datafiles
 packages/regression_model/regression_model/datasets/*.csv
 packages/regression_model/regression_model/datasets/*.zip
