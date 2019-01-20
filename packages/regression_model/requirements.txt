@@ -9,3 +9,6 @@ wheel==0.32.3
 
 # testing requirements
 pytest==4.0.2
+
+# fetching datasets
+kaggle==1.5.1.1
