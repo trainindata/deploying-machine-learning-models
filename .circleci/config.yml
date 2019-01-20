@@ -17,8 +17,49 @@ jobs:
             ./scripts/fetch_kaggle_dataset.sh
             py.test -vv packages/regression_model/tests
 
+  test_ml_api:
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.7.2
+    steps:
+      - checkout
+      - run:
+          name: Runnning tests
+          command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/ml_api/requirements.txt
+            py.test -vv packages/ml_api/tests
+
+  train_and_upload_regression_model:
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.7.2
+    steps:
+      - checkout
+      - run: 
+          name: Setup env
+          command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install -r packages/regression_model/requirements.txt
+      - run: 
+          name: Publish model
+          command: |
+            . venv/bin/activate
+            chmod +x ./scripts/fetch_kaggle_dataset.sh ./scripts/publish_model.sh
+            ./scripts/fetch_kaggle_dataset.sh
+            PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+            ./scripts/publish_model.sh ./packages/regression_model/
+
 workflows:
   version: 2
   test-all:
     jobs:
       - test_regression_model
+      - test_ml_api
+      - train_and_upload_regression_model
+      - test_ml_api:
+          requires:
+            - train_and_upload_regression_model
