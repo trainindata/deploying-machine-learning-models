@@ -1,29 +1,36 @@
 import math
 
-import pytest
-
-from regression_model.config import config
+from regression_model.config import config as model_config
 from regression_model.predict import make_prediction
 from regression_model.processing.data_management import load_dataset
+import pandas as pd
+import pytest
 
 
+from api import config
+
+
+@pytest.mark.skip
 @pytest.mark.differential
 def test_model_prediction_differential(
         *,
-        save_file='test_data_predictions.csv'):
+        save_file: str = 'test_data_predictions.csv'):
     """
     This test compares the prediction result similarity of
     the current model with the previous model's results.
     """
+
     # Given
-    previous_model_df = load_dataset(file_name='test_data_predictions.csv')
+    # Load the saved previous model predictions
+    previous_model_df = pd.read_csv(f'{config.PACKAGE_ROOT}/{save_file}')
     previous_model_predictions = previous_model_df.predictions.values
-    test_data = load_dataset(file_name='test.csv')
-    multiple_test_json = test_data[99:600]
+
+    test_data = load_dataset(file_name=f'{save_file}')
+    multiple_test_input = test_data[99:600]
 
     # When
-    response = make_prediction(input_data=multiple_test_json)
-    current_model_predictions = response.get('predictions')
+    current_result = make_prediction(input_data=multiple_test_input)
+    current_model_predictions = current_result.get('predictions')
 
     # Then
     # diff the current model vs. the old model
@@ -44,4 +51,4 @@ def test_model_prediction_differential(
         # rel_tol=0.05.
         assert math.isclose(previous_value,
                             current_value,
-                            rel_tol=config.ACCEPTABLE_MODEL_DIFFERENCE)
+                            rel_tol=model_config.ACCEPTABLE_MODEL_DIFFERENCE)
