@@ -74,12 +74,18 @@ jobs:
           command: |
             . venv/bin/activate
             pip install -r packages/regression_model/requirements.txt
+            pip install -r packages/ml_api/requirements.txt
       - *fetch_data
       - run: 
           name: Train model
           command: |
             . venv/bin/activate
             PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+      - run:
+          name: Persist model test predictions to csv
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/ml_api python packages/ml_api/tests/differential_tests/capture_model_predictions.py
       - run: 
           name: Publish model to Gemfury
           command: |
@@ -87,16 +93,30 @@ jobs:
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/regression_model/
 
+  section_9_differential_tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - *prepare_venv
+      - run:
+          name: Runnning tests
+          command: |
+            . venv/bin/activate
+            pip install -r packages/ml_api/requirements.txt
+            py.test -vv packages/ml_api/tests -m differential
+
 workflows:
   version: 2
   test-all:
     jobs:
       - test_regression_model
       - test_ml_api
+      - section_9_differential_tests
       - train_and_upload_regression_model:
           requires:
             - test_regression_model
             - test_ml_api
+            - section_9_differential_tests
           # filters:
           #   branches:
           #     only:

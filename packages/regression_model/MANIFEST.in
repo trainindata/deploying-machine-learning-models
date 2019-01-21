@@ -6,6 +6,7 @@ recursive-include ./regression_model/*
 
 include regression_model/datasets/train.csv
 include regression_model/datasets/test.csv
+include regression_model/datasets/test_data_predictions_*.csv
 include regression_model/trained_models/*.pkl
 include regression_model/VERSION
 

@@ -6,12 +6,28 @@ from regression_model.config import config
 from regression_model.config import logging_config
 from regression_model import __version__ as _version
 
+import subprocess
+
 _logger = logging_config.get_logger(__name__)
 
 
 def load_dataset(*, file_name: str
                  ) -> pd.DataFrame:
     _data = pd.read_csv(f'{config.DATASET_DIR}/{file_name}')
+    return _data
+
+
+def load_dataset_from_hash(*, file_name: str, commit_distance: int = 1
+                           ) -> pd.DataFrame:
+    """Load a CSV file with a git hash in its name."""
+
+    commit_hash = subprocess.check_output(
+        ['git', 'rev-parse', '--short', 'HEAD~{}'.format(commit_distance)]
+        ).decode('ascii').strip()
+    prediction_file = f'{config.DATASET_DIR}/{file_name}_{commit_hash}.csv'
+    _logger.info(f'loading test file: {prediction_file}')
+    _data = pd.read_csv(prediction_file)
+
     return _data
 
 

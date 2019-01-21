@@ -109,3 +109,4 @@ venv.bak/
 # datafiles
 train.csv
 test.csv
+test_data_predictions_*.csv

@@ -5,19 +5,28 @@ differential test versioning logic.
 """
 
 import pandas as pd
-
 from regression_model.predict import make_prediction
 from regression_model.processing.data_management import load_dataset
+
+import subprocess
 
 from api import config
 
 
+def get_git_revision_short_hash() -> str:
+    """Return the git hash of the current HEAD."""
+
+    return subprocess.check_output(
+        ['git', 'rev-parse', '--short', 'HEAD']).decode('ascii').strip()
+
+
 def capture_predictions(
         *,
-        save_file: str = 'test_data_predictions.csv'):
+        save_file: str = 'test_data_predictions') -> None:
     """Save the test data predictions to a CSV."""
 
     test_data = load_dataset(file_name='test.csv')
+    git_hash = get_git_revision_short_hash()
 
     # we take a slice with no input validation issues
     multiple_test_json = test_data[99:600]
@@ -31,7 +40,8 @@ def capture_predictions(
     # package of the repo, not the installed package
     predictions_df.to_csv(
         f'{config.PACKAGE_ROOT.parent}/'
-        f'regression_model/regression_model/datasets/{save_file}')
+        f'regression_model/regression_model/datasets/'
+        f'{save_file}_{git_hash}.csv')
 
 
 if __name__ == '__main__':
