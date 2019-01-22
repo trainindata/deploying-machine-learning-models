@@ -4,10 +4,10 @@ import pytest
 
 from regression_model.config import config
 from regression_model.predict import make_prediction
-from regression_model.processing.data_management import load_dataset
+from regression_model.processing.data_management import (
+    load_dataset, load_dataset_from_hash)
 
 
-@pytest.mark.skip
 @pytest.mark.differential
 def test_model_prediction_differential(
         *,
@@ -16,9 +16,8 @@ def test_model_prediction_differential(
     This test compares the prediction result similarity of
     the current model with the previous model's results.
     """
+    
     # Given
-    # We need to import load_dataset_from_hash but
-    # cannot until we update the regression_model package.
     previous_model_df = load_dataset_from_hash(
         file_name='test_data_predictions')
     previous_model_predictions = previous_model_df.predictions.values
