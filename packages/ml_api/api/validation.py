@@ -113,12 +113,11 @@ def _filter_error_rows(errors: dict,
     return validated_input
 
 
-def validate_inputs(input_json):
+def validate_inputs(input_data):
     """Check prediction inputs against schema."""
 
     # set many=True to allow passing in a list
     schema = HouseDataRequestSchema(strict=True, many=True)
-    input_data = json.loads(input_json)
 
     # convert syntax error field names (beginning with numbers)
     for dict in input_data:
