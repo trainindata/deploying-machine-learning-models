@@ -134,6 +134,20 @@ jobs:
           command: |
             heroku container:release web --app $HEROKU_APP_NAME
 
+  section_12_publish_docker_image_to_aws:
+    <<: *defaults
+    working_directory: ~/project/packages/ml_models
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Publishing docker image to aws ECR
+          command: |
+            sudo pip install awscli
+            eval $(aws ecr get-login --no-include-email --region us-east-1)
+            make build-ml-api-aws tag-ml-api push-ml-api-aws
+            aws ecs update-service --cluster ml-api-cluster --service custom-service --task-definition  first-run-task-definition --force-new-deployment
+
 workflows:
   version: 2
   test-all:
@@ -164,3 +178,10 @@ workflows:
             branches:
               only:
                 - master
+      # - section_12_publish_docker_image_to_aws:
+      #     requires:
+      #       - train_and_upload_regression_model
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
