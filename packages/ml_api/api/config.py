@@ -52,7 +52,8 @@ class Config:
 
 class ProductionConfig(Config):
     DEBUG = False
-    SERVER_PORT = os.environ.get('PORT', 5000)
+    SERVER_ADDRESS: os.environ.get('SERVER_ADDRESS', '0.0.0.0')
+    SERVER_PORT: os.environ.get('SERVER_PORT', '5000')
 
 
 class DevelopmentConfig(Config):
