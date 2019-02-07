@@ -163,6 +163,7 @@ jobs:
       - run:
           name: Fetch Training data - 2GB
           command: |
+            . venv/bin/activate
             chmod +x ./scripts/fetch_kaggle_large_dataset.sh
             chmod +x ./scripts/unzip_large_dataset.sh
             ./scripts/fetch_kaggle_large_dataset.sh
