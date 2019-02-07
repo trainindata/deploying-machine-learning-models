@@ -167,7 +167,6 @@ jobs:
             chmod +x ./scripts/fetch_kaggle_large_dataset.sh
             chmod +x ./scripts/unzip_large_dataset.sh
             ./scripts/fetch_kaggle_large_dataset.sh
-            ./scripts/unzip_large_dataset.sh
       - run: 
           name: Train model
           command: |
