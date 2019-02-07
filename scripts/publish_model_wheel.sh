@@ -26,7 +26,7 @@ build() {
     [ ! -e $SETUP ] && warn "No $SETUP file, skipping" && return
     PACKAGE_NAME=$(python $SETUP --fullname)
     echo "Package $PACKAGE_NAME"
-    python "$SETUP" sdist bdist_wheel || die "Building package $PACKAGE_NAME failed"
+    python "$SETUP" bdist_wheel || die "Building package $PACKAGE_NAME failed"
     for X in $(ls dist)
     do
         curl -F package=@"dist/$X" "$GEMFURY_URL" || die "Uploading package $PACKAGE_NAME failed on file dist/$X"
