@@ -71,7 +71,7 @@ cnn_clf = KerasClassifier(build_fn=cnn_model,
                           batch_size=config.BATCH_SIZE,
                           validation_split=10,
                           epochs=config.EPOCHS,
-                          verbose=2,
+                          verbose=1,  # progress bar - required for CI job
                           callbacks=callbacks_list,
                           image_size=config.IMAGE_SIZE
                           )
