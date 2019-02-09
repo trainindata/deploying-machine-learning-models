@@ -1,31 +1,29 @@
+import logging
+import typing as t
+
+import pandas as pd
+
+from neural_network_model import __version__ as _version
 from neural_network_model.processing import data_management as dm
-from neural_network_model.config import config
+
+_logger = logging.getLogger(__name__)
+KERAS_PIPELINE = dm.load_pipeline_keras()
 
 
-def make_prediction(*, path_to_images) -> float:
-    """Make a prediction using the saved model pipeline."""
+def make_prediction(*, images_df: pd.DataFrame) -> t.Dict[str, str]:
+    """Make a prediction using the saved model pipeline.
 
-    # Load data
-    # create a dataframe with columns = ['image', 'target']
-    # column "image" contains path to image
-    # columns target can contain all zeros, it doesn't matter
+    Args:
+        images_df: Dataframe with image column only
 
-    dataframe = path_to_images  # needs to load as above described
-    pipe = dm.load_pipeline_keras()
-    predictions = pipe.pipe.predict(dataframe)
-    # response = {'predictions': predictions, 'version': _version}
+    Returns
+        The prediction and model version
+    """
 
-    return predictions
+    _logger.info(f'received input df: {images_df}')
+    predictions = KERAS_PIPELINE.predict(images_df)
+    _logger.info(f'Made predictions: {predictions}'
+                 f' with model version: {_version}')
+    results = {'predictions': predictions, 'version': _version}
 
-
-if __name__ == '__main__':
-
-    from sklearn.externals import joblib
-
-    images_df = dm.load_image_paths(config.DATA_FOLDER)
-    X_train, X_test, y_train, y_test = dm.get_train_test_target(images_df)
-
-    pipe = joblib.load(config.PIPELINE_PATH)
-
-    predictions = pipe.predict(X_test)
-    print(predictions)
+    return results

@@ -13,10 +13,17 @@ from neural_network_model import model as m
 from neural_network_model.config import config
 
 
-def load_image_paths(data_folder):
-    """
-    Makes dataframe with image path and target
-    """
+def load_test_image(image_path: str) -> pd.DataFrame:
+    frame = pd.DataFrame(image_path)
+
+    # concatenate the final df
+    ima(images_df, axis=0, ignore_index=True)
+    images_df.columns = ['image', 'target']
+
+
+def load_image_paths(data_folder: str) -> pd.DataFrame:
+    """Makes dataframe with image path and target."""
+
     images_df = []
 
     # navigate within each folder
@@ -35,7 +42,9 @@ def load_image_paths(data_folder):
     return images_df
 
 
-def get_train_test_target(df):
+def get_train_test_target(df: pd.DataFrame):
+    """Split a dataset into train and test segments."""
+
     X_train, X_test, y_train, y_test = train_test_split(df['image'],
                                                         df['target'],
                                                         test_size=0.20,
@@ -50,13 +59,17 @@ def get_train_test_target(df):
     return X_train, X_test, y_train, y_test
 
 
-def save_pipeline_keras(model):
+def save_pipeline_keras(model) -> None:
+    """Persist keras model to disk."""
+
     joblib.dump(model.named_steps['dataset'], config.PIPELINE_PATH)
     joblib.dump(model.named_steps['cnn_model'].classes_, config.CLASSES_PATH)
     model.named_steps['cnn_model'].model.save(str(config.MODEL_PATH))
 
 
-def load_pipeline_keras():
+def load_pipeline_keras() -> Pipeline:
+    """Load a Keras Pipeline from disk."""
+
     dataset = joblib.load(config.PIPELINE_PATH)
 
     build_model = lambda: load_model(config.MODEL_PATH)
@@ -77,11 +90,3 @@ def load_pipeline_keras():
         ('dataset', dataset),
         ('cnn_model', classifier)
     ])
-
-
-if __name__ == '__main__':
-    images_df = load_image_paths(config.DATA_FOLDER)
-    print(images_df.head())
-
-    X_train, X_test, y_train, y_test = get_train_test_target(images_df)
-    print(X_train.shape, X_test.shape)

@@ -1,35 +1,44 @@
-import math
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
 
-from regression_model.predict import make_prediction
-from regression_model.processing.data_management import load_dataset
+from neural_network_model import __version__ as _version
+from neural_network_model.config import config
+from neural_network_model.predict import make_prediction
+from neural_network_model.processing import data_management as dm
 
 
-def test_make_single_prediction():
+def test_model_accuracy():
     # Given
-    test_data = load_dataset(file_name='test.csv')
-    single_test_input = test_data[0:1]
+    images_df = dm.load_image_paths(config.DATA_FOLDER)
+    X_train, X_test, y_train, y_test = dm.get_train_test_target(images_df)
+    encoder = LabelEncoder()
+    encoder.fit(y_train)
 
     # When
-    subject = make_prediction(input_data=single_test_input)
+    results = make_prediction(images_df=X_test)
 
     # Then
-    assert subject is not None
-    assert isinstance(subject.get('predictions')[0], float)
-    assert math.ceil(subject.get('predictions')[0]) == 112476
+    mean_accuracy = np.mean(
+        results['predictions'] == encoder.transform(y_test))
+
+    # TODO: check model accuracy
+    assert mean_accuracy > 0.10
 
 
-def test_make_multiple_predictions():
+def test_make_prediction_on_sample():
     # Given
-    test_data = load_dataset(file_name='test.csv')
-    original_data_length = len(test_data)
-    multiple_test_input = test_data
+    images_df = dm.load_image_paths(config.DATA_FOLDER)
+    single_row = images_df[4999:5000]
+    test_entry = single_row['image']
+    expected_classification = single_row['target']
+    test_entry_array = test_entry.reset_index(drop=True).values
 
     # When
-    subject = make_prediction(input_data=multiple_test_input)
+    results = make_prediction(images_df=test_entry_array)
 
     # Then
-    assert subject is not None
-    assert len(subject.get('predictions')) == 1451
+    assert results['predictions'] is not None
 
-    # We expect some rows to be filtered out
-    assert len(subject.get('predictions')) != original_data_length
+    # TODO: Fixme
+    assert results['predictions'][0] == expected_classification
+    assert results['version'] == _version
