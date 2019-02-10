@@ -10,3 +10,12 @@ def black_grass_dir():
     black_grass_dir = os.path.join(test_data_dir, 'Black-grass')
 
     return black_grass_dir
+
+
+@pytest.fixture
+def charlock_dir():
+    test_data_dir = os.path.join(config.DATASET_DIR, 'test_data')
+    charlock_dir = os.path.join(test_data_dir, 'Charlock')
+
+    return charlock_dir
+

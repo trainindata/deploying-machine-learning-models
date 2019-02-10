@@ -7,6 +7,8 @@ from neural_network_model.processing import preprocessors as pp
 
 
 def run_training(save_result: bool = True):
+    """Train a Convolutional Neural Network."""
+
     images_df = dm.load_image_paths(config.DATA_FOLDER)
     X_train, X_test, y_train, y_test = dm.get_train_test_target(images_df)
 

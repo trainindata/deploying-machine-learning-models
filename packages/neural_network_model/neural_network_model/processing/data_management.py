@@ -1,3 +1,4 @@
+import logging
 import os
 import typing as t
 from glob import glob
@@ -13,6 +14,8 @@ from sklearn.preprocessing import LabelEncoder
 
 from neural_network_model import model as m
 from neural_network_model.config import config
+
+_logger = logging.getLogger(__name__)
 
 
 def load_single_image(data_folder: str, filename: str) -> pd.DataFrame:

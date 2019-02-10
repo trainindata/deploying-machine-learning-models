@@ -24,13 +24,13 @@ def test_model_accuracy():
     assert mean_accuracy > 0.10
 
 
-def test_make_prediction_on_sample(black_grass_dir):
+def test_make_prediction_on_sample(charlock_dir):
     # Given
     filename = '1.png'
     expected_classification = 'Black-grass'
 
     # When
-    results = make_single_prediction(image_directory=black_grass_dir,
+    results = make_single_prediction(image_directory=charlock_dir,
                                      image_name=filename)
 
     # Then
