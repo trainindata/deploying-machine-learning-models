@@ -1,6 +1,6 @@
 import logging
 
-import numpy as np
+import pandas as pd
 
 from neural_network_model import __version__ as _version
 from neural_network_model.processing import data_management as dm
@@ -25,11 +25,11 @@ def make_single_prediction(*, image_name: str, image_directory: str):
         data_folder=image_directory,
         filename=image_name)
 
-    prepared_array = image_df['image'].reset_index(drop=True).values
-    _logger.info(f'received input array: {prepared_array}, '
+    prepared_df = image_df['image'].reset_index(drop=True)
+    _logger.info(f'received input array: {prepared_df}, '
                  f'filename: {image_name}')
 
-    predictions = KERAS_PIPELINE.predict(prepared_array)
+    predictions = KERAS_PIPELINE.predict(prepared_df)
     readable_predictions = ENCODER.encoder.inverse_transform(predictions)
 
     _logger.info(f'Made prediction: {predictions}'
@@ -40,7 +40,7 @@ def make_single_prediction(*, image_name: str, image_directory: str):
                 version=_version)
 
 
-def make_bulk_prediction(*, images_array: np.array) -> dict:
+def make_bulk_prediction(*, images_df: pd.Series) -> dict:
     """Make multiple predictions using the saved model pipeline.
 
     Currently, this function is primarily for testing purposes,
@@ -48,15 +48,15 @@ def make_bulk_prediction(*, images_array: np.array) -> dict:
     bulk predictions.
 
     Args:
-        images_array: Numpy array of images
+        images_df: Pandas series of images
 
     Returns
         Dictionary with both raw predictions and their classifications.
     """
 
-    _logger.info(f'received input df: {images_array}')
+    _logger.info(f'received input df: {images_df}')
 
-    predictions = KERAS_PIPELINE.predict(images_array)
+    predictions = KERAS_PIPELINE.predict(images_df)
     readable_predictions = ENCODER.encoder.inverse_transform(predictions)
 
     _logger.info(f'Made predictions: {predictions}'
