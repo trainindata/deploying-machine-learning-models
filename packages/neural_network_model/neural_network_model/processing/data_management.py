@@ -1,24 +1,33 @@
-import pandas as pd
-from glob import glob
 import os
+from glob import glob
 
-from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
-from sklearn.externals import joblib
-
+import pandas as pd
 from keras.models import load_model
 from keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.externals import joblib
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import LabelEncoder
 
 from neural_network_model import model as m
 from neural_network_model.config import config
 
 
-def load_test_image(image_path: str) -> pd.DataFrame:
-    frame = pd.DataFrame(image_path)
+def load_single_image(data_folder: str, filename: str) -> pd.DataFrame:
+    """Makes dataframe with image path and target."""
+
+    image_df = []
+
+    # search for specific image in directory
+    for image_path in glob(os.path.join(data_folder, f'{filename}')):
+        tmp = pd.DataFrame([image_path, 'unknown']).T
+        image_df.append(tmp)
 
     # concatenate the final df
-    ima(images_df, axis=0, ignore_index=True)
+    images_df = pd.concat(image_df, axis=0, ignore_index=True)
     images_df.columns = ['image', 'target']
+
+    return images_df
 
 
 def load_image_paths(data_folder: str) -> pd.DataFrame:
@@ -90,3 +99,9 @@ def load_pipeline_keras() -> Pipeline:
         ('dataset', dataset),
         ('cnn_model', classifier)
     ])
+
+
+def load_encoder() -> LabelEncoder:
+    encoder = joblib.load(config.ENCODER_PATH)
+
+    return encoder
