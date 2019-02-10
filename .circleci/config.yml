@@ -149,8 +149,7 @@ jobs:
             aws ecs update-service --cluster ml-api-cluster --service custom-service --task-definition  first-run-task-definition --force-new-deployment
 
   section_13_train_and_upload_neural_network_model:
-    machine:
-      image: circleci/python:3.6.4
+    machine: true
     working_directory: ~/project
     steps:
       - checkout
