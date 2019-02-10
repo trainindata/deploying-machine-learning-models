@@ -1,5 +1,7 @@
 import os
+import typing as t
 from glob import glob
+from pathlib import Path
 
 import pandas as pd
 from keras.models import load_model
@@ -75,6 +77,10 @@ def save_pipeline_keras(model) -> None:
     joblib.dump(model.named_steps['cnn_model'].classes_, config.CLASSES_PATH)
     model.named_steps['cnn_model'].model.save(str(config.MODEL_PATH))
 
+    remove_old_pipelines(
+        files_to_keep=[config.MODEL_FILE_NAME, config.ENCODER_FILE_NAME,
+                       config.PIPELINE_FILE_NAME, config.CLASSES_FILE_NAME])
+
 
 def load_pipeline_keras() -> Pipeline:
     """Load a Keras Pipeline from disk."""
@@ -105,3 +111,17 @@ def load_encoder() -> LabelEncoder:
     encoder = joblib.load(config.ENCODER_PATH)
 
     return encoder
+
+
+def remove_old_pipelines(*, files_to_keep: t.List[str]) -> None:
+    """
+    Remove old model pipelines, models, encoders and classes.
+
+    This is to ensure there is a simple one-to-one
+    mapping between the package version and the model
+    version to be imported and used by other applications.
+    """
+    do_not_delete = files_to_keep + ['__init__.py']
+    for model_file in Path(config.TRAINED_MODEL_DIR).iterdir():
+        if model_file.name not in do_not_delete:
+            model_file.unlink()
