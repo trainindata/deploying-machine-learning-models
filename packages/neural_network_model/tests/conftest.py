@@ -18,4 +18,3 @@ def charlock_dir():
     charlock_dir = os.path.join(test_data_dir, 'Charlock')
 
     return charlock_dir
-
