@@ -23,20 +23,17 @@ def cnn_model(kernel_size=(3, 3),
       kernel_size,
       activation='relu',
       input_shape=(image_size, image_size, 3)))
-    # model.add(Conv2D(first_filters, kernel_size, activation = 'relu'))
-    # model.add(Conv2D(first_filters, kernel_size, activation = 'relu'))
+    model.add(Conv2D(first_filters, kernel_size, activation = 'relu'))
     model.add(MaxPooling2D(pool_size=pool_size))
     model.add(Dropout(dropout_conv))
 
     model.add(Conv2D(second_filters, kernel_size, activation='relu'))
-    # model.add(Conv2D(second_filters, kernel_size, activation ='relu'))
-    # model.add(Conv2D(second_filters, kernel_size, activation ='relu'))
+    model.add(Conv2D(second_filters, kernel_size, activation ='relu'))
     model.add(MaxPooling2D(pool_size=pool_size))
     model.add(Dropout(dropout_conv))
 
     model.add(Conv2D(third_filters, kernel_size, activation='relu'))
-    # model.add(Conv2D(third_filters, kernel_size, activation ='relu'))
-    # model.add(Conv2D(third_filters, kernel_size, activation ='relu'))
+    model.add(Conv2D(third_filters, kernel_size, activation ='relu'))
     model.add(MaxPooling2D(pool_size=pool_size))
     model.add(Dropout(dropout_conv))
 
