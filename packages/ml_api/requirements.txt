@@ -12,3 +12,4 @@ neural_network_model==0.1.1
 
 # Deployment
 gunicorn==19.9.0
+
