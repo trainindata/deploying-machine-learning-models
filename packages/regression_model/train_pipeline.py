@@ -1,9 +1,12 @@
+'''
+THIS IS THE HEART OF THE APPLICATION
+'''
 import pathlib
 
 
 PACKAGE_ROOT = pathlib.Path(__file__).resolve().parent
-TRAINED_MODEL_DIR = PACKAGE_ROOT / 'trained_models'
-DATASET_DIR = PACKAGE_ROOT / 'datasets'
+TRAINED_MODEL_DIR = PACKAGE_ROOT / 'trained_models' # where the trained models are located
+DATASET_DIR = PACKAGE_ROOT / 'datasets' # where the datasets are located
 
 TESTING_DATA_FILE = DATASET_DIR / 'test.csv'
 TRAINING_DATA_FILE = DATASET_DIR / 'train.csv'
