@@ -34,7 +34,11 @@ def predict():
         _logger.debug(f'Inputs: {json_data}')
 
         # Step 2: Validate the input using marshmallow schema
+<<<<<<< HEAD
         input_data, errors = validate_inputs(input_data=json_data)
+=======
+        input_data, errors = validate_inputs(input_json=json_data)
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
 
         # Step 3: Model prediction
         result = make_prediction(input_data=input_data)
