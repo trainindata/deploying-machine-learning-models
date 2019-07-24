@@ -5,10 +5,19 @@ from regression_model import pipeline
 from regression_model.processing.data_management import (
     load_dataset, save_pipeline)
 from regression_model.config import config
+<<<<<<< HEAD
+from regression_model import __version__ as _version
+
+import logging
+
+
+_logger = logging.getLogger(__name__)
+=======
 from regression_model.config import logging_config
 from regression_model import __version__ as _version
 
 _logger = logging_config.get_logger(__name__)
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
 
 
 def run_training() -> None:

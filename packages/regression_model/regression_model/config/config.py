@@ -1,3 +1,4 @@
+import os
 import pathlib
 
 import regression_model
@@ -69,3 +70,9 @@ CATEGORICAL_NA_NOT_ALLOWED = [
 
 PIPELINE_NAME = 'lasso_regression'
 PIPELINE_SAVE_FILE = f'{PIPELINE_NAME}_output_v'
+<<<<<<< HEAD
+
+# used for differential testing
+ACCEPTABLE_MODEL_DIFFERENCE = 0.05
+=======
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b

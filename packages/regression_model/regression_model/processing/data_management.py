@@ -3,10 +3,19 @@ from sklearn.externals import joblib
 from sklearn.pipeline import Pipeline
 
 from regression_model.config import config
+<<<<<<< HEAD
+from regression_model import __version__ as _version
+
+import logging
+
+
+_logger = logging.getLogger(__name__)
+=======
 from regression_model.config import logging_config
 from regression_model import __version__ as _version
 
 _logger = logging_config.get_logger(__name__)
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
 
 
 def load_dataset(*, file_name: str
@@ -17,6 +26,7 @@ def load_dataset(*, file_name: str
 
 def save_pipeline(*, pipeline_to_persist) -> None:
     """Persist the pipeline.
+<<<<<<< HEAD
 
     Saves the versioned model, and overwrites any previous
     saved models. This ensures that when the package is
@@ -24,6 +34,15 @@ def save_pipeline(*, pipeline_to_persist) -> None:
     called, and we know exactly how it was built.
     """
 
+=======
+
+    Saves the versioned model, and overwrites any previous
+    saved models. This ensures that when the package is
+    published, there is only one trained model that can be
+    called, and we know exactly how it was built.
+    """
+
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
     # Prepare versioned save file name
     save_file_name = f'{config.PIPELINE_SAVE_FILE}{_version}.pkl'
     save_path = config.TRAINED_MODEL_DIR / save_file_name
