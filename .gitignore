@@ -89,6 +89,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+packages/regression_model/virtual_env/
 
 # Spyder project settings
 .spyderproject
