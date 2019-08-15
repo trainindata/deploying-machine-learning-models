@@ -141,8 +141,8 @@ workflows:
       - test_regression_model
       - test_ml_api
       - section_9_differential_tests
-      - section_11_build_and_push_to_heroku_docker
       - train_and_upload_regression_model
+      - section_11_build_and_push_to_heroku_docker
       - train_and_upload_regression_model:
           requires:
             - test_regression_model
