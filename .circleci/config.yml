@@ -154,7 +154,3 @@ workflows:
       - section_11_build_and_push_to_heroku_docker:
           requires:
             - train_and_upload_regression_model
-          filters:
-            branches:
-              only:
-                - master
