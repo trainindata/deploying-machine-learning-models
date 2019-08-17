@@ -124,10 +124,6 @@ workflows:
           requires:
             - test_regression_model
             - test_ml_api
-          filters:
-            branches:
-              only:
-                - master
       - section_10_deploy_to_heroku:
           requires:
             - train_and_upload_regression_model
