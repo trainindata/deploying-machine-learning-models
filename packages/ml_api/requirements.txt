@@ -2,6 +2,7 @@
 
 # api
 flask==1.0.2
+pip install --upgrade pip==19.1.1
 
 # schema validation
 marshmallow==2.17.0
