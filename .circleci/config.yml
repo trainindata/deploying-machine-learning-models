@@ -28,6 +28,10 @@ jobs:
       - checkout
       - *prepare_venv
       - run:
+          name: Debug
+          command: |
+            echo 'Inside test_regression_model'
+      - run:
           name: Install requirements
           command: |
             . venv/bin/activate
