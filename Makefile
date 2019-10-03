@@ -1,4 +1,4 @@
-NAME=udemy-ml-api
+NAME=ml-delpoy-heroku
 COMMIT_ID=$(shell git rev-parse HEAD)
 
 
