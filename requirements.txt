@@ -4,4 +4,4 @@ pandas==0.23.4
 scikit-learn==0.20.2
 
 # testing
-pytest==4.0.2
+pytest==5.2.1
