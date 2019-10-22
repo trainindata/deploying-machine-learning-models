@@ -5,3 +5,4 @@ scikit-learn==0.20.2
 
 # testing
 pytest==4.0.2
+attrs==19.1.0
