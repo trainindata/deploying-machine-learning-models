@@ -8,6 +8,7 @@ marshmallow==2.17.0
 
 # Install from gemfury
 regression-model==1.0.0
+neural_network_model==0.1.1
 
 # Deployment
 gunicorn==19.9.0
