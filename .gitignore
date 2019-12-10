@@ -109,3 +109,21 @@ venv.bak/
 # datafiles
 train.csv
 test.csv
+test_data_predictions.csv
+v2-plant-seedlings-dataset/
+v2-plant-seedlings-dataset.zip
+
+# all logs
+logs/
+
+# trained models (will be created in CI)
+packages/regression_model/regression_model/trained_models/*.pkl
+packages/neural_network_model/neural_network_model/trained_models/*.pkl
+packages/neural_network_model/neural_network_model/trained_models/*.h5
+*.h5
+packages/neural_network_model/neural_network_model/datasets/training_data_reference.txt
+
+.DS_Store
+
+kaggle.json
+packages/ml_api/uploads/*
