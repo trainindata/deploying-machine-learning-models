@@ -1,9 +1,16 @@
+--extra-index-url=${PIP_EXTRA_INDEX_URL}
+
 # api
 flask
 
 # schema validation
 marshmallow==2.17.0
 
-# local regression_model package
-# update with your local path
-#-e "C:\Users\antara\deploying-machine-learning-models\packages\regression_model"
+
+# Install from gemfury
+regression-model==1.0.0
+neural_network_model==0.1.1
+
+# Deployment
+gunicorn==19.9.0
+
