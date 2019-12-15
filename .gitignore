@@ -109,6 +109,8 @@ venv.bak/
 # datafiles
 train.csv
 test.csv
+
+
 test_data_predictions.csv
 v2-plant-seedlings-dataset/
 v2-plant-seedlings-dataset.zip
@@ -127,3 +129,8 @@ packages/neural_network_model/neural_network_model/datasets/training_data_refere
 
 kaggle.json
 packages/ml_api/uploads/*
+
+
+# local
+.vscode/
+

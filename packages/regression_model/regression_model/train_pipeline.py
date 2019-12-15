@@ -6,11 +6,14 @@ from regression_model.processing.data_management import (
     load_dataset, save_pipeline)
 from regression_model.config import config
 from regression_model import __version__ as _version
+from regression_model.config import logging_config
 
 import logging
 
 
 _logger = logging.getLogger(__name__)
+_logger.setLevel(logging.DEBUG)
+_logger.addHandler(logging_config.get_console_handler())
 
 
 def run_training() -> None:
@@ -33,6 +36,7 @@ def run_training() -> None:
     pipeline.price_pipe.fit(X_train[config.FEATURES],
                             y_train)
 
+    _logger.info(f'Hi logger')
     _logger.info(f'saving model version: {_version}')
     save_pipeline(pipeline_to_persist=pipeline.price_pipe)
 
