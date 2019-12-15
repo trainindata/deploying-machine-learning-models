@@ -7,9 +7,11 @@ from regression_model import __version__ as _version
 
 import logging
 
+from regression_model.config import logging_config
 
 _logger = logging.getLogger(__name__)
-
+_logger.setLevel(logging.DEBUG)
+# _logger.addHandler(logging_config.get_console_handler())
 
 def load_dataset(*, file_name: str
                  ) -> pd.DataFrame:
@@ -33,6 +35,7 @@ def save_pipeline(*, pipeline_to_persist) -> None:
     remove_old_pipelines(files_to_keep=save_file_name)
     joblib.dump(pipeline_to_persist, save_path)
     _logger.info(f'saved pipeline: {save_file_name}')
+    _logger.info(f'Testing more logs')
 
 
 def load_pipeline(*, file_name: str

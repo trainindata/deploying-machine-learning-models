@@ -109,3 +109,6 @@ venv.bak/
 # datafiles
 train.csv
 test.csv
+
+# local
+.vscode/
