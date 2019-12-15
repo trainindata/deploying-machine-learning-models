@@ -1,0 +1,7 @@
+# api
+flask==1.0.2
+
+# local regression_model package
+# update with your local path
+-e "C:\Python 36\suven\Deployment\Git\deploying-machine-learning-models\packages\regression_model"
+
