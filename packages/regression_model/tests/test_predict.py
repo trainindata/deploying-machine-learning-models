@@ -17,6 +17,7 @@ def test_make_single_prediction():
     assert isinstance(subject.get('predictions')[0], float)
     assert math.ceil(subject.get('predictions')[0]) == 112476
 
+# comments
 
 def test_make_multiple_predictions():
     # Given

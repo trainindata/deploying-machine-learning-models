@@ -7,7 +7,6 @@ from pathlib import Path
 
 from setuptools import find_packages, setup
 
-
 # Package meta-data.
 NAME = 'regression_model'
 DESCRIPTION = 'Train and deploy regression model.'
