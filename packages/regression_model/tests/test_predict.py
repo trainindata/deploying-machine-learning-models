@@ -12,7 +12,7 @@ def test_make_single_prediction():
     # When
     subject = make_prediction(input_data=single_test_json)
 
-    # Then
+    # Then ok
     assert subject is not None
     assert isinstance(subject.get('predictions')[0], float)
     assert math.ceil(subject.get('predictions')[0]) == 112476
