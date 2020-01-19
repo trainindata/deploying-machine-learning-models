@@ -24,29 +24,29 @@ fetch_data: &fetch_data
   run:
     name: Set script permissions and fetch data
     command: |
-      pip3 install --user kaggle==1.5.6
-      chmod +x ~/project/scripts/fetch_kaggle_dataset.sh
-      ~/project/scripts/fetch_kaggle_dataset.sh
+      pip install --user kaggle==1.5.6
+      chmod +x scripts/fetch_kaggle_dataset.sh
+      ./scripts/fetch_kaggle_dataset.sh
 
 jobs:
   test_regression_model_py36:
     docker:
       - image: circleci/python:3.6.8
-    working_directory: ~/project/packages/regression_model
+    working_directory: ~/project
     steps:
-      - checkout:
-          path: ~/project
+      - checkout
       - *prepare_tox
       - *fetch_data
       - run:
           name: Run tests
           command: |
+            cd packages/regression_model
             tox -e py36
 
   test_regression_model_py37:
     docker:
       - image: circleci/python:3.7.6
-    working_directory: ~/project/packages/regression_model
+    working_directory: ~/project
     steps:
       - checkout:
           path: ~/project
