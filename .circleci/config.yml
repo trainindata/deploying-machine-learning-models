@@ -13,11 +13,18 @@ prepare_venv: &prepare_venv
       source venv/bin/activate
       pip install --upgrade pip
 
+prepare_tox: &prepare_tox
+  run:
+    name: Install tox
+    command: |
+      pip install --upgrade pip
+      pip install --user tox
+
 fetch_data: &fetch_data
   run:
     name: Set script permissions and fetch data
     command: |
-      pip install kaggle==1.5.1.1
+      pip install --user kaggle==1.5.1.1
       chmod +x ./scripts/fetch_kaggle_dataset.sh
       ./scripts/fetch_kaggle_dataset.sh
 
@@ -29,6 +36,7 @@ jobs:
     steps:
       - checkout
       - *fetch_data
+      - *prepare_tox
       - run:
           name: Run tests
           command: |
@@ -41,6 +49,7 @@ jobs:
     steps:
       - checkout
       - *fetch_data
+      - *prepare_tox
       - run:
           name: Run tests
           command: |
