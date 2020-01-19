@@ -35,10 +35,11 @@ jobs:
     working_directory: ~/project/packages/regression_model
     steps:
       - checkout
-      - *prepare_tox
       - run:
           name: Run tests
           command: |
+            sudo pip install --upgrade pip
+            pip install --user tox
             tox -e py36
 
   test_regression_model_py37:
@@ -48,10 +49,11 @@ jobs:
     steps:
       - checkout:
           path: ~/project
-      - *prepare_tox
       - run:
           name: Run tests
           command: |
+            sudo pip install --upgrade pip
+            pip install --user tox
             tox -e py37
 
   test_ml_api:
