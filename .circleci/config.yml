@@ -17,8 +17,8 @@ prepare_tox: &prepare_tox
   run:
     name: Install tox
     command: |
-      pip3 install --upgrade pip
-      pip3 install --user tox
+      sudo pip install --upgrade pip
+      pip install --user tox
 
 fetch_data: &fetch_data
   run:
