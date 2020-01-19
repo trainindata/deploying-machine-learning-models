@@ -211,12 +211,14 @@ workflows:
     jobs:
       - test_regression_model_py36
       - test_regression_model_py37
+      - test_regression_model_py38
       - test_ml_api
       - section_9_differential_tests
       - train_and_upload_regression_model:
           requires:
             - test_regression_model_py36
             - test_regression_model_py37
+            - test_regression_model_py38
             - test_ml_api
             - section_9_differential_tests
           filters:
