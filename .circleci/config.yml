@@ -62,7 +62,8 @@ jobs:
       - image: circleci/python:3.8.0
     working_directory: ~/project/packages/regression_model
     steps:
-      - checkout
+      - checkout:
+          path: ~/project
       - run:
           name: Run tests with Python 3.8
           command: |
@@ -78,11 +79,39 @@ jobs:
       - checkout:
           path: ~/project
       - run:
-          name: Run tests with Python 3.6
+          name: Run API tests with Python 3.6
           command: |
             sudo pip install --upgrade pip
             pip install --user tox
             tox -e py36
+
+  test_ml_api_py37:
+    docker:
+      - image: circleci/python:3.7.6
+    working_directory: ~/project/packages/ml_api
+    steps:
+      - checkout:
+          path: ~/project
+      - run:
+          name: Run API tests with Python 3.7
+          command: |
+            sudo pip install --upgrade pip
+            pip install --user tox
+            tox -e py37
+
+  test_ml_api_py38:
+    docker:
+      - image: circleci/python:3.8.1
+    working_directory: ~/project/packages/ml_api
+    steps:
+      - checkout:
+          path: ~/project
+      - run:
+          name: Run API tests with Python 3.8
+          command: |
+            sudo pip install --upgrade pip
+            pip install --user tox
+            tox -e py38
 
   train_and_upload_regression_model:
     <<: *defaults
@@ -206,6 +235,8 @@ workflows:
       - test_regression_model_py37
       - test_regression_model_py38
       - test_ml_api_py36
+      - test_ml_api_py37
+      - test_ml_api_py38
       - section_9_differential_tests
       - train_and_upload_regression_model:
           requires:
@@ -213,6 +244,8 @@ workflows:
             - test_regression_model_py37
             - test_regression_model_py38
             - test_ml_api_py36
+            - test_ml_api_py37
+            - test_ml_api_py38
             - section_9_differential_tests
           filters:
             branches:
