@@ -37,7 +37,7 @@ jobs:
       - checkout:
           path: ~/project
       - run:
-          name: Run tests
+          name: Run tests with Python 3.6
           command: |
             sudo pip install --upgrade pip
             pip install --user tox
@@ -51,25 +51,25 @@ jobs:
       - checkout:
           path: ~/project
       - run:
-          name: Run tests
+          name: Run tests with Python 3.7
           command: |
             sudo pip install --upgrade pip
             pip install --user tox
             tox -e py37
 
-    test_regression_model_py38:
-      docker:
-        - image: circleci/python:3.8.0
-      working_directory: ~/project/packages/regression_model
-      steps:
-        - checkout:
-            path: ~/project
-        - run:
-            name: Run tests
-            command: |
-              sudo pip install --upgrade pip
-              pip install --user tox
-              tox -e py38
+  test_regression_model_py38:
+    docker:
+      - image: circleci/python:3.8.0
+    working_directory: ~/project/packages/regression_model
+    steps:
+      - checkout:
+          path: ~/project
+      - run:
+          name: Run tests with Python 3.8
+          command: |
+            sudo pip install --upgrade pip
+            pip install --user tox
+            tox -e py38
 
   test_ml_api:
     <<: *defaults
