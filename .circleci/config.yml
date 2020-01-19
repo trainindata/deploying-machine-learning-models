@@ -31,7 +31,7 @@ fetch_data: &fetch_data
 jobs:
   test_regression_model_py36:
     docker:
-      - image: circleci/python:3.6.8
+      - image: circleci/python:3.6.9
     working_directory: ~/project/packages/regression_model
     steps:
       - checkout:
