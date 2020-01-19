@@ -62,8 +62,7 @@ jobs:
       - image: circleci/python:3.8.0
     working_directory: ~/project/packages/regression_model
     steps:
-      - checkout:
-          path: ~/project
+      - checkout
       - run:
           name: Run tests with Python 3.8
           command: |
@@ -71,25 +70,19 @@ jobs:
             pip install --user tox
             tox -e py38
 
-  test_ml_api:
-    <<: *defaults
+  test_ml_api_py36:
+    docker:
+      - image: circleci/python:3.6.9
+    working_directory: ~/project/packages/ml_api
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+      - checkout:
+          path: ~/project
       - run:
-          name: Runnning tests
+          name: Run tests with Python 3.6
           command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r packages/ml_api/requirements.txt
-            py.test -vv packages/ml_api/tests -m "not differential"
-      - save_cache:
-          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
-          paths:
-            - "/venv"
+            sudo pip install --upgrade pip
+            pip install --user tox
+            tox -e py36
 
   train_and_upload_regression_model:
     <<: *defaults
@@ -219,7 +212,7 @@ workflows:
             - test_regression_model_py36
             - test_regression_model_py37
             - test_regression_model_py38
-            - test_ml_api
+            - test_ml_api_py36
             - section_9_differential_tests
           filters:
             branches:
