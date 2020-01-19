@@ -205,7 +205,7 @@ workflows:
       - test_regression_model_py36
       - test_regression_model_py37
       - test_regression_model_py38
-      - test_ml_api
+      - test_ml_api_py36
       - section_9_differential_tests
       - train_and_upload_regression_model:
           requires:
