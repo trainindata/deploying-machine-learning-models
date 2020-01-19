@@ -17,14 +17,14 @@ prepare_tox: &prepare_tox
   run:
     name: Install tox
     command: |
-      pip install --upgrade pip
-      pip install --user tox
+      pip3 install --upgrade pip
+      pip3 install --user tox
 
 fetch_data: &fetch_data
   run:
     name: Set script permissions and fetch data
     command: |
-      pip install --user kaggle==1.5.6
+      pip3 install --user kaggle==1.5.6
       chmod +x ~/project/scripts/fetch_kaggle_dataset.sh
       ~/project/scripts/fetch_kaggle_dataset.sh
 
