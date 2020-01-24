@@ -1,4 +1,5 @@
 version: 2
+<<<<<<< HEAD
 jobs:
   test_regression_model:
     working_directory: ~/project
@@ -23,6 +24,60 @@ jobs:
       - image: circleci/python:3.7.2
     steps:
       - checkout
+=======
+
+defaults: &defaults
+  docker:
+    - image: circleci/python:3.7.2
+  working_directory: ~/project
+
+prepare_venv: &prepare_venv
+  run:
+    name: Create venv
+    command: |
+      python3 -m venv venv
+      source venv/bin/activate
+      pip install --upgrade pip
+
+fetch_data: &fetch_data
+  run:
+    name: Set script permissions and fetch data
+    command: |
+      source venv/bin/activate
+      chmod +x ./scripts/fetch_kaggle_dataset.sh
+      ./scripts/fetch_kaggle_dataset.sh
+
+jobs:
+  test_regression_model:
+    <<: *defaults
+    steps:
+      - checkout
+      - *prepare_venv
+      - run:
+          name: Install requirements
+          command: |
+            . venv/bin/activate
+            pip install -r packages/regression_model/requirements.txt
+      - *fetch_data
+      - run:
+          name: Train model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            py.test -vv packages/regression_model/tests
+
+  test_ml_api:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
       - run:
           name: Runnning tests
           command: |
@@ -31,6 +86,7 @@ jobs:
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
+<<<<<<< HEAD
 
   train_and_upload_regression_model:
     working_directory: ~/project
@@ -51,6 +107,34 @@ jobs:
             chmod +x ./scripts/fetch_kaggle_dataset.sh ./scripts/publish_model.sh
             ./scripts/fetch_kaggle_dataset.sh
             PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+=======
+      - save_cache:
+          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+          paths:
+            - "/venv"
+
+  train_and_upload_regression_model:
+    <<: *defaults
+    steps:
+      - checkout
+      - *prepare_venv
+      - run: 
+          name: Install requirements
+          command: |
+            . venv/bin/activate
+            pip install -r packages/regression_model/requirements.txt
+      - *fetch_data
+      - run: 
+          name: Train model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+      - run: 
+          name: Publish model to Gemfury
+          command: |
+            . venv/bin/activate
+            chmod +x ./scripts/publish_model.sh
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
             ./scripts/publish_model.sh ./packages/regression_model/
 
 workflows:
@@ -59,7 +143,18 @@ workflows:
     jobs:
       - test_regression_model
       - test_ml_api
+<<<<<<< HEAD
       - train_and_upload_regression_model
       - test_ml_api:
           requires:
             - train_and_upload_regression_model
+=======
+      - train_and_upload_regression_model:
+          requires:
+            - test_regression_model
+            - test_ml_api
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b

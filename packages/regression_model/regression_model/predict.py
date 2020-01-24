@@ -4,12 +4,20 @@ import pandas as pd
 from regression_model.processing.data_management import load_pipeline
 from regression_model.config import config
 from regression_model.processing.validation import validate_inputs
+<<<<<<< HEAD
 from regression_model import __version__ as _version
 
 import logging
 
 
 _logger = logging.getLogger(__name__)
+=======
+from regression_model.config.logging_config import get_logger
+from regression_model import __version__ as _version
+
+
+_logger = get_logger(logger_name=__name__)
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
 
 pipeline_file_name = f'{config.PIPELINE_SAVE_FILE}{_version}.pkl'
 _price_pipe = load_pipeline(file_name=pipeline_file_name)
