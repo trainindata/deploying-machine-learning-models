@@ -3,12 +3,19 @@ from sklearn.externals import joblib
 from sklearn.pipeline import Pipeline
 
 from regression_model.config import config
+<<<<<<< HEAD
 from regression_model import __version__ as _version
 
 import logging
 
 
 _logger = logging.getLogger(__name__)
+=======
+from regression_model.config import logging_config
+from regression_model import __version__ as _version
+
+_logger = logging_config.get_logger(__name__)
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
 
 
 def load_dataset(*, file_name: str

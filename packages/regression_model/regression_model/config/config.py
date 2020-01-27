@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import os
+=======
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
 import pathlib
 
 import regression_model
@@ -19,6 +22,13 @@ TESTING_DATA_FILE = 'test.csv'
 TRAINING_DATA_FILE = 'train.csv'
 TARGET = 'SalePrice'
 
+<<<<<<< HEAD
+=======
+# logs
+LOG_DIR = PACKAGE_ROOT / 'logs'
+LOG_DIR.mkdir(exist_ok=True)
+
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
 
 # variables
 FEATURES = ['MSSubClass', 'MSZoning', 'Neighborhood',
@@ -66,6 +76,9 @@ CATEGORICAL_NA_NOT_ALLOWED = [
 
 PIPELINE_NAME = 'lasso_regression'
 PIPELINE_SAVE_FILE = f'{PIPELINE_NAME}_output_v'
+<<<<<<< HEAD
 
 # used for differential testing
 ACCEPTABLE_MODEL_DIFFERENCE = 0.05
+=======
+>>>>>>> 6162c318b58b225e0061fccd6c64cd67fe205c1b
