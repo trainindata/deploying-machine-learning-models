@@ -112,3 +112,4 @@ venv.bak/
 # datafiles
 train.csv
 test.csv
+data/
