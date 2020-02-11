@@ -5,7 +5,7 @@ RUN adduser --disabled-password --gecos '' ml-api-user
 
 WORKDIR /opt/ml_api
 
-ARG PIP_EXTRA_INDEX_URL
+ARG PIP_EXTRA_INDEX_URL=DEFAULT_VALUE
 ENV FLASK_APP run.py
 
 # Install requirements, including from Gemfury
