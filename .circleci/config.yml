@@ -112,6 +112,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
+            git commit m'deploy to heroku'
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
 workflows:
@@ -133,7 +134,7 @@ workflows:
       - section_10_deploy_to_heroku:
           requires:
             - train_and_upload_regression_model
-          filters:
-            branches:
-              only:
-                - master
+          #filters:
+          #  branches:
+          #    only:
+          #      - master
