@@ -58,7 +58,7 @@ jobs:
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
-            py.test -vv packages/ml_api/tests
+            PYTHONPATH=./packages/ml_api:./packages/ml_api/tests python -m py.test -vv packages/ml_api/tests
       - save_cache:
           key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
           paths:
