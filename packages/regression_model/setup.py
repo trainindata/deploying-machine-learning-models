@@ -10,14 +10,14 @@ from setuptools import find_packages, setup
 
 # Package meta-data.
 NAME = 'regression_model'
-DESCRIPTION = 'Train and deploy regression model.'
-URL = 'your github project'
-EMAIL = 'your_email@email.com'
-AUTHOR = 'Your name'
+DESCRIPTION = 'Regression model for using in the Train In Data online course "Deployment of Machine Learning Models".'
+URL = 'https://github.com/trainindata/deploying-machine-learning-models'
+EMAIL = 'christopher.samiullah@protonmail.com'
+AUTHOR = 'ChristopherGS'
 REQUIRES_PYTHON = '>=3.6.0'
 
 
-# What packages are required for this module to be executed?
+# Packages that are required for this module to be executed
 def list_reqs(fname='requirements.txt'):
     with open(fname) as fd:
         return fd.read().splitlines()
@@ -42,7 +42,7 @@ except FileNotFoundError:
 
 # Load the package's __version__.py module as a dictionary.
 ROOT_DIR = Path(__file__).resolve().parent
-PACKAGE_DIR = ROOT_DIR / NAME
+PACKAGE_DIR = ROOT_DIR / 'regression_model'
 about = {}
 with open(PACKAGE_DIR / 'VERSION') as f:
     _version = f.read().strip()
@@ -65,7 +65,7 @@ setup(
     install_requires=list_reqs(),
     extras_require={},
     include_package_data=True,
-    license='MIT',
+    license='BSD 3',
     classifiers=[
         # Trove classifiers
         # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
