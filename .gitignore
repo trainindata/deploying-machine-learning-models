@@ -109,6 +109,9 @@ venv.bak/
 # datafiles
 train.csv
 test.csv
+data_description.txt
+house-prices-advanced-regression-techniques.zip
+sample_submission.csv
 test_data_predictions.csv
 v2-plant-seedlings-dataset/
 v2-plant-seedlings-dataset.zip
