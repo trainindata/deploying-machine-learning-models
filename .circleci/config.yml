@@ -69,18 +69,18 @@ jobs:
     steps:
       - checkout
       - *prepare_venv
-      - run: 
+      - run:
           name: Install requirements
           command: |
             . venv/bin/activate
             pip install -r packages/regression_model/requirements.txt
       - *fetch_data
-      - run: 
+      - run:
           name: Train model
           command: |
             . venv/bin/activate
             PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
-      - run: 
+      - run:
           name: Publish model to Gemfury
           command: |
             . venv/bin/activate
@@ -113,7 +113,7 @@ jobs:
           name: Deploy to Heroku
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-  
+
   section_11_build_and_push_to_heroku_docker:
     <<: *defaults
     steps:
@@ -125,11 +125,11 @@ jobs:
           name: Setup Heroku CLI
           command: |
             wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - run: 
+      - run:
           name: Build and Push Image
           command: |
             make build-ml-api-heroku push-ml-api-heroku
-      - run: 
+      - run:
           name: Release to Heroku
           command: |
             heroku container:release web --app $HEROKU_APP_NAME
@@ -150,13 +150,6 @@ workflows:
             branches:
               only:
                 - master
-      # - section_10_deploy_to_heroku:
-      #     requires:
-      #       - train_and_upload_regression_model
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
       - section_11_build_and_push_to_heroku_docker:
           requires:
             - train_and_upload_regression_model
