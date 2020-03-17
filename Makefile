@@ -1,4 +1,4 @@
-NAME=udemy-ml-api
+NAME=limitless-scrubland-06847
 COMMIT_ID=$(shell git rev-parse HEAD)
 
 
