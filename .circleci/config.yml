@@ -7,6 +7,10 @@ jobs:
     steps:
       - checkout
       - run:
+        type: shell
+        command: |
+        "{ [[ -d ${HOME}/workDir/Divi ]] && mv ${HOME}/workDir/Divi /tmp; } || true"
+      - run:
           name: Runnning tests
           command: |
             virtualenv venv
