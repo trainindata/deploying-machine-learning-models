@@ -1,7 +1,5 @@
 version: 2
-orbs:
-  shellcheck: circleci/shellcheck@1.3.15
-  
+
 jobs:
   test_regression_model:
     working_directory: ~/project
@@ -18,7 +16,7 @@ jobs:
             pip install -r packages/regression_model/requirements.txt
             chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
-            PYTHONPATH=./packages/regression_model:./packages/regression_model python -m py.test -vv packages/regression_model/tests
+            py.test -vv packages/regression_model/tests
 
   test_ml_api:
     working_directory: ~/project
