@@ -1,5 +1,5 @@
 # We use compatible release functionality (see PEP 440 here: https://www.python.org/dev/peps/pep-0440/#compatible-release)
-# to specify acceptable version ranges of our project dependencies. This gives us the flexibility to keep up with small.
+# to specify acceptable version ranges of our project dependencies.This gives us the flexibility to keep up with small
 # updates/fixes, whilst ensuring we don't install a major update which could introduce backwards incompatible changes.
 
 # Model Building Requirements
