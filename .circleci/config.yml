@@ -15,7 +15,7 @@ jobs:
             pip install -r packages/regression_model/requirements.txt
             chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
-            py.test -vv packages/regression_model/tests
+            PYTHONPATH=./packages/regression_model:./packages/regression_model python -m py.test -vv packages/regression_model/tests
 
   test_ml_api:
     working_directory: ~/project
