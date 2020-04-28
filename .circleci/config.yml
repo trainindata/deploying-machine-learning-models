@@ -146,10 +146,10 @@ workflows:
             - test_regression_model
             - test_ml_api
             - section_9_differential_tests
-          filters:
-            branches:
-              only:
-                - master
+          #filters:
+          #  branches:
+          #    only:
+          #      - master
       # - section_10_deploy_to_heroku:
       #     requires:
       #       - train_and_upload_regression_model
@@ -160,7 +160,7 @@ workflows:
       - section_11_build_and_push_to_heroku_docker:
           requires:
             - train_and_upload_regression_model
-          filters:
-            branches:
-              only:
-                - master
+          #filters:
+          #  branches:
+          #    only:
+          #      - master
