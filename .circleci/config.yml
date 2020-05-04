@@ -161,17 +161,17 @@ jobs:
           command: |
             . venv/bin/activate
             pip install -r packages/neural_network_model/requirements.txt
-      - run:
-          name: Fetch Training data - 2GB
-          command: |
-            . venv/bin/activate
-            chmod +x ./scripts/fetch_kaggle_large_dataset.sh
-            ./scripts/fetch_kaggle_large_dataset.sh
-      - run:
-          name: Train model
-          command: |
-            . venv/bin/activate
-            PYTHONPATH=./packages/neural_network_model python3 packages/neural_network_model/neural_network_model/train_pipeline.py
+      # - run:
+      #     name: Fetch Training data - 2GB
+      #     command: |
+      #       . venv/bin/activate
+      #       chmod +x ./scripts/fetch_kaggle_large_dataset.sh
+      #       ./scripts/fetch_kaggle_large_dataset.sh
+      # - run:
+      #     name: Train model
+      #     command: |
+      #       . venv/bin/activate
+      #       PYTHONPATH=./packages/neural_network_model python3 packages/neural_network_model/neural_network_model/train_pipeline.py
       - run: 
           name: Publish model to Gemfury
           command: |
