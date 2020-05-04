@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/python:3.7.2
+    - image: circleci/python:3.8.2
   working_directory: ~/project
 
 prepare_venv: &prepare_venv
@@ -149,8 +149,9 @@ jobs:
             aws ecs update-service --cluster ml-api-cluster --service custom-service --task-definition  first-run-task-definition --force-new-deployment
 
   section_13_train_and_upload_neural_network_model:
-    docker:
-      - image: circleci/python:3.6.4-stretch
+    #docker:
+    #  - image: circleci/python:3.6.4-stretch
+    <<: *defaults
     working_directory: ~/project
     steps:
       - checkout
@@ -166,7 +167,7 @@ jobs:
             . venv/bin/activate
             chmod +x ./scripts/fetch_kaggle_large_dataset.sh
             ./scripts/fetch_kaggle_large_dataset.sh
-      - run: 
+      - run:
           name: Train model
           command: |
             . venv/bin/activate
@@ -182,18 +183,18 @@ workflows:
   version: 2
   test-all:
     jobs:
-      - test_regression_model
-      - test_ml_api
-      - section_9_differential_tests
-      - train_and_upload_regression_model:
-          requires:
-            - test_regression_model
-            - test_ml_api
-            - section_9_differential_tests
-          filters:
-            branches:
-              only:
-                - master
+      # - test_regression_model
+      # - test_ml_api
+      # - section_9_differential_tests
+      # - train_and_upload_regression_model:
+      #     requires:
+      #       - test_regression_model
+      #       - test_ml_api
+      #       - section_9_differential_tests
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
       # - section_10_deploy_to_heroku:
       #     requires:
       #       - train_and_upload_regression_model
@@ -201,13 +202,13 @@ workflows:
       #       branches:
       #         only:
       #           - master
-      - section_11_build_and_push_to_heroku_docker:
-          requires:
-            - train_and_upload_regression_model
-          filters:
-            branches:
-              only:
-                - master
+      # - section_11_build_and_push_to_heroku_docker:
+      #     requires:
+      #       - train_and_upload_regression_model
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
       # - section_12_publish_docker_image_to_aws:
       #     requires:
       #       - train_and_upload_regression_model
@@ -215,13 +216,14 @@ workflows:
       #       branches:
       #         only:
       #           - master
-      - section_13_train_and_upload_neural_network_model:
-          requires:
-            - test_regression_model
-            - test_ml_api
-            - section_9_differential_tests
+      # - section_13_train_and_upload_neural_network_model:
+      #     requires:
+      #       - test_regression_model
+      #       - test_ml_api
+      #       - section_9_differential_tests
             # - train_and_upload_regression_model
           # filters:
           #   branches:
           #     only:
           #       - master
+      section_13_train_and_upload_neural_network_model
