@@ -53,7 +53,7 @@ def predict():
                         'errors': errors})
 
 
-@prediction_app.route('/predict/classifier', methods=['POST'])
+@prediction_app.route('/v1/predict/classifier', methods=['POST'])
 def predict_image():
     if request.method == 'POST':
         # Step 1: check if the post request has the file part
@@ -66,6 +66,7 @@ def predict_image():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
 
+            print("=======filename: " + str(filename))
             # Step 3: Save the file
             # Note, in production, this would require careful
             # validation, management and clean up.

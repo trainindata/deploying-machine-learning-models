@@ -69,7 +69,7 @@ def test_classifier_endpoint_returns_prediction(flask_test_client):
         )
 
     # When
-    response = flask_test_client.post('/predict/classifier',
+    response = flask_test_client.post('/v1/predict/classifier',
                                       content_type='multipart/form-data',
                                       data=data)
 

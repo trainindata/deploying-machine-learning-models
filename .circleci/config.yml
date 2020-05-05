@@ -128,7 +128,7 @@ jobs:
       - run: 
           name: Build and Push Image
           command: |
-            make build-ml-api-heroku push-ml-api-heroku
+            make build-ml-api-heroku tag-ml-api-heroku push-ml-api-heroku
       - run: 
           name: Release to Heroku
           command: |
@@ -145,7 +145,7 @@ jobs:
           command: |
             sudo pip install awscli
             eval $(aws ecr get-login --no-include-email --region us-east-1)
-            make build-ml-api-aws tag-ml-api push-ml-api-aws
+            make build-ml-api-aws tag-ml-api-aws push-ml-api-aws
             aws ecs update-service --cluster ml-api-cluster --service custom-service --task-definition  first-run-task-definition --force-new-deployment
 
   section_13_train_and_upload_neural_network_model:
@@ -216,11 +216,11 @@ workflows:
       #       branches:
       #         only:
       #           - master
-      - section_13_train_and_upload_neural_network_model:
-          requires:
-            - test_regression_model
-            - test_ml_api
-            - section_9_differential_tests
+      # - section_13_train_and_upload_neural_network_model:
+      #     requires:
+      #       - test_regression_model
+      #       - test_ml_api
+      #       - section_9_differential_tests
             # - train_and_upload_regression_model
           # filters:
           #   branches:

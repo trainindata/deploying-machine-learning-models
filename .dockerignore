@@ -3,6 +3,7 @@ jupyter_notebooks*
 */venv*
 .circleci*
 packages/regression_model
+packages/neural_network_model
 *.env
 *.log
 .git

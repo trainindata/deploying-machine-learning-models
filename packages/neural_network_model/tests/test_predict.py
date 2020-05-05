@@ -5,7 +5,7 @@ from neural_network_model.predict import (make_single_prediction)
 def test_make_prediction_on_sample1(charlock_dir):
     # Given
     filename = '1.png'
-    expected_classification = 'Scentless Mayweed'
+    expected_classification = 'Charlock'
 
     # When
     results = make_single_prediction(image_directory=charlock_dir,
@@ -18,7 +18,7 @@ def test_make_prediction_on_sample1(charlock_dir):
 def test_make_prediction_on_sample2(black_grass_dir):
     # Given
     filename = '1.png'
-    expected_classification = 'Scentless Mayweed'
+    expected_classification = 'Loose Silky-bent'
 
     # When
     results = make_single_prediction(image_directory=black_grass_dir,
