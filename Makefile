@@ -8,7 +8,7 @@ build-ml-api-heroku:
 push-ml-api-heroku:
 	docker push registry.heroku.com/${HEROKU_APP_NAME}/web:$(COMMIT_ID)
 
-tag-ml-api-aws:
+tag-ml-api-heroku:
 	docker tag registry.heroku.com/$(NAME)/web:$(COMMIT_ID) registry.heroku.com/${HEROKU_APP_NAME}/web:$(COMMIT_ID)
 
 
