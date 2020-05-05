@@ -119,7 +119,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          docker_layer_caching: true
+          docker_layer_caching: false
       - run: docker login --username=$HEROKU_EMAIL --password=$HEROKU_API_KEY registry.heroku.com
       - run:
           name: Setup Heroku CLI
@@ -183,6 +183,7 @@ workflows:
   version: 2
   test-all:
     jobs:
+      - section_11_build_and_push_to_heroku_docker
       # - test_regression_model
       # - test_ml_api
       # - section_9_differential_tests
