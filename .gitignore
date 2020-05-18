@@ -107,12 +107,8 @@ venv.bak/
 .idea/
 
 # datafiles
-packages/regression_model/regression_model/datasets/*.csv
 packages/regression_model/regression_model/datasets/*.zip
 packages/regression_model/regression_model/datasets/*.txt
-train.csv
-test.csv
-test_data_predictions.csv
 
 # all logs
 logs/
