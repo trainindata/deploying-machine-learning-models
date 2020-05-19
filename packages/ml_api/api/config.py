@@ -12,6 +12,13 @@ FORMATTER = logging.Formatter(
 LOG_DIR = PACKAGE_ROOT / 'logs'
 LOG_DIR.mkdir(exist_ok=True)
 LOG_FILE = LOG_DIR / 'ml_api.log'
+<<<<<<< HEAD
+UPLOAD_FOLDER = PACKAGE_ROOT / 'uploads'
+UPLOAD_FOLDER.mkdir(exist_ok=True)
+
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+=======
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
 
 def get_console_handler():
@@ -48,11 +55,20 @@ class Config:
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
     SERVER_PORT = 5000
+<<<<<<< HEAD
+    UPLOAD_FOLDER = UPLOAD_FOLDER
+=======
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
 
 class ProductionConfig(Config):
     DEBUG = False
+<<<<<<< HEAD
+    SERVER_ADDRESS: os.environ.get('SERVER_ADDRESS', '0.0.0.0')
+    SERVER_PORT: os.environ.get('SERVER_PORT', '5000')
+=======
     SERVER_PORT = os.environ.get('PORT', 5000)
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
 
 class DevelopmentConfig(Config):

@@ -14,6 +14,40 @@ _logger = logging.getLogger(__name__)
 
 price_pipe = Pipeline(
     [
+<<<<<<< HEAD
+        (
+            "categorical_imputer",
+            pp.CategoricalImputer(variables=config.CATEGORICAL_VARS_WITH_NA),
+        ),
+        (
+            "numerical_inputer",
+            pp.NumericalImputer(variables=config.NUMERICAL_VARS_WITH_NA),
+        ),
+        (
+            "temporal_variable",
+            pp.TemporalVariableEstimator(
+                variables=config.TEMPORAL_VARS, reference_variable=config.DROP_FEATURES
+            ),
+        ),
+        (
+            "rare_label_encoder",
+            pp.RareLabelCategoricalEncoder(tol=0.01, variables=config.CATEGORICAL_VARS),
+        ),
+        (
+            "categorical_encoder",
+            pp.CategoricalEncoder(variables=config.CATEGORICAL_VARS),
+        ),
+        (
+            "log_transformer",
+            features.LogTransformer(variables=config.NUMERICALS_LOG_VARS),
+        ),
+        (
+            "drop_features",
+            pp.DropUnecessaryFeatures(variables_to_drop=config.DROP_FEATURES),
+        ),
+        ("scaler", MinMaxScaler()),
+        ("Linear_model", Lasso(alpha=0.005, random_state=0)),
+=======
         ('categorical_imputer',
             pp.CategoricalImputer(variables=config.CATEGORICAL_VARS_WITH_NA)),
         ('numerical_inputer',
@@ -34,5 +68,6 @@ price_pipe = Pipeline(
             pp.DropUnecessaryFeatures(variables_to_drop=config.DROP_FEATURES)),
         ('scaler', MinMaxScaler()),
         ('Linear_model', Lasso(alpha=0.005, random_state=0))
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
     ]
 )

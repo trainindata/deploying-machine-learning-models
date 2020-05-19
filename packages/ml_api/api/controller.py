@@ -1,9 +1,18 @@
 from flask import Blueprint, request, jsonify
 from regression_model.predict import make_prediction
 from regression_model import __version__ as _version
+<<<<<<< HEAD
+from neural_network_model.predict import make_single_prediction
+import os
+from werkzeug.utils import secure_filename
+
+from api.config import get_logger, UPLOAD_FOLDER
+from api.validation import validate_inputs, allowed_file
+=======
 
 from api.config import get_logger
 from api.validation import validate_inputs
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 from api import __version__ as api_version
 
 _logger = get_logger(logger_name=__name__)
@@ -48,3 +57,42 @@ def predict():
         return jsonify({'predictions': predictions,
                         'version': version,
                         'errors': errors})
+<<<<<<< HEAD
+
+
+@prediction_app.route('/predict/classifier', methods=['POST'])
+def predict_image():
+    if request.method == 'POST':
+        # Step 1: check if the post request has the file part
+        if 'file' not in request.files:
+            return jsonify('No file found'), 400
+
+        file = request.files['file']
+
+        # Step 2: Basic file extension validation
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+
+            # Step 3: Save the file
+            # Note, in production, this would require careful
+            # validation, management and clean up.
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
+
+            _logger.debug(f'Inputs: {filename}')
+
+            # Step 4: perform prediction
+            result = make_single_prediction(
+                image_name=filename,
+                image_directory=UPLOAD_FOLDER)
+
+            _logger.debug(f'Outputs: {result}')
+
+        readable_predictions = result.get('readable_predictions')
+        version = result.get('version')
+
+        # Step 5: Return the response as JSON
+        return jsonify(
+            {'readable_predictions': readable_predictions[0],
+             'version': version})
+=======
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865

@@ -14,8 +14,12 @@ class CategoricalImputer(BaseEstimator, TransformerMixin):
         else:
             self.variables = variables
 
+<<<<<<< HEAD
+    def fit(self, X: pd.DataFrame, y: pd.Series = None) -> "CategoricalImputer":
+=======
     def fit(self, X: pd.DataFrame, y: pd.Series = None
             ) -> 'CategoricalImputer':
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
         """Fit statement to accomodate the sklearn pipeline."""
 
         return self
@@ -25,7 +29,11 @@ class CategoricalImputer(BaseEstimator, TransformerMixin):
 
         X = X.copy()
         for feature in self.variables:
+<<<<<<< HEAD
+            X[feature] = X[feature].fillna("Missing")
+=======
             X[feature] = X[feature].fillna('Missing')
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
         return X
 
@@ -101,8 +109,14 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
     def transform(self, X):
         X = X.copy()
         for feature in self.variables:
+<<<<<<< HEAD
+            X[feature] = np.where(
+                X[feature].isin(self.encoder_dict_[feature]), X[feature], "Rare"
+            )
+=======
             X[feature] = np.where(X[feature].isin(
                 self.encoder_dict_[feature]), X[feature], 'Rare')
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
         return X
 
@@ -118,14 +132,22 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
 
     def fit(self, X, y):
         temp = pd.concat([X, y], axis=1)
+<<<<<<< HEAD
+        temp.columns = list(X.columns) + ["target"]
+=======
         temp.columns = list(X.columns) + ['target']
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
         # persist transforming dictionary
         self.encoder_dict_ = {}
 
         for var in self.variables:
+<<<<<<< HEAD
+            t = temp.groupby([var])["target"].mean().sort_values(ascending=True).index
+=======
             t = temp.groupby([var])['target'].mean().sort_values(
                 ascending=True).index
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
             self.encoder_dict_[var] = {k: i for i, k in enumerate(t, 0)}
 
         return self
@@ -139,17 +161,30 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
         # check if transformer introduces NaN
         if X[self.variables].isnull().any().any():
             null_counts = X[self.variables].isnull().any()
+<<<<<<< HEAD
+            vars_ = {
+                key: value for (key, value) in null_counts.items() if value is True
+            }
+            raise InvalidModelInputError(
+                f"Categorical encoder has introduced NaN when "
+                f"transforming categorical variables: {vars_.keys()}"
+            )
+=======
             vars_ = {key: value for (key, value) in null_counts.items()
                      if value is True}
             raise InvalidModelInputError(
                 f'Categorical encoder has introduced NaN when '
                 f'transforming categorical variables: {vars_.keys()}')
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
         return X
 
 
 class DropUnecessaryFeatures(BaseEstimator, TransformerMixin):
+<<<<<<< HEAD
+=======
 
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
     def __init__(self, variables_to_drop=None):
         self.variables = variables_to_drop
 
