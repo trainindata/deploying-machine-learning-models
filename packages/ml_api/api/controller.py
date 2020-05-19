@@ -1,12 +1,18 @@
 from flask import Blueprint, request, jsonify
 from regression_model.predict import make_prediction
 from regression_model import __version__ as _version
+<<<<<<< HEAD
 from neural_network_model.predict import make_single_prediction
 import os
 from werkzeug.utils import secure_filename
 
 from api.config import get_logger, UPLOAD_FOLDER
 from api.validation import validate_inputs, allowed_file
+=======
+
+from api.config import get_logger
+from api.validation import validate_inputs
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 from api import __version__ as api_version
 
 _logger = get_logger(logger_name=__name__)
@@ -51,6 +57,7 @@ def predict():
         return jsonify({'predictions': predictions,
                         'version': version,
                         'errors': errors})
+<<<<<<< HEAD
 
 
 @prediction_app.route('/predict/classifier', methods=['POST'])
@@ -87,3 +94,5 @@ def predict_image():
         return jsonify(
             {'readable_predictions': readable_predictions[0],
              'version': version})
+=======
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865

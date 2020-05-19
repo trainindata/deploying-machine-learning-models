@@ -1,1 +1,11 @@
+<<<<<<< HEAD
 -r packages/ml_api/requirements.txt
+=======
+jupyter==1.0.0
+matplotlib==3.0.2
+pandas==0.23.4
+scikit-learn==0.20.2
+
+# testing
+pytest==4.0.2
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865

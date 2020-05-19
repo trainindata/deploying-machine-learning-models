@@ -107,6 +107,7 @@ venv.bak/
 .idea/
 
 # datafiles
+<<<<<<< HEAD
 packages/regression_model/regression_model/datasets/*.csv
 packages/regression_model/regression_model/datasets/*.zip
 packages/regression_model/regression_model/datasets/*.txt
@@ -133,3 +134,7 @@ packages/neural_network_model/neural_network_model/datasets/training_data_refere
 
 kaggle.json
 packages/ml_api/uploads/*
+=======
+train.csv
+test.csv
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865

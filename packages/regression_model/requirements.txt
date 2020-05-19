@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # We use compatible release functionality (see PEP 440 here: https://www.python.org/dev/peps/pep-0440/#compatible-release)
 # to specify acceptable version ranges of our project dependencies. This gives us the flexibility to keep up with small
 # updates/fixes, whilst ensuring we don't install a major update which could introduce backwards incompatible changes.
@@ -17,3 +18,19 @@ wheel>=0.33.6,<0.34.0
 
 # fetching datasets
 kaggle>=1.5.6,<1.6.0
+=======
+# production requirements
+numpy==1.15.4
+scikit-learn==0.20.2
+pandas==0.23.4
+
+# packaging
+setuptools==40.6.3
+wheel==0.32.3
+
+# testing requirements
+pytest==4.0.2
+
+# fetching datasets
+kaggle==1.5.1.1
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865

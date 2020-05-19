@@ -2,7 +2,11 @@
 
 # Building packages and uploading them to a Gemfury repository
 
+<<<<<<< HEAD
 GEMFURY_URL=$GEMFURY_PUSH_URL
+=======
+GEMFURY_URL=$PIP_EXTRA_INDEX_URL
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
 set -e
 

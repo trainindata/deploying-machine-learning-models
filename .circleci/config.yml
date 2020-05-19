@@ -13,6 +13,7 @@ prepare_venv: &prepare_venv
       source venv/bin/activate
       pip install --upgrade pip
 
+<<<<<<< HEAD
 prepare_tox: &prepare_tox
   run:
     name: Install tox
@@ -20,6 +21,8 @@ prepare_tox: &prepare_tox
       sudo pip install --upgrade pip
       pip install --user tox
 
+=======
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 fetch_data: &fetch_data
   run:
     name: Set script permissions and fetch data
@@ -29,6 +32,7 @@ fetch_data: &fetch_data
       ./scripts/fetch_kaggle_dataset.sh
 
 jobs:
+<<<<<<< HEAD
   test_regression_model_py36:
     docker:
       - image: circleci/python:3.6.9
@@ -114,21 +118,33 @@ jobs:
             tox -e py38
 
   train_and_upload_regression_model:
+=======
+  test_regression_model:
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
     <<: *defaults
     steps:
       - checkout
       - *prepare_venv
+<<<<<<< HEAD
       - run: 
+=======
+      - run:
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
           name: Install requirements
           command: |
             . venv/bin/activate
             pip install -r packages/regression_model/requirements.txt
       - *fetch_data
+<<<<<<< HEAD
       - run: 
+=======
+      - run:
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
           name: Train model
           command: |
             . venv/bin/activate
             PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+<<<<<<< HEAD
       - run: 
           name: Publish model to Gemfury
           command: |
@@ -201,6 +217,36 @@ jobs:
     docker:
       - image: circleci/python:3.6.4-stretch
     working_directory: ~/project
+=======
+      - run:
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            py.test -vv packages/regression_model/tests
+
+  test_ml_api:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+      - run:
+          name: Runnning tests
+          command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/ml_api/requirements.txt
+            py.test -vv packages/ml_api/tests
+      - save_cache:
+          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+          paths:
+            - "/venv"
+
+  train_and_upload_regression_model:
+    <<: *defaults
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
     steps:
       - checkout
       - *prepare_venv
@@ -208,6 +254,7 @@ jobs:
           name: Install requirements
           command: |
             . venv/bin/activate
+<<<<<<< HEAD
             pip install -r packages/neural_network_model/requirements.txt
       - run:
           name: Fetch Training data - 2GB
@@ -215,22 +262,35 @@ jobs:
             . venv/bin/activate
             chmod +x ./scripts/fetch_kaggle_large_dataset.sh
             ./scripts/fetch_kaggle_large_dataset.sh
+=======
+            pip install -r packages/regression_model/requirements.txt
+      - *fetch_data
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
       - run: 
           name: Train model
           command: |
             . venv/bin/activate
+<<<<<<< HEAD
             PYTHONPATH=./packages/neural_network_model python3 packages/neural_network_model/neural_network_model/train_pipeline.py
+=======
+            PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
       - run: 
           name: Publish model to Gemfury
           command: |
             . venv/bin/activate
             chmod +x ./scripts/publish_model.sh
+<<<<<<< HEAD
             ./scripts/publish_model.sh ./packages/neural_network_model/
+=======
+            ./scripts/publish_model.sh ./packages/regression_model/
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
 workflows:
   version: 2
   test-all:
     jobs:
+<<<<<<< HEAD
       - test_regression_model_py36
       - test_regression_model_py37
       - test_regression_model_py38
@@ -277,6 +337,14 @@ workflows:
 #            - test_ml_api
 #            - section_9_differential_tests
             # - train_and_upload_regression_model
+=======
+      - test_regression_model
+      - test_ml_api
+      - train_and_upload_regression_model:
+          requires:
+            - test_regression_model
+            - test_ml_api
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
           # filters:
           #   branches:
           #     only:

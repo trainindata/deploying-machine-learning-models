@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import io
 import json
 import math
@@ -7,6 +8,14 @@ from neural_network_model.config import config as ccn_config
 from regression_model import __version__ as _version
 from regression_model.config import config as model_config
 from regression_model.processing.data_management import load_dataset
+=======
+from regression_model.config import config as model_config
+from regression_model.processing.data_management import load_dataset
+from regression_model import __version__ as _version
+
+import json
+import math
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
 
 from api import __version__ as api_version
 
@@ -50,6 +59,7 @@ def test_prediction_endpoint_returns_prediction(flask_test_client):
     response_version = response_json['version']
     assert math.ceil(prediction[0]) == 112476
     assert response_version == _version
+<<<<<<< HEAD
 
 
 def test_classifier_endpoint_returns_prediction(flask_test_client):
@@ -77,3 +87,5 @@ def test_classifier_endpoint_returns_prediction(flask_test_client):
     assert response.status_code == 200
     response_json = json.loads(response.data)
     assert response_json['readable_predictions']
+=======
+>>>>>>> 0ed582465d48f8120b8ddf1b901da14d3e5c5865
