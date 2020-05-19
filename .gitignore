@@ -113,5 +113,3 @@ packages/regression_model/regression_model/datasets/*.txt
 # all logs
 logs/
 
-# trained models (will be created in CI)
-packages/regression_model/regression_model/trained_models/*.pkl
