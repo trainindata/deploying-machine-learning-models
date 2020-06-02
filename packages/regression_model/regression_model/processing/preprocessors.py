@@ -13,7 +13,7 @@ class CategoricalImputer(BaseEstimator, TransformerMixin):
             self.variables = variables
 
     def fit(self, X: pd.DataFrame, y: pd.Series = None) -> "CategoricalImputer":
-        """Fit statement to accomodate the sklearn pipeline."""
+        """Fit statement to accommodate the sklearn pipeline."""
 
         return self
 
@@ -99,7 +99,8 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
         X = X.copy()
         for feature in self.variables:
             X[feature] = np.where(
-                X[feature].isin(self.encoder_dict_[feature]), X[feature], "Rare"
+                X[feature].isin(self.encoder_dict_[feature]
+                                ), X[feature], "Rare"
             )
 
         return X
@@ -122,7 +123,8 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
         self.encoder_dict_ = {}
 
         for var in self.variables:
-            t = temp.groupby([var])["target"].mean().sort_values(ascending=True).index
+            t = temp.groupby([var])["target"].mean(
+            ).sort_values(ascending=True).index
             self.encoder_dict_[var] = {k: i for i, k in enumerate(t, 0)}
 
         return self
@@ -147,7 +149,7 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
         return X
 
 
-class DropUnecessaryFeatures(BaseEstimator, TransformerMixin):
+class DropUnnecessaryFeatures(BaseEstimator, TransformerMixin):
     def __init__(self, variables_to_drop=None):
         self.variables = variables_to_drop
 

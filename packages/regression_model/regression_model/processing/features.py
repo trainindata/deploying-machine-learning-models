@@ -12,7 +12,7 @@ class LogTransformer(BaseEstimator, TransformerMixin):
             self.variables = variables
 
     def fit(self, X, y=None):
-        # to accomodate the pipeline
+        # to accommodate the pipeline
         return self
 
     def transform(self, X):

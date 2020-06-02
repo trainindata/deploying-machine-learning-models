@@ -14,7 +14,7 @@ price_pipe = Pipeline(
             pp.CategoricalImputer(variables=config.CATEGORICAL_VARS_WITH_NA),
         ),
         (
-            "numerical_inputer",
+            "numerical_imputer",
             pp.NumericalImputer(variables=config.NUMERICAL_VARS_WITH_NA),
         ),
         (
@@ -25,7 +25,8 @@ price_pipe = Pipeline(
         ),
         (
             "rare_label_encoder",
-            pp.RareLabelCategoricalEncoder(tol=0.01, variables=config.CATEGORICAL_VARS),
+            pp.RareLabelCategoricalEncoder(
+                tol=0.01, variables=config.CATEGORICAL_VARS),
         ),
         (
             "categorical_encoder",
@@ -37,7 +38,7 @@ price_pipe = Pipeline(
         ),
         (
             "drop_features",
-            pp.DropUnecessaryFeatures(variables_to_drop=config.DROP_FEATURES),
+            pp.DropUnnecessaryFeatures(variables_to_drop=config.DROP_FEATURES),
         ),
         ("scaler", MinMaxScaler()),
         ("Linear_model", Lasso(alpha=0.005, random_state=0)),
