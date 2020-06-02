@@ -12,7 +12,7 @@ class CategoricalImputer(BaseEstimator, TransformerMixin):
             self.variables = variables
 
     def fit(self, X: pd.DataFrame, y: pd.Series = None) -> 'CategoricalImputer':
-        """Fit statement to accomodate the sklearn pipeline."""
+        """Fit statement to accommodate the sklearn pipeline."""
 
         return self
 
