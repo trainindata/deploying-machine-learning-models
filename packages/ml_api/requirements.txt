@@ -3,4 +3,4 @@ flask==1.0.2
 
 # local regression_model package
 # update with your local path
--e "~/Documents/machine_learning/public_repo_deployment_ml_models/packages/regression_model"
+-e "//Users/michaellohier/Documents/machine_learning/public_repo_deployment_ml_models/packages/regression_model"
