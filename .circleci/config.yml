@@ -2,6 +2,9 @@ version: 2
 jobs:
   # First job
   test_regression_model:
+    # Run on my-progression branch only
+    branches:
+      - my-progression
     # The directory from where CircleCI must run the commands
     working_directory: ~/project
     # The docker image in which we want we want to run the commands
