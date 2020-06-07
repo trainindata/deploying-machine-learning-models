@@ -1,0 +1,36 @@
+version: 2
+jobs:
+  # First job
+  test_regression_model:
+    # The directory from where CircleCI must run the commands
+    working_directory: ~/project
+    # The docker image in which we want we want to run the commands
+    docker:
+      - image: circleci/python:3.7.2
+    # The steps to run as part of this job
+    steps:
+      - checkout
+      - run:
+          name: Running tests
+          # 1. We create a virtual environnement
+          # 2. We activate it
+          # 3. We upgrade pip
+          # 4. We install the dependencies
+          # 5. We set the permissions to allow us to run that script
+          # 6. We run the script
+          # 7. We run the regression_model tests
+          command: |
+            virtualenv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/regression_model/requirements.txt
+            chmod +x ./scripts/fetch_kaggle_dataset.sh
+            ./scripts/fetch_kaggle_dataset.sh
+            py.test -vv packages/regression_model/tests
+
+# This is where we organize jobs
+workflows:
+  version: 2
+  test-all:
+    jobs:
+      - test_regression_model
