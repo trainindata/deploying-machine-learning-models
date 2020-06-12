@@ -127,8 +127,8 @@ workflows:
           requires:
             - train_and_upload_regression_model
       - section_9_differential_tests:
-        requires:
-          - train_and_upload_regression_model
+          requires:
+            - train_and_upload_regression_model
           # filters:
           #   branches:
           #     only:
