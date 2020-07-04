@@ -18,7 +18,8 @@ jobs:
           # 4. We install the dependencies
           # 5. We set the permissions to allow us to run that script
           # 6. We run the script
-          # 7. We run the regression_model tests
+          # 7. We unzip the downloaded file
+          # 8. We run the regression_model tests
           command: |
             virtualenv venv
             . venv/bin/activate
@@ -26,6 +27,7 @@ jobs:
             pip install -r packages/regression_model/requirements.txt
             chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
+             unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
             py.test -vv packages/regression_model/tests
 
 # This is where we organize jobs
