@@ -1,9 +1,10 @@
-# api
+--extra-index-url=${PIP_EXTRA_INDEX_URL}
+
+# Api
 flask==1.0.2
 
-# schema validation
+# Schema validation
 marshmallow==2.17.0
 
-# local regression_model package
-# update with your local path
--e "file:///Users/michaellohier/Documents/machine_learning/public_repo_deployment_ml_models/packages/regression_model"
+# Install from gemfury
+regression-model==0.1.0
