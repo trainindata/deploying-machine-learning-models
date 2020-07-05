@@ -1,44 +1,80 @@
 version: 2
+
+# Set reusable stops for efficiency
+defaults: &defaults
+  docker:
+    - image: circleci/python:3.7.2
+  working_directory: ~/project
+
+prepare_venv: &prepare_venv
+  run:
+    name: Create venv
+    # 1. We create a virtual environnement
+    # 2. We activate it
+    # 3. We upgrade pip
+    command: |
+      python3 -m venv venv
+      source venv/bin/activate
+      pip install --upgrade pip
+
+fetch_data: &fetch_data
+  run:
+    name: Set script permissions and fetch data
+    # 1. We activate the virtual environment
+    # 2. We set the permissions to allow us to run the bash file
+    # 3. We run the bash file to download data from Kaggle
+    # 4. We unzip the downloaded folder
+    # 5. We remove the zipped version
+    command: |
+      source venv/bin/activate
+      chmod +x ./scripts/fetch_kaggle_dataset.sh
+      ./scripts/fetch_kaggle_dataset.sh
+      unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
+      rm packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques.zip
+
 # This is where we organize jobs
 jobs:
 
   # Job 1: Run the regression_model tests
   test_regression_model:
-    # The directory from where CircleCI must run the commands
-    working_directory: ~/project
-    # The docker image in which we want we want to run the commands
-    docker:
-      - image: circleci/python:3.7.2
-    # The steps to run as part of this job
+    <<: *defaults
     steps:
       - checkout
+      - *prepare_venv
       - run:
-          name: Running tests
-          # 1. We create a virtual environnement
-          # 2. We activate it
-          # 3. We upgrade pip
-          # 4. We install the dependencies
-          # 5. We set the permissions to allow us to run that script
-          # 6. We run the script
-          # 7. We unzip the downloaded file
-          # 8. We run the regression_model tests
+          name: Install requirements
+          # 1. We activate the virtual environment
+          # 2. We install the requirements
           command: |
-            virtualenv venv
             . venv/bin/activate
-            pip install --upgrade pip
             pip install -r packages/regression_model/requirements.txt
-            chmod +x ./scripts/fetch_kaggle_dataset.sh
-            ./scripts/fetch_kaggle_dataset.sh
-            unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
+      - *fetch_data
+      - run:
+          name: Train model
+          # 1. We activate the virtual environment
+          # 2. We set the PYTHONPATH to train the model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+      - run:
+          name: Run tests
+          # 1. We activate the virtual environment
+          # 2. We run the tests
+          command: |
+            . venv/bin/activate
             py.test -vv packages/regression_model/tests
   
   # Job 2: Run the ml_api tests
   test_ml_api:
-    working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.2
+    <<: *defaults
     steps:
       - checkout
+      # Introduce a cache:
+      # If the requirements file has changed, we reinstall the packages
+      # If not we just rely on the cache to get our packages
+      - restore_cache:
+          keys:
+            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
       - run:
           name: Running tests
           command: |
@@ -47,33 +83,33 @@ jobs:
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
-  
-  # Job 3: Automate training and publishing the model      
+      - save_cache:
+          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+          paths:
+            - "/venv"
+
+  # Job 3: Train and upload the regression model
   train_and_upload_regression_model:
-    working_directory: ~/project
-    docker:
-      - image: circleci/python:3.7.2
+    <<: *defaults
     steps:
       - checkout
+      - *prepare_venv
       - run: 
-          name: Setup env
+          name: Install requirements
           command: |
-            virtualenv venv
             . venv/bin/activate
             pip install -r packages/regression_model/requirements.txt
+      - *fetch_data
       - run: 
-          name: Publish model
-          # 1. We activate the virtual environment
-          # 2. We set the permissions to allow us to run that script
-          # 3. We run the script
-          # 4. We set the PYTHONPATH to train the model
-          # 5. We run the script to upload the model
+          name: Train model
           command: |
             . venv/bin/activate
-            chmod +x ./scripts/fetch_kaggle_dataset.sh ./scripts/publish_model.sh
-            ./scripts/fetch_kaggle_dataset.sh
-            unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
             PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+      - run: 
+          name: Publish model to Gemfury
+          command: |
+            . venv/bin/activate
+            chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/regression_model/
 
 
@@ -83,8 +119,13 @@ workflows:
     jobs:
       - test_regression_model
       - test_ml_api
-      - train_and_upload_regression_model
-      # For the very first time we run these job, it's required to first train the model before testing it
-      - test_ml_api:
+      # We secure that the tests are passed before we publish anything
+      - train_and_upload_regression_model:
           requires:
-            - train_and_upload_regression_model
+            - test_regression_model
+            - test_ml_api
+          # We only train the model and publish it when merging in the master branch
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
