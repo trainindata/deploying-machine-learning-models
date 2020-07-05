@@ -1,6 +1,8 @@
 version: 2
+# This is where we organize jobs
 jobs:
-  # First job
+
+  # Job 1: Run the regression_model tests
   test_regression_model:
     # The directory from where CircleCI must run the commands
     working_directory: ~/project
@@ -29,10 +31,8 @@ jobs:
             ./scripts/fetch_kaggle_dataset.sh
             unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
             py.test -vv packages/regression_model/tests
-
-
-# This is where we organize jobs
-=======
+  
+  # Job 2: Run the ml_api tests
   test_ml_api:
     working_directory: ~/project
     docker:
@@ -47,7 +47,8 @@ jobs:
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
-
+  
+  # Job 3: Automate training and publishing the model      
   train_and_upload_regression_model:
     working_directory: ~/project
     docker:
@@ -62,6 +63,11 @@ jobs:
             pip install -r packages/regression_model/requirements.txt
       - run: 
           name: Publish model
+          # 1. We activate the virtual environment
+          # 2. We set the permissions to allow us to run that script
+          # 3. We run the script
+          # 4. We set the PYTHONPATH to train the model
+          # 5. We run the script to upload the model
           command: |
             . venv/bin/activate
             chmod +x ./scripts/fetch_kaggle_dataset.sh ./scripts/publish_model.sh
@@ -77,6 +83,7 @@ workflows:
       - test_regression_model
       - test_ml_api
       - train_and_upload_regression_model
+      # For the very first time we run these job, it's required to first train the model before testing it
       - test_ml_api:
           requires:
             - train_and_upload_regression_model

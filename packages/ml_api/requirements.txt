@@ -1,9 +1,9 @@
 --extra-index-url=${PIP_EXTRA_INDEX_URL}
 
-# api
+# Api
 flask==1.0.2
 
-# schema validation
+# Schema validation
 marshmallow==2.17.0
 
 # Install from gemfury
