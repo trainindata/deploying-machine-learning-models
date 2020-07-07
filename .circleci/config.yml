@@ -80,7 +80,7 @@ jobs:
           # In the last command we specify that we don't call the differential tests here
           # This works because we created a pytest mark "differential"
           command: |
-            virtualenv venv
+            python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r packages/ml_api/requirements.txt
@@ -114,6 +114,29 @@ jobs:
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/regression_model/
 
+  # Job 4
+  section_9_differential_tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - *prepare_venv
+      - run:
+          name: Capturing previous model predictions
+          # 1. Activate the virtual environment
+          # 2. It loads the previous regression model version by running another requirement file
+          # 3. Set the Python path
+          command: |
+            . venv/bin/activate
+            pip install -r packages/ml_api/diff_test_requirements.txt
+            PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
+      - run:
+          name: Running differential tests
+          # 1. We install the normal requirement file, i.e., installing the current model 
+          # 2. We only run the differential tests
+          command: |
+            . venv/bin/activate
+            pip install -r packages/ml_api/requirements.txt
+            py.test -vv packages/ml_api/tests -m differential
 
 workflows:
   version: 2
@@ -121,11 +144,13 @@ workflows:
     jobs:
       - test_regression_model
       - test_ml_api
+      - section_9_differential_tests
       # We secure that the tests are passed before we publish anything
       - train_and_upload_regression_model:
           requires:
             - test_regression_model
             - test_ml_api
+            - section_9_differential_tests
           # We only train the model and publish it when merging in the master branch
           # filters:
           #   branches:
