@@ -77,6 +77,8 @@ jobs:
             - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
       - run:
           name: Running tests
+          # In the last command we specify that we don't call the differential tests here
+          # This works because we created a pytest mark "differential"
           command: |
             virtualenv venv
             . venv/bin/activate

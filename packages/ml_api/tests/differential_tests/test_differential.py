@@ -34,7 +34,7 @@ def test_model_prediction_differential(
     for previous_value, current_value in zip(
             previous_model_predictions, current_model_predictions):
 
-        # convert numpy float64 to Python float.
+        # Convert numpy float64 to Python float.
         previous_value = previous_value.item()
         current_value = current_value.item()
 

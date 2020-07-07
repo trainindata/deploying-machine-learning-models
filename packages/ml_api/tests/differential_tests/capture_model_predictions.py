@@ -19,15 +19,15 @@ def capture_predictions(
 
     test_data = load_dataset(file_name='test.csv')
 
-    # we take a slice with no input validation issues
+    # We take a slice with no input validation issues
     multiple_test_json = test_data[99:600]
 
     predictions = make_prediction(input_data=multiple_test_json)
 
-    # save predictions for the test dataset
+    # Save predictions for the test dataset
     predictions_df = pd.DataFrame(predictions)
 
-    # hack here to save the file to the regression model
+    # Hack here to save the file to the regression model
     # package of the repo, not the installed package
     predictions_df.to_csv(
         f'{config.PACKAGE_ROOT.parent}/'
