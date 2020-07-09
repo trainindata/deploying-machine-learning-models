@@ -145,35 +145,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git my-section-11:master
-  
-  section_11_build_and_push_to_heroku_docker:
-    <<: *defaults
-    steps:
-      - checkout
-      # CircleCI feature that allows to build Docker images in CI
-      - setup_remote_docker:
-          docker_layer_caching: true
-      # We log in the Heroku registry maintained by Heroku
-      # It allows us to work with Docker images via Heroku
-      - run: docker login --username=$HEROKU_EMAIL --password=$HEROKU_API_KEY registry.heroku.com
-      - run:
-          name: Setup Heroku CLI
-          # The wget command allows to install programs and command line utilities from the Web
-          # This sets up the Heroku CLI for us so that we can run the final command of the job
-          command: |
-            wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - run: 
-          name: Build and Push Image
-          # It refers to the Makefile
-          # We are running 2 Make job: "build-ml-api-heroku" and "push-api-heroku"
-          command: |
-            make build-ml-api-heroku push-ml-api-heroku
-      - run: 
-          name: Release to Heroku
-          # The Heroku container is telling Heroku that we are going to use a Docker image to do our release
-          command: |
-            heroku container:release web --app $HEROKU_APP_NAME
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git my-progression:master
 
 workflows:
   version: 2
