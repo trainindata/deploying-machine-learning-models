@@ -120,4 +120,4 @@ workflows:
           filters:
             branches:
               only:
-                - 103heroku
+                - master
