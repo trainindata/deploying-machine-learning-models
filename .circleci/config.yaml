@@ -1,0 +1,208 @@
+version: 2
+
+# Set reusable stops for efficiency
+defaults: &defaults
+  docker:
+    - image: circleci/python:3.7.2
+  working_directory: ~/project
+
+prepare_venv: &prepare_venv
+  run:
+    name: Create venv
+    # 1. We create a virtual environnement
+    # 2. We activate it
+    # 3. We upgrade pip
+    command: |
+      python3 -m venv venv
+      source venv/bin/activate
+      pip install --upgrade pip
+
+fetch_data: &fetch_data
+  run:
+    name: Set script permissions and fetch data
+    # 1. We activate the virtual environment
+    # 2. We set the permissions to allow us to run the bash file
+    # 3. We run the bash file to download data from Kaggle
+    # 4. We unzip the downloaded folder
+    # 5. We remove the zipped version
+    command: |
+      source venv/bin/activate
+      chmod +x ./scripts/fetch_kaggle_dataset.sh
+      ./scripts/fetch_kaggle_dataset.sh
+      unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
+      rm packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques.zip
+
+# This is where we organize jobs
+jobs:
+
+  # Job 1: Run the regression_model tests
+  test_regression_model:
+    <<: *defaults
+    steps:
+      - checkout
+      - *prepare_venv
+      - run:
+          name: Install requirements
+          # 1. We activate the virtual environment
+          # 2. We install the requirements
+          command: |
+            . venv/bin/activate
+            pip install -r packages/regression_model/requirements.txt
+      - *fetch_data
+      - run:
+          name: Train model
+          # 1. We activate the virtual environment
+          # 2. We set the PYTHONPATH to train the model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+      - run:
+          name: Run tests
+          # 1. We activate the virtual environment
+          # 2. We run the tests
+          command: |
+            . venv/bin/activate
+            py.test -vv packages/regression_model/tests
+  
+  # Job 2: Run the ml_api tests
+  test_ml_api:
+    <<: *defaults
+    steps:
+      - checkout
+      # Introduce a cache:
+      # If the requirements file has changed, we reinstall the packages
+      # If not we just rely on the cache to get our packages
+      - restore_cache:
+          keys:
+            - py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+      - run:
+          name: Running tests
+          # In the last command we specify that we don't call the differential tests here
+          # This works because we created a pytest mark "differential"
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r packages/ml_api/requirements.txt
+            py.test -vv packages/ml_api/tests -m "not differential"
+      - save_cache:
+          key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
+          paths:
+            - "/venv"
+
+  # Job 3: Train and upload the regression model
+  train_and_upload_regression_model:
+    <<: *defaults
+    steps:
+      - checkout
+      - *prepare_venv
+      - run: 
+          name: Install requirements
+          command: |
+            . venv/bin/activate
+            pip install -r packages/regression_model/requirements.txt
+      - *fetch_data
+      - run: 
+          name: Train model
+          command: |
+            . venv/bin/activate
+            PYTHONPATH=./packages/regression_model python3 packages/regression_model/regression_model/train_pipeline.py
+      - run: 
+          name: Publish model to Gemfury
+          command: |
+            . venv/bin/activate
+            chmod +x ./scripts/publish_model.sh
+            ./scripts/publish_model.sh ./packages/regression_model/
+
+  # Job 4: Differential tests
+  section_9_differential_tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - *prepare_venv
+      - run:
+          name: Capturing previous model predictions
+          # 1. Activate the virtual environment
+          # 2. It loads the previous regression model version by running another requirement file
+          # 3. Set the Python path and run the prediction of the previous model
+          command: |
+            . venv/bin/activate
+            pip install -r packages/ml_api/diff_test_requirements.txt
+            PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
+      - run:
+          name: Running differential tests
+          # 1. We install the normal requirement file, i.e., installing the current model 
+          # 2. We only run the differential tests
+          command: |
+            . venv/bin/activate
+            pip install -r packages/ml_api/requirements.txt
+            py.test -vv packages/ml_api/tests -m differential
+
+  section_10_deploy_to_heroku:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git my-section-11:master
+  
+  section_11_build_and_push_to_heroku_docker:
+    <<: *defaults
+    steps:
+      - checkout
+      # CircleCI feature that allows to build Docker images in CI
+      - setup_remote_docker:
+          docker_layer_caching: true
+      # We log in the Heroku registry maintained by Heroku
+      # It allows us to work with Docker images via Heroku
+      - run: docker login --username=$HEROKU_EMAIL --password=$HEROKU_API_KEY registry.heroku.com
+      - run:
+          name: Setup Heroku CLI
+          # The wget command allows to install programs and command line utilities from the Web
+          # This sets up the Heroku CLI for us so that we can run the final command of the job
+          command: |
+            wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+      - run: 
+          name: Build and Push Image
+          # It refers to the Makefile
+          # We are running 2 Make job: "build-ml-api-heroku" and "push-api-heroku"
+          command: |
+            make build-ml-api-heroku push-ml-api-heroku
+      - run: 
+          name: Release to Heroku
+          # The Heroku container is telling Heroku that we are going to use a Docker image to do our release
+          command: |
+            heroku container:release web --app $HEROKU_APP_NAME
+
+workflows:
+  version: 2
+  test-all:
+    jobs:
+      - test_regression_model
+      - test_ml_api
+      - section_9_differential_tests
+      # We secure that the tests are passed before we publish anything
+      - train_and_upload_regression_model:
+          requires:
+            - test_regression_model
+            - test_ml_api
+            - section_9_differential_tests
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
+      # - section_10_deploy_to_heroku:
+      #     requires:
+      #       - train_and_upload_regression_model
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      - section_11_build_and_push_to_heroku_docker:
+          requires:
+            - train_and_upload_regression_model
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
