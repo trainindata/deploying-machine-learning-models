@@ -152,8 +152,8 @@ jobs:
     steps:
       - checkout
       # CircleCI feature that allows to build Docker images in CI
-      - setup_remote_docker:
-          docker_layer_caching: true
+      # - setup_remote_docker:
+      #     docker_layer_caching: true
       # We log in the Heroku registry maintained by Heroku
       # It allows us to work with Docker images via Heroku
       - run: docker login --username=$HEROKU_EMAIL --password=$HEROKU_API_KEY registry.heroku.com
