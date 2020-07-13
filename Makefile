@@ -11,4 +11,4 @@ build-ml-api-heroku:
 
 # Command 2: We take our built image and we push it to the Heroku registry
 push-ml-api-heroku:
-	docker push registry.heroku.com/${HEROKU_APP_NAME}/web:latest
+	docker push registry.heroku.com/${HEROKU_APP_NAME}/web:${COMMIT_ID}
