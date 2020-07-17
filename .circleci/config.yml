@@ -16,8 +16,6 @@ jobs:
             chmod +x ./scripts/fetch_kaggle_dataset.sh
             ./scripts/fetch_kaggle_dataset.sh
             unzip packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques.zip -d packages/regression_model/regression_model/datasets/
-            echo "THE DATASETS DIRECTORY"
-            ls packages/regression_model/regression_model/datasets/
             py.test -vv packages/regression_model/tests
 
   test_ml_api:
@@ -41,13 +39,13 @@ jobs:
       - image: circleci/python:3.7.2
     steps:
       - checkout
-      - run: 
+      - run:
           name: Setup env
           command: |
             virtualenv venv
             . venv/bin/activate
             pip install -r packages/regression_model/requirements.txt
-      - run: 
+      - run:
           name: Publish model
           command: |
             . venv/bin/activate
