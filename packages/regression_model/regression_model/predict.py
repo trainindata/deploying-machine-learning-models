@@ -15,7 +15,6 @@ pipeline_file_name = f"{config.PIPELINE_SAVE_FILE}{_version}.pkl"
 _price_pipe = load_pipeline(file_name=pipeline_file_name)
 
 
-
 def make_prediction(*, input_data) -> dict:
     """Make a prediction using the saved model pipeline."""
 
