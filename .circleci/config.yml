@@ -22,7 +22,7 @@ fetch_data: &fetch_data
       ./scripts/fetch_kaggle_dataset.sh
       unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
 
-      
+
 jobs:
   test_regression_model:
     <<: *defaults
@@ -102,4 +102,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - master_test_ci
