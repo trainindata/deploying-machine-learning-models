@@ -192,7 +192,7 @@ jobs:
           # 4. Update the service in the cluster
           command: |
             sudo pip install awscli
-            eval docker login -u AWS -p $(aws ecr get-login-password --region us-east-2) https://${AWS_ACCOUNT_ID}.dkr.ecr.us-east-2.amazonaws.com/
+            eval docker login -u AWS -p $(aws ecr get-login-password --region ${AWS_DEFAULT_REGION}) https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/
             make build-ml-api-aws tag-ml-api push-ml-api-aws
             aws ecs update-service --cluster $AWS_CLUSTER_NAME --service $AWS_SERVICE_NAME --task-definition  $AWS_TASK_DEFINITION --force-new-deployment
 

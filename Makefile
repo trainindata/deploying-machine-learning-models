@@ -15,7 +15,7 @@ build-ml-api-aws:
 	docker build --build-arg PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL} -t $(APP_NAME):latest .
 
 push-ml-api-aws:
-	docker push ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/$(APP_NAME):latest
+	docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/$(APP_NAME):latest
 
 tag-ml-api:
-	docker tag $(APP_NAME):$(COMMIT_ID) ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/$(APP_NAME):latest
+	docker tag $(APP_NAME):$(COMMIT_ID) ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/$(APP_NAME):latest
