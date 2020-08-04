@@ -137,7 +137,8 @@ jobs:
             . venv/bin/activate
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests -m differential
-
+  
+  # Job 5: Deploy to Heroku
   section_10_deploy_to_heroku:
     <<: *defaults
     steps:
@@ -145,8 +146,9 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git my-progression:my-progression
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$APP_NAME.git my-progression:my-progression
   
+  # Job 6: Upload Docker image to Heroku
   section_11_build_and_push_to_heroku_docker:
     <<: *defaults
     steps:
@@ -173,7 +175,26 @@ jobs:
           name: Release to Heroku
           # The Heroku container is telling Heroku that we are going to use a Docker image to do our release
           command: |
-            heroku container:release web --app $HEROKU_APP_NAME
+            heroku container:release web --app $APP_NAME
+
+  # Job 7: Upload Docker image to AWS
+  section_12_publish_docker_image_to_aws:
+    <<: *defaults
+    working_directory: ~/project/packages/ml_models
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Publishing docker image to aws ECR
+          # 1. Install the awscli
+          # 2. We log in to ECR
+          # 3. Build, tag and upload the Docker image
+          # 4. Update the service in the cluster
+          command: |
+            sudo pip install awscli
+            eval docker login -u AWS -p $(aws ecr get-login-password --region ${AWS_DEFAULT_REGION}) https://${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/
+            make build-ml-api-aws tag-ml-api push-ml-api-aws
+            aws ecs update-service --cluster $AWS_CLUSTER_NAME --service $AWS_SERVICE_NAME --task-definition  $AWS_TASK_DEFINITION --force-new-deployment
 
 workflows:
   version: 2
@@ -206,3 +227,10 @@ workflows:
           #   branches:
           #     only:
           #       - master
+      - section_12_publish_docker_image_to_aws:
+          requires:
+            - train_and_upload_regression_model
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
