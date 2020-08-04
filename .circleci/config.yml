@@ -227,9 +227,9 @@ workflows:
           #   branches:
           #     only:
           #       - master
-      # - section_12_publish_docker_image_to_aws:
-      #     requires:
-      #       - train_and_upload_regression_model
+      - section_12_publish_docker_image_to_aws:
+          requires:
+            - train_and_upload_regression_model
       #     filters:
       #       branches:
       #         only:
