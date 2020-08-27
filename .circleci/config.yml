@@ -19,6 +19,7 @@ fetch_data: &fetch_data
     command: |
       source venv/bin/activate
       chmod +x ./scripts/fetch_kaggle_dataset.sh
+      unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
       ./scripts/fetch_kaggle_dataset.sh
 
 jobs:
