@@ -8,3 +8,8 @@ marshmallow==2.17.0
 
 # Install from gemfury
 regression-model==0.1.0
+
+
+
+# export PIP_EXTRA_INDEX_URL=
+# https://MocD5pGwE2wymJ1msigd@pypi.fury.io/ranjitkathiriya/
