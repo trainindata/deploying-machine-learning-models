@@ -28,8 +28,8 @@ jobs:
           command: |
             virtualenv venv
             . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r packages/ml_api/requirements.txt
+            pip3 install --upgrade pip
+            pip3 install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests
 
   train_and_upload_regression_model:
