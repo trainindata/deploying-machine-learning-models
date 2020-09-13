@@ -182,18 +182,18 @@ workflows:
   version: 2
   test-all:
     jobs:
-      - test_regression_model
-      - test_ml_api
-      - section_9_differential_tests
-      - train_and_upload_regression_model:
-          requires:
-            - test_regression_model
-            - test_ml_api
-            - section_9_differential_tests
-          filters:
-            branches:
-              only:
-                - master
+      # - test_regression_model
+      # - test_ml_api
+      # - section_9_differential_tests
+      # - train_and_upload_regression_model:
+      #     requires:
+      #       - test_regression_model
+      #       - test_ml_api
+      #       - section_9_differential_tests
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
       # - section_10_deploy_to_heroku:
       #     requires:
       #       - train_and_upload_regression_model
@@ -215,11 +215,11 @@ workflows:
       #       branches:
       #         only:
       #           - master
-      - section_13_train_and_upload_neural_network_model:
-          requires:
-            - test_regression_model
-            - test_ml_api
-            - section_9_differential_tests
+      - section_13_train_and_upload_neural_network_model
+          # requires:
+          #   - test_regression_model
+          #   - test_ml_api
+          #   - section_9_differential_tests
             # - train_and_upload_regression_model
           # filters:
           #   branches:
