@@ -82,4 +82,5 @@
 }]
 
 
-curl --header "Content-Type: application/json" --request POST --data @input_test.json https://houseprices.herokuapp.com/v1/predict/regression
+
+
