@@ -149,7 +149,6 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
 
 
 class DropUnecessaryFeatures(BaseEstimator, TransformerMixin):
-
     def __init__(self, variables_to_drop=None):
         self.variables = variables_to_drop
 
