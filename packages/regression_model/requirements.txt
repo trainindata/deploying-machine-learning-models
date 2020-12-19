@@ -1,19 +1,14 @@
-# We use compatible release functionality (see PEP 440 here: https://www.python.org/dev/peps/pep-0440/#compatible-release)
-# to specify acceptable version ranges of our project dependencies. This gives us the flexibility to keep up with small
-# updates/fixes, whilst ensuring we don't install a major update which could introduce backwards incompatible changes.
-
-# Model Building Requirements
-numpy>=1.18.1,<1.19.0
-pandas>=0.25.3,<0.26.0
-scikit-learn>=0.22.1,<0.23.0
-joblib>=0.14.1,<0.15.0
-
-# testing requirements
-pytest>=5.3.2,<6.0.0
+# production requirements
+numpy==1.15.4
+scikit-learn==0.20.2
+pandas==0.23.4
 
 # packaging
-setuptools>=41.4.0,<42.0.0
-wheel>=0.33.6,<0.34.0
+setuptools==40.6.3
+wheel==0.32.3
+
+# testing requirements
+pytest==4.0.2
 
 # fetching datasets
-kaggle>=1.5.6,<1.6.0
+kaggle==1.5.1.1

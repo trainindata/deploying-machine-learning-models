@@ -25,8 +25,7 @@ class LogTransformer(BaseEstimator, TransformerMixin):
             vars_ = self.variables[(X[self.variables] <= 0).any()]
             raise InvalidModelInputError(
                 f"Variables contain zero or negative values, "
-                f"can't apply log for vars: {vars_}"
-            )
+                f"can't apply log for vars: {vars_}")
 
         for feature in self.variables:
             X[feature] = np.log(X[feature])
