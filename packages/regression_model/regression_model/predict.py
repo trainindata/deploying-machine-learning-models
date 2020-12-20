@@ -42,6 +42,8 @@ def make_prediction(*, input_data: t.Union[pd.DataFrame, dict],
         f"Inputs: {validated_data} "
         f"Predictions: {results}"
         f"Length: {length}"
+        f"Length: {length}"
+
     )
 
     return results
