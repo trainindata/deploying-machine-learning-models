@@ -17,7 +17,7 @@ CLASSES_NAME = 'classes'
 ENCODER_NAME = 'encoder'
 
 # MODEL FITTING
-IMAGE_SIZE = 150  # 50 for testing, 150 for final model
+IMAGE_SIZE = 50  # 50 for testing, 150 for final model
 BATCH_SIZE = 10
 EPOCHS = int(os.environ.get('EPOCHS', 1))  # 1 for testing, 10 for final model
 

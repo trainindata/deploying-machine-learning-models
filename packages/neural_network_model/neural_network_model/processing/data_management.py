@@ -53,7 +53,7 @@ def load_image_paths(data_folder: str) -> pd.DataFrame:
     images_df = pd.concat(images_df, axis=0, ignore_index=True)
     images_df.columns = ['image', 'target']
 
-    return images_df
+    return images_df.sample(400)
 
 
 def get_train_test_target(df: pd.DataFrame):
