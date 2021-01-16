@@ -40,7 +40,7 @@ def cnn_model(kernel_size=(3, 3),
     model.add(Flatten())
     model.add(Dense(256, activation="relu"))
     model.add(Dropout(dropout_dense))
-    model.add(Dense(12, activation="softmax"))
+    model.add(Dense(11, activation="softmax"))
 
     model.compile(Adam(lr=0.0001),
                   loss='binary_crossentropy',
