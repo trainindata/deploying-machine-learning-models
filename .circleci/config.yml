@@ -194,16 +194,16 @@ workflows:
           #   branches:
           #     only:
           #       - master
-      # - section_10_deploy_to_heroku:
-      #     requires:
-      #       - train_and_upload_regression_model
+      - section_10_deploy_to_heroku:
+          requires:
+            - train_and_upload_regression_model
       #     filters:
       #       branches:
       #         only:
       #           - master
-      - section_11_build_and_push_to_heroku_docker:
-          requires:
-            - train_and_upload_regression_model
+      # - section_11_build_and_push_to_heroku_docker:
+      #     requires:
+      #       - train_and_upload_regression_model
           # filters:
           #   branches:
           #     only:
