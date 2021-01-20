@@ -5,9 +5,9 @@ from glob import glob
 from pathlib import Path
 
 import pandas as pd
-from keras.models import load_model
-from keras.wrappers.scikit_learn import KerasClassifier
-from sklearn.externals import joblib
+from tensorflow.keras.models import load_model
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder
@@ -53,7 +53,7 @@ def load_image_paths(data_folder: str) -> pd.DataFrame:
     images_df = pd.concat(images_df, axis=0, ignore_index=True)
     images_df.columns = ['image', 'target']
 
-    return images_df.sample(400)
+    return images_df
 
 
 def get_train_test_target(df: pd.DataFrame):
@@ -89,7 +89,7 @@ def load_pipeline_keras() -> Pipeline:
     """Load a Keras Pipeline from disk."""
 
     dataset = joblib.load(config.PIPELINE_PATH)
-
+    print("Load model")
     build_model = lambda: load_model(config.MODEL_PATH)
 
     classifier = KerasClassifier(build_fn=build_model,

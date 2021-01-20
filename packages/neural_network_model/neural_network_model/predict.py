@@ -65,3 +65,12 @@ def make_bulk_prediction(*, images_df: pd.Series) -> dict:
     return dict(predictions=predictions,
                 readable_predictions=readable_predictions,
                 version=_version)
+
+upfolder=r"C:\Users\marcm\Desktop\Marc\Machine Learning\Deployment_ML_models\mm-fork\deploying-machine-learning-models\packages\ml_api\uploads"
+filename_m=r"C:\Users\marcm\Desktop\Marc\Machine Learning\Deployment_ML_models\mm-fork\deploying-machine-learning-models\scripts\1.png"
+
+
+
+result = make_single_prediction(
+                image_name="1.png",
+                image_directory=upfolder)

@@ -11,6 +11,10 @@ url1=  'https://udemy-deploy-mmcfer.herokuapp.com/v1/predict/regression'
 url2 = 'https://udemy-deploy-mmcfer.herokuapp.com/predict/classifier'
 
 
+url1=  'http://127.0.0.1:5000/v1/predict/regression'
+url2 = 'http://127.0.0.1:5000/predict/classifier'
+
+
 
 json_file = os.path.join(direc, 'input_test.json')
 
@@ -28,6 +32,6 @@ with open(image, "rb") as image_file:
     )
 print(data)
 
-headers = {'content-type': 'multipart/form-data'}
+headers = {'content-type': 'multipart/form-data', 'Accept-Charset': 'UTF-8'}
 r = requests.post(url2, data=data, headers=headers)
 print(r.text)

@@ -72,7 +72,8 @@ def predict_image():
             file.save(os.path.join(UPLOAD_FOLDER, filename))
 
             _logger.debug(f'Inputs: {filename}')
-
+            print('Filename:', str(filename))
+            print('\n Upload Folder:', str(UPLOAD_FOLDER))
             # Step 4: perform prediction
             result = make_single_prediction(
                 image_name=filename,
