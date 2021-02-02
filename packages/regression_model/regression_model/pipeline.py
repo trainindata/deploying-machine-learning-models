@@ -26,7 +26,7 @@ price_pipe = Pipeline(
             #"temporal_variable",
             #pp.TemporalVariableEstimator(
             #    variables=config.TEMPORAL_VARS, reference_variable=config.DROP_FEATURES
-            ),
+            #),
         ),
         (
             "rare_label_encoder",
