@@ -16,76 +16,36 @@ DATASET_DIR = PACKAGE_ROOT / "datasets"
 # data
 TESTING_DATA_FILE = "test.csv"
 TRAINING_DATA_FILE = "train.csv"
-TARGET = "SalePrice"
+TARGET = "Survived"
 
 
 # variables
 FEATURES = [
-    "MSSubClass",
-    "MSZoning",
-    "Neighborhood",
-    "OverallQual",
-    "OverallCond",
-    "YearRemodAdd",
-    "RoofStyle",
-    "MasVnrType",
-    "BsmtQual",
-    "BsmtExposure",
-    "HeatingQC",
-    "CentralAir",
-    "1stFlrSF",
-    "GrLivArea",
-    "BsmtFullBath",
-    "KitchenQual",
-    "Fireplaces",
-    "FireplaceQu",
-    "GarageType",
-    "GarageFinish",
-    "GarageCars",
-    "PavedDrive",
-    "LotFrontage",
-    # this one is only to calculate temporal variable:
-    "YrSold",
+    "Sex",
+    "Embarked",
+    "Cabin",
+    "Ticket",
+    "Age",
+    "Fare"
 ]
 
 # this variable is to calculate the temporal variable,
 # can be dropped afterwards
-DROP_FEATURES = "YrSold"
+DROP_FEATURES = ["PassengerID","Name","Parch","Pclass","SibSp"]
 
 # numerical variables with NA in train set
-NUMERICAL_VARS_WITH_NA = ["LotFrontage"]
+NUMERICAL_VARS_WITH_NA = ["Age"]
 
 # categorical variables with NA in train set
 CATEGORICAL_VARS_WITH_NA = [
-    "MasVnrType",
-    "BsmtQual",
-    "BsmtExposure",
-    "FireplaceQu",
-    "GarageType",
-    "GarageFinish",
+    "Cabin",
+    "Embarked"
 ]
-
-TEMPORAL_VARS = "YearRemodAdd"
-
-# variables to log transform
-NUMERICALS_LOG_VARS = ["LotFrontage", "1stFlrSF", "GrLivArea"]
 
 # categorical variables to encode
-CATEGORICAL_VARS = [
-    "MSZoning",
-    "Neighborhood",
-    "RoofStyle",
-    "MasVnrType",
-    "BsmtQual",
-    "BsmtExposure",
-    "HeatingQC",
-    "CentralAir",
-    "KitchenQual",
-    "FireplaceQu",
-    "GarageType",
-    "GarageFinish",
-    "PavedDrive",
-]
+CATEGORICAL_VARS = ["Sex", "Cabin", "Embarked", "Ticket"]
+
+NUMERICALS_LOG_VARS = ["Fare" "Age"]
 
 NUMERICAL_NA_NOT_ALLOWED = [
     feature
