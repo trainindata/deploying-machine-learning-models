@@ -53,7 +53,7 @@ class NumericalImputer(BaseEstimator, TransformerMixin):
 
 
 class TemporalVariableEstimator(BaseEstimator, TransformerMixin):
-    Temporal variable calculator.
+    """Temporal variable calculator."""
 
     def __init__(self, variables=None, reference_variable=None):
         if not isinstance(variables, list):
