@@ -23,10 +23,10 @@ price_pipe = Pipeline(
             pp.NumericalImputer(variables=config.NUMERICAL_VARS_WITH_NA),
         ),
         (
-            #"temporal_variable",
-            #pp.TemporalVariableEstimator(
-            #    variables=config.TEMPORAL_VARS, reference_variable=config.DROP_FEATURES
-            #),
+            "temporal_variable",
+            pp.TemporalVariableEstimator(
+                variables=config.TEMPORAL_VARS, reference_variable=config.DROP_FEATURES
+            ),
         ),
         (
             "rare_label_encoder",

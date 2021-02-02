@@ -51,7 +51,7 @@ class NumericalImputer(BaseEstimator, TransformerMixin):
             X[feature].fillna(self.imputer_dict_[feature], inplace=True)
         return X
 
-"""
+
 class TemporalVariableEstimator(BaseEstimator, TransformerMixin):
     Temporal variable calculator.
 
@@ -73,7 +73,7 @@ class TemporalVariableEstimator(BaseEstimator, TransformerMixin):
             X[feature] = X[self.reference_variables] - X[feature]
 
         return X
-"""
+
 
 class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
     """Rare label categorical encoder"""
