@@ -128,3 +128,10 @@ workflows:
           #  branches:
           #    only:
           #      - master
+      - section_10_deploy_to_heroku:
+          requires:
+            - train_and_upload_regression_model
+          #filters:
+          #  branches:
+          #    only:
+          #      - master
