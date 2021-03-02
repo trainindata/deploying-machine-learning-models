@@ -3,7 +3,7 @@
 # updates/fixes, whilst ensuring we don't install a major update which could introduce backwards incompatible changes.
 
 # Model Building Requirements
-numpy>=1.18.1,<1.2.0
+numpy>=1.18.1,<1.20.0
 pandas>=0.25.3,<1.2.0
 scikit-learn>=0.22.1,<0.25.0
 joblib>=0.14.1,<1.1.0
