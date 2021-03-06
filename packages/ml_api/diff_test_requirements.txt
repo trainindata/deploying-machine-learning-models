@@ -1,0 +1,13 @@
+--extra-index-url=${PIP_EXTRA_INDEX_URL}
+
+# api
+flask>=1.1.1,<1.2.0
+
+# schema validation
+marshmallow==2.17.0
+
+# Set this to the previous model version
+regression-model==2.0.19
+
+# temporarily necessary as we update sklearn
+joblib>=0.14.1,<0.15.0
