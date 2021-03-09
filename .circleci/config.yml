@@ -14,8 +14,8 @@ jobs:
             pip install --upgrade pip
             pip install -r packages/regression_model/requirements.txt
             chmod +x ./scripts/fetch_kaggle_dataset.sh
-            unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
             ./scripts/fetch_kaggle_dataset.sh
+            unzip -j "packages/regression_model/regression_model/datasets/house-prices-advanced-regression-techniques" "*.csv" -d "packages/regression_model/regression_model/datasets/"
             py.test -vv packages/regression_model/tests
 
   test_ml_api:
