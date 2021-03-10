@@ -1,0 +1,77 @@
+# Package Overview
+package_name: regression_model
+
+# Data Files
+training_data_file: train.csv
+test_data_file: test.csv
+
+# this variable is to calculate the temporal variable
+# but is dropped prior to model training.
+drop_features: YrSold
+
+# Variables
+# The variable we are attempting to predict (sale price)
+target: SalePrice
+
+# Will cause syntax errors since they begin with numbers
+variables_to_rename:
+  1stFlrSF: FirstFlrSF
+  2ndFlrSF: SecondFlrSF
+  3SsnPorch: ThreeSsnPortch
+
+features:
+  - LotArea
+  - OverallQual
+  - YearRemodAdd
+  - BsmtQual
+  - BsmtFinSF1
+  - TotalBsmtSF
+  - FirstFlrSF
+  - SecondFlrSF
+  - GrLivArea
+  - GarageCars
+  # this one is only to calculate temporal variable:
+  - YrSold
+
+numerical_vars:
+  - LotArea
+  - OverallQual
+  - YearRemodAdd
+  - BsmtQual
+  - BsmtFinSF1
+  - TotalBsmtSF
+  - FirstFlrSF
+  - SecondFlrSF
+  - GrLivArea
+  - GarageCars
+
+categorical_vars:
+  - BsmtQual
+
+temporal_vars: YearRemodAdd
+
+# Validation
+# numerical variables with NA in train set
+numerical_vars_with_na:
+  - LotFrontage
+
+numerical_na_not_allowed:
+  - LotArea
+  - OverallQual
+  - YearRemodAdd
+  - BsmtFinSF1
+  - TotalBsmtSF
+  - FirstFlrSF
+  - SecondFlrSF
+  - GrLivArea
+  - GarageCars
+  - YrSold
+
+# set train/test split
+test_size: 0.1
+
+# to set the random seed
+random_state: 0
+
+alpha: 0.005
+
