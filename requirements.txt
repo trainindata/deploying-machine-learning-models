@@ -1,1 +1,1 @@
--r packages/ml_api/requirements.txt
+-r packages/ml_api/requirements.txt --trusted-host pypi.fury.io
