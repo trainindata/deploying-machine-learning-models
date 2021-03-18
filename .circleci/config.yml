@@ -57,7 +57,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip
-            pip install -r packages/ml_api/requirements.txt
+            pip install -r packages/ml_api/requirements.txt --trusted-host pypi.fury.io
             py.test -vv packages/ml_api/tests -m "not differential"
       - save_cache:
           key: py-deps-{{ checksum "packages/ml_api/requirements.txt" }}
@@ -96,13 +96,13 @@ jobs:
           name: Capturing previous model predictions
           command: |
             . venv/bin/activate
-            pip install -r packages/ml_api/diff_test_requirements.txt
+            pip install -r packages/ml_api/diff_test_requirements.txt --trusted-host pypi.fury.io
             PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
       - run:
           name: Runnning differential tests
           command: |
             . venv/bin/activate
-            pip install -r packages/ml_api/requirements.txt
+            pip install -r packages/ml_api/requirements.txt --trusted-host pypi.fury.io
             py.test -vv packages/ml_api/tests -m differential
 
 workflows:
