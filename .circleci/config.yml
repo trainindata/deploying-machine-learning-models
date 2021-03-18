@@ -29,7 +29,7 @@ jobs:
           name: Install requirements
           command: |
             . venv/bin/activate
-            pip install -r packages/regression_model/requirements.txt
+            pip install -r packages/regression_model/requirements.txt --trusted-host pypi.fury.io
       - *fetch_data
       - run:
           name: Train model
@@ -70,7 +70,7 @@ jobs:
           name: Install requirements
           command: |
             . venv/bin/activate
-            pip install -r packages/regression_model/requirements.txt
+            pip install -r packages/regression_model/requirements.txt --trusted-host pypi.fury.io
       - *fetch_data
       - run: 
           name: Train model
