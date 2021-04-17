@@ -32,7 +32,7 @@ class TemporalVariableEstimator(BaseEstimator, TransformerMixin):
 
 
 
- # categorical missing value imputer
+# categorical missing value imputer
 class Mapper(BaseEstimator, TransformerMixin):
 
     def __init__(self, variables, mappings):
