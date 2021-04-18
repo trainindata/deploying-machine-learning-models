@@ -5,7 +5,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 
-class TemporalVariableEstimator(BaseEstimator, TransformerMixin):
+class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
 	# Temporal elapsed time transformer
 
     def __init__(self, variables, reference_variable):
