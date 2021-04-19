@@ -6,7 +6,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 class MeanImputer(BaseEstimator, TransformerMixin):
     """Numerical missing value imputer."""
 
-    def __init__(self, variables=None):
+    def __init__(self, variables):
         if not isinstance(variables, list):
             raise ValueError('variables should be a list')
         self.variables = variables
@@ -28,7 +28,7 @@ class MeanImputer(BaseEstimator, TransformerMixin):
 class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
     """Groups infrequent categories into a single string"""
 
-    def __init__(self, tol=0.05, variables=None):
+    def __init__(self, tol=0.05, variables):
 
         if not isinstance(variables, list):
             raise ValueError('variables should be a list')
@@ -61,7 +61,7 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
 class CategoricalEncoder(BaseEstimator, TransformerMixin):
     """String to numbers categorical encoder."""
 
-    def __init__(self, variables=None):
+    def __init__(self, variables):
 
         if not isinstance(variables, list):
             raise ValueError('variables should be a list')
