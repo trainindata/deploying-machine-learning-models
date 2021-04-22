@@ -1,9 +1,8 @@
-import typing as t
-
 from marshmallow import Schema, fields
 from marshmallow import ValidationError
 
-from api import config
+import typing as t
+import json
 
 
 class InvalidInputError(Exception):
@@ -148,8 +147,3 @@ def validate_inputs(input_data):
         validated_input = input_data
 
     return validated_input, errors
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in config.ALLOWED_EXTENSIONS
