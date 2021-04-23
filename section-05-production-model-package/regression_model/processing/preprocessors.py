@@ -15,12 +15,12 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
     def __init__(self, variables: Optional[List], reference_variable: str):
 
         if not isinstance(variables, list):
-            raise ValueError('variables should be a list')
+            raise ValueError("variables should be a list")
 
         self.variables = variables
         self.reference_variable = reference_variable
 
-    def fit(self, X: pd.DataFrame, y: pd.Series=None):
+    def fit(self, X: pd.DataFrame, y: pd.Series = None):
         # we need this step to fit the sklearn pipeline
         return self
 
@@ -35,19 +35,17 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
         return X
 
 
-
 # categorical missing value imputer
 class Mapper(BaseEstimator, TransformerMixin):
-
     def __init__(self, variables, mappings):
 
         if not isinstance(variables, list):
-            raise ValueError('variables should be a list')
+            raise ValueError("variables should be a list")
 
         self.variables = variables
         self.mappings = mappings
 
-    def fit(self, X: pd.DataFrame, y: pd.Series=None):
+    def fit(self, X: pd.DataFrame, y: pd.Series = None):
         # we need the fit statement to accomodate the sklearn pipeline
         return self
 

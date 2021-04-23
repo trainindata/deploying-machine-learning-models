@@ -15,8 +15,10 @@ pipeline_file_name = f"{config.PIPELINE_SAVE_FILE}{_version}.pkl"
 _price_pipe = load_pipeline(file_name=pipeline_file_name)
 
 
-def make_prediction(*, input_data: t.Union[pd.DataFrame, dict],
-                    ) -> dict:
+def make_prediction(
+    *,
+    input_data: t.Union[pd.DataFrame, dict],
+) -> dict:
     """Make a prediction using a saved model pipeline.
     Args:
         input_data: Array of model prediction inputs.
@@ -38,7 +40,7 @@ def make_prediction(*, input_data: t.Union[pd.DataFrame, dict],
 
     _logger.info(
         f"Making predictions with model version: {_version} "
-        #f"Inputs: {validated_data} "
+        # f"Inputs: {validated_data} "
         f"Predictions: {results}"
     )
 

@@ -18,6 +18,7 @@ class AppConfig(BaseModel):
     """
     Application-level config.
     """
+
     package_name: str
     training_data_file: str
     test_data_file: str
@@ -55,10 +56,6 @@ class ModelConfig(BaseModel):
     exposure_mappings: Dict[str, int]
     garage_mappings: Dict[str, int]
     finish_mappings: Dict[str, int]
-
-
-
-
 
 
 class Config(BaseModel):
