@@ -1,0 +1,17 @@
+include *.txt
+include *.md
+include *.pkl
+recursive-include ./gradient_boosting_model/*
+
+include gradient_boosting_model/datasets/houseprice.csv
+include gradient_boosting_model/datasets/test.csv
+include gradient_boosting_model/trained_models/*.pkl
+include gradient_boosting_model/VERSION
+include gradient_boosting_model/config.yml
+
+include ./requirements.txt
+exclude *.log
+exclude *.cfg
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
