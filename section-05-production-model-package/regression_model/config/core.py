@@ -1,8 +1,8 @@
 from pathlib import Path
-from typing import Sequence, Dict
+from typing import Dict, List, Sequence
 
-from pydantic import BaseModel, validator
-from strictyaml import load, YAML
+from pydantic import BaseModel
+from strictyaml import YAML, load
 
 import regression_model
 
@@ -31,26 +31,23 @@ class ModelConfig(BaseModel):
     training and feature engineering.
     """
 
-    drop_features: Sequence[str]
     target: str
     variables_to_rename: Dict
-    features: Sequence[str]
+    features: List[str]
     test_size: float
     random_state: int
     alpha: float
-    categorical_vars_with_na_missing: Sequence[str]
-    categorical_vars_with_na_frequent: Sequence[str]
-    categorical_vars_with_na_missing: Sequence[str]
-    numerical_vars_with_na: Sequence[str]
-    temporal_vars: Sequence[str]
+    categorical_vars_with_na_frequent: List[str]
+    categorical_vars_with_na_missing: List[str]
+    numerical_vars_with_na: List[str]
+    temporal_vars: List[str]
     ref_var: str
     numericals_log_vars: Sequence[str]
     binarize_vars: Sequence[str]
-    qual_vars: Sequence[str]
-    exposure_vars: Sequence[str]
-    finish_vars: Sequence[str]
-    garage_vars: Sequence[str]
-    fence_vars: Sequence[str]
+    qual_vars: List[str]
+    exposure_vars: List[str]
+    finish_vars: List[str]
+    garage_vars: List[str]
     categorical_vars: Sequence[str]
     qual_mappings: Dict[str, int]
     exposure_mappings: Dict[str, int]

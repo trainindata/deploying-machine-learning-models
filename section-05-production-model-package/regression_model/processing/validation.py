@@ -1,41 +1,44 @@
-from typing import Tuple, Optional, List
-from regression_model.config.core import config
+from typing import List, Optional, Tuple
 
-from pydantic import BaseModel, ValidationError
 import numpy as np
 import pandas as pd
+from pydantic import BaseModel, ValidationError
+
+from regression_model.config.core import config
 
 
 def drop_na_inputs(*, input_data: pd.DataFrame) -> pd.DataFrame:
     """Check model inputs for na values and filter."""
     validated_data = input_data.copy()
     new_vars_with_na = [
-        var for var in config.model_config.features
-        if var not in config.model_config.categorical_vars_with_na_frequent +
-           config.model_config.categorical_vars_with_na_missing +
-           config.model_config.numerical_vars_with_na
-           and validated_data[var].isnull().sum() > 0
+        var
+        for var in config.model_config.features
+        if var
+        not in config.model_config.categorical_vars_with_na_frequent
+        + config.model_config.categorical_vars_with_na_missing
+        + config.model_config.numerical_vars_with_na
+        and validated_data[var].isnull().sum() > 0
     ]
     validated_data.dropna(subset=new_vars_with_na, inplace=True)
 
     return validated_data
 
 
-def validate_inputs(
-        *, input_data: pd.DataFrame
-) -> Tuple[pd.DataFrame, Optional[dict]]:
+def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional[dict]]:
     """Check model inputs for unprocessable values."""
 
     # convert syntax error field names (beginning with numbers)
     input_data.rename(columns=config.model_config.variables_to_rename, inplace=True)
-    input_data.drop('Id', axis=1, inplace=True)
-    input_data['MSSubClass'] = input_data['MSSubClass'].astype('O')
+    input_data.drop("Id", axis=1, inplace=True)
+    input_data["MSSubClass"] = input_data["MSSubClass"].astype("O")
     validated_data = drop_na_inputs(input_data=input_data)
     errors = None
 
     try:
         # replace numpy nans so that pydantic can validate
-        MultipleHouseDataInputs(inputs=validated_data.replace({np.nan: None}).to_dict(orient="records"))
+        MultipleHouseDataInputs(
+            inputs=validated_data.replace({np.nan: None}).to_dict(orient="records")
+        )
     except ValidationError as error:
         errors = error.json()
 
@@ -71,8 +74,8 @@ class HouseDataInputSchema(BaseModel):
     Foundation: str
     FullBath: int
     Functional: Optional[str]
-    GarageArea : float
-    GarageCars : float
+    GarageArea: float
+    GarageCars: float
     GarageCond: Optional[str]
     GarageFinish: Optional[str]
     GarageQual: Optional[str]
@@ -114,7 +117,7 @@ class HouseDataInputSchema(BaseModel):
     ScreenPorch: int
     Street: str
     TotRmsAbvGrd: int
-    TotalBsmtSF : float
+    TotalBsmtSF: float
     Utilities: Optional[str]
     WoodDeckSF: int
     YearBuilt: int

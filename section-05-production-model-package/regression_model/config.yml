@@ -84,13 +84,6 @@ temporal_vars:
 
 ref_var: YrSold
 
-# this variable is to calculate the temporal variable,
-# can be dropped afterwards
-drop_features:
-  - YrSold
-
-
-# TODO: sort var
 
 # variables to log transform
 numericals_log_vars:
@@ -117,9 +110,6 @@ finish_vars:
 
 garage_vars:
   - GarageFinish
-
-fence_vars:
-  - Fence
 
 categorical_vars:
   - MSSubClass
