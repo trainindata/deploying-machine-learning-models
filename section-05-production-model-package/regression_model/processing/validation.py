@@ -29,9 +29,10 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
 
     # convert syntax error field names (beginning with numbers)
     input_data.rename(columns=config.model_config.variables_to_rename, inplace=True)
-    input_data.drop("Id", axis=1, inplace=True)
-    input_data["MSSubClass"] = input_data["MSSubClass"].astype("O")
-    validated_data = drop_na_inputs(input_data=input_data)
+    relevant_data = input_data[config.model_config.features].copy()
+    # TODO: Is this line redundant?
+    relevant_data["MSSubClass"] = relevant_data["MSSubClass"].astype("O")
+    validated_data = drop_na_inputs(input_data=relevant_data)
     errors = None
 
     try:
@@ -47,8 +48,8 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
 
 class HouseDataInputSchema(BaseModel):
     Alley: Optional[str]
-    BedroomAbvGr: int
-    BldgType: str
+    BedroomAbvGr: Optional[int]
+    BldgType: Optional[str]
     BsmtCond: Optional[str]
     BsmtExposure: Optional[str]
     BsmtFinSF1: Optional[float]
@@ -58,74 +59,74 @@ class HouseDataInputSchema(BaseModel):
     BsmtFullBath: Optional[float]
     BsmtHalfBath: Optional[float]
     BsmtQual: Optional[str]
-    BsmtUnfSF: float
-    CentralAir: str
-    Condition1: str
-    Condition2: str
+    BsmtUnfSF: Optional[float]
+    CentralAir: Optional[str]
+    Condition1: Optional[str]
+    Condition2: Optional[str]
     Electrical: Optional[str]
-    EnclosedPorch: int
-    ExterCond: str
-    ExterQual: str
+    EnclosedPorch: Optional[int]
+    ExterCond: Optional[str]
+    ExterQual: Optional[str]
     Exterior1st: Optional[str]
     Exterior2nd: Optional[str]
     Fence: Optional[str]
     FireplaceQu: Optional[str]
-    Fireplaces: int
-    Foundation: str
-    FullBath: int
+    Fireplaces: Optional[int]
+    Foundation: Optional[str]
+    FullBath: Optional[int]
     Functional: Optional[str]
-    GarageArea: float
-    GarageCars: float
+    GarageArea: Optional[float]
+    GarageCars: Optional[float]
     GarageCond: Optional[str]
     GarageFinish: Optional[str]
     GarageQual: Optional[str]
     GarageType: Optional[str]
     GarageYrBlt: Optional[float]
-    GrLivArea: int
-    HalfBath: int
-    Heating: str
-    HeatingQC: str
-    HouseStyle: str
+    GrLivArea: Optional[int]
+    HalfBath: Optional[int]
+    Heating: Optional[str]
+    HeatingQC: Optional[str]
+    HouseStyle: Optional[str]
     Id: Optional[int]
-    KitchenAbvGr: int
+    KitchenAbvGr: Optional[int]
     KitchenQual: Optional[str]
-    LandContour: str
-    LandSlope: str
-    LotArea: int
-    LotConfig: str
+    LandContour: Optional[str]
+    LandSlope: Optional[str]
+    LotArea: Optional[int]
+    LotConfig: Optional[str]
     LotFrontage: Optional[float]
-    LotShape: str
-    LowQualFinSF: int
-    MSSubClass: int
+    LotShape: Optional[str]
+    LowQualFinSF: Optional[int]
+    MSSubClass: Optional[int]
     MSZoning: Optional[str]
     MasVnrArea: Optional[float]
     MasVnrType: Optional[str]
     MiscFeature: Optional[str]
-    MiscVal: int
-    MoSold: int
-    Neighborhood: str
-    OpenPorchSF: int
-    OverallCond: int
-    OverallQual: int
-    PavedDrive: str
-    PoolArea: int
+    MiscVal: Optional[int]
+    MoSold: Optional[int]
+    Neighborhood: Optional[str]
+    OpenPorchSF: Optional[int]
+    OverallCond: Optional[int]
+    OverallQual: Optional[int]
+    PavedDrive: Optional[str]
+    PoolArea: Optional[int]
     PoolQC: Optional[str]
-    RoofMatl: str
-    RoofStyle: str
-    SaleCondition: str
+    RoofMatl: Optional[str]
+    RoofStyle: Optional[str]
+    SaleCondition: Optional[str]
     SaleType: Optional[str]
-    ScreenPorch: int
-    Street: str
-    TotRmsAbvGrd: int
-    TotalBsmtSF: float
+    ScreenPorch: Optional[int]
+    Street: Optional[str]
+    TotRmsAbvGrd: Optional[int]
+    TotalBsmtSF: Optional[float]
     Utilities: Optional[str]
-    WoodDeckSF: int
-    YearBuilt: int
-    YearRemodAdd: int
-    YrSold: int
-    FirstFlrSF: int  # renamed
-    SecondFlrSF: int  # renamed
-    ThreeSsnPortch: int  # renamed
+    WoodDeckSF: Optional[int]
+    YearBuilt: Optional[int]
+    YearRemodAdd: Optional[int]
+    YrSold: Optional[int]
+    FirstFlrSF: Optional[int]  # renamed
+    SecondFlrSF: Optional[int]  # renamed
+    ThreeSsnPortch: Optional[int]  # renamed
 
 
 class MultipleHouseDataInputs(BaseModel):
