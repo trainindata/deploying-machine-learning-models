@@ -23,7 +23,6 @@ def run_training() -> None:
     y_train = np.log(y_train)
 
     # fit model
-    print("Training basic model...")
     price_pipe.fit(X_train, y_train)
 
     # persist trained model

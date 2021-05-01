@@ -30,8 +30,6 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
     # convert syntax error field names (beginning with numbers)
     input_data.rename(columns=config.model_config.variables_to_rename, inplace=True)
     relevant_data = input_data[config.model_config.features].copy()
-    # TODO: Is this line redundant?
-    relevant_data["MSSubClass"] = relevant_data["MSSubClass"].astype("O")
     validated_data = drop_na_inputs(input_data=relevant_data)
     errors = None
 

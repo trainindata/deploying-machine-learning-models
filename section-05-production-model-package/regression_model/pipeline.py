@@ -99,7 +99,7 @@ price_pipe = Pipeline(
                 tol=0.01, n_categories=1, variables=config.model_config.categorical_vars
             ),
         ),
-        # encode categorical and discrete variables using the target mean
+        # encode categorical variables using the target mean
         (
             "categorical_encoder",
             OrdinalEncoder(

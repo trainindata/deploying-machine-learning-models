@@ -5,7 +5,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
-    # Temporal elapsed time transformer
+    """Temporal elapsed time transformer."""
 
     def __init__(self, variables: List[str], reference_variable: str):
 
@@ -30,8 +30,9 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
         return X
 
 
-# categorical missing value imputer
 class Mapper(BaseEstimator, TransformerMixin):
+    """Categorical variable mapper."""
+
     def __init__(self, variables: List[str], mappings: dict):
 
         if not isinstance(variables, list):
