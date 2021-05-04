@@ -26,6 +26,7 @@ fetch_data: &fetch_data
     command: |
       source venv/bin/activate
       chmod +x ./scripts/fetch_kaggle_dataset.sh
+      regression_model/datasets/"
       ./scripts/fetch_kaggle_dataset.sh
 
 jobs:
