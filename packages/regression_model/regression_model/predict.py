@@ -33,6 +33,7 @@ def make_prediction(*, input_data: t.Union[pd.DataFrame, dict],
     prediction = _price_pipe.predict(validated_data[config.FEATURES])
 
     output = np.exp(prediction)
+    length = data.shape[0]
 
     results = {"predictions": output, "version": _version}
 
@@ -40,6 +41,9 @@ def make_prediction(*, input_data: t.Union[pd.DataFrame, dict],
         f"Making predictions with model version: {_version} "
         f"Inputs: {validated_data} "
         f"Predictions: {results}"
+        f"Length: {length}"
+        f"Length: {length}"
+
     )
 
     return results
