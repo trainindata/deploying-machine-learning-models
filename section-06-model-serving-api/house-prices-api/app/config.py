@@ -1,23 +1,9 @@
-import json
 import logging
-import pathlib
 import sys
+from typing import List
+
 from loguru import logger
-from pydantic import (
-    AnyHttpUrl,
-    BaseSettings,
-)
-from typing import Any, List, Mapping, Optional
-
-# Project Directories
-ROOT = pathlib.Path(__file__).resolve().parent.parent
-
-
-def _list_parse_fallback(v: Any) -> Any:
-    try:
-        return json.loads(v)
-    except Exception:
-        return v.split(",")
+from pydantic import AnyHttpUrl, BaseSettings
 
 
 class LoggingSettings(BaseSettings):
@@ -30,9 +16,6 @@ class Settings(BaseSettings):
     # Meta
     logging: LoggingSettings = LoggingSettings()
 
-    DOMAIN: str = "localhost:8001"
-    SERVER_HOST: AnyHttpUrl = "http://localhost:8001"  # type: ignore
-
     # BACKEND_CORS_ORIGINS is a comma-separated list of origins
     # e.g: http://localhost,http://localhost:4200,http://localhost:3000
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = [
@@ -41,16 +24,11 @@ class Settings(BaseSettings):
         "https://localhost:3000",  # type: ignore
         "https://localhost:8000",  # type: ignore
     ]
-    # Origins that match this regex OR are in the above list are allowed
-    BACKEND_CORS_ORIGIN_REGEX: Optional[
-        str
-    ] = "https.*\.(netlify.app)"  # noqa: W605
 
     PROJECT_NAME: str = "House Price Prediction API"
 
     class Config:
         case_sensitive = True
-        json_loads = _list_parse_fallback
 
 
 def setup_app_logging(config: Settings) -> None:
