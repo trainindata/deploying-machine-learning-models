@@ -5,7 +5,6 @@ from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from regression_model import __version__ as model_version
 from regression_model.predict import make_prediction
-from regression_model.processing.validation import MultipleHouseDataInputs
 from typing import Any
 
 from app import __version__
@@ -38,13 +37,13 @@ def health() -> dict:
 
 
 @api_router.post("/predict", response_model=schemas.PredictionResults, status_code=200)
-async def predict(input_data: MultipleHouseDataInputs) -> Any:
+async def predict(input_data: schemas.MultipleHouseDataInputs) -> Any:
     """
     Make house price predictions with the TID regression model
     """
 
     input_df = pd.DataFrame(jsonable_encoder(input_data.inputs))
-    results = make_prediction(input_data=input_df)
+    results = make_prediction(input_data=input_df.replace({np.nan: None}))
     if results['errors'] is not None:
         raise HTTPException(
             status_code=400,
