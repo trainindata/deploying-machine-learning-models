@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-kaggle competitions download -c house-prices-advanced-regression-techniques -p packages/regression_model/regression_model/datasets/
+DB=house-prices-advanced-regression-techniques
+DEST=/home/circleci/project/packages/regression_model/regression_model/datasets
+kaggle competitions download -c $DB -p $DEST/ && unzip $DEST/$DB.zip -d $DEST/
