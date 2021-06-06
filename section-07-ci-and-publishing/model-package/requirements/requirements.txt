@@ -1,0 +1,11 @@
+# We use compatible release functionality (see PEP 440 here: https://www.python.org/dev/peps/pep-0440/#compatible-release)
+# to specify acceptable version ranges of our project dependencies. This gives us the flexibility to keep up with small
+# updates/fixes, whilst ensuring we don't install a major update which could introduce backwards incompatible changes.
+numpy>=1.20.0,<1.21.0
+pandas>=1.2.0,<1.3.0
+pydantic>=1.8.1,<1.9.0
+scikit-learn>=0.24.0,<0.25.0
+strictyaml>=1.3.2,<1.4.0
+ruamel.yaml==0.16.12
+feature-engine>=1.0.2,<1.1.0
+joblib>=1.0.1,<1.1.0
