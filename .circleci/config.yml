@@ -34,6 +34,7 @@ jobs:
     working_directory: ~/project/section-07-ci-and-publishing/house-prices-api
     steps:
       - checkout
+          path: ~/project
       - *prepare_tox
       - run:
           name: Runnning app tests
@@ -45,6 +46,7 @@ jobs:
     working_directory: ~/project/section-07-ci-and-publishing/house-prices-api
     steps:
       - checkout
+          path: ~/project
       - run:
           name: Deploy to Heroku
           command: |
