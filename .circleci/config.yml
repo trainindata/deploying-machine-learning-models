@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/python:3.8.10
+    - image: circleci/python:3.9.5
   working_directory: ~/project
 
 prepare_venv: &prepare_venv
@@ -50,7 +50,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            git subtree push --prefix section-07-ci-and-publishing https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
   test_regression_model_py36:
     docker:
