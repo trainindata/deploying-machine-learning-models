@@ -2,8 +2,13 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/python:3.7.2
+    - image: circleci/python:3.8.10
   working_directory: ~/project
+
+section_07_defaults: &section_07_defaults
+  docker:
+    - image: circleci/python:3.8.10
+  working_directory: ~/project/section-07-ci-and-publishing
 
 prepare_venv: &prepare_venv
   run:
@@ -29,6 +34,25 @@ fetch_data: &fetch_data
       ./scripts/fetch_kaggle_dataset.sh
 
 jobs:
+  section_07_test_app:
+    <<: *section_07_defaults
+    steps:
+      - checkout
+      - *prepare_tox
+      - run:
+          name: Runnning app tests
+          command: |
+            tox
+
+  section_07_deploy_app_to_heroku:
+    <<: *section_07_defaults
+    steps:
+      - checkout
+      - run:
+          name: Deploy to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
   test_regression_model_py36:
     docker:
       - image: circleci/python:3.6.9
@@ -229,6 +253,12 @@ jobs:
 
 workflows:
   version: 2
+  section_07:
+    jobs:
+      - section_07_test_app
+      - section_07_deploy_app_to_heroku:
+          requires:
+            - section_07_test_app
   test-all:
     jobs:
       - test_regression_model_py36
