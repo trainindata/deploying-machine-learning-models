@@ -8,7 +8,7 @@ defaults: &defaults
 section_07_defaults: &section_07_defaults
   docker:
     - image: circleci/python:3.8.10
-  working_directory: ~/project/section-07-ci-and-publishing
+  working_directory: ~/project/section-07-ci-and-publishing/house-prices-api
 
 prepare_venv: &prepare_venv
   run:
