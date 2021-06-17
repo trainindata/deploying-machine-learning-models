@@ -11,7 +11,7 @@ from setuptools import find_packages, setup
 # Package meta-data.
 NAME = 'regression_model'
 DESCRIPTION = 'Train and deploy regression model.'
-URL = 'https://github.com/Leo8216/deploying-machine-learning-models'
+URL = 'https://github.com/Leo8216/deploying-machine-learning-models/tree/10_3_test_branch'
 EMAIL = 'lbarbosa@alumni.scu.edu'
 AUTHOR = 'Leo8216'
 REQUIRES_PYTHON = '>=3.6.0'
