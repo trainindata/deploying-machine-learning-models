@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/python:3.7.2
+    - image: circleci/python:3.9.5
   working_directory: ~/project
 
 prepare_venv: &prepare_venv
@@ -29,6 +29,48 @@ fetch_data: &fetch_data
       ./scripts/fetch_kaggle_dataset.sh
 
 jobs:
+  section_07_test_app:
+    <<: *defaults
+    working_directory: ~/project/section-07-ci-and-publishing/house-prices-api
+    steps:
+      - checkout:
+          path: ~/project
+      - *prepare_tox
+      - run:
+          name: Runnning app tests
+          command: |
+            tox
+
+  section_07_deploy_app_to_heroku:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: ~/project
+      - run:
+          name: Deploy to Heroku
+          command: |
+            git subtree push --prefix section-07-ci-and-publishing https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
+  section_07_test_and_upload_regression_model:
+    <<: *defaults
+    working_directory: ~/project/section-07-ci-and-publishing/model-package
+    steps:
+      - checkout:
+          path: ~/project
+      - *prepare_tox
+      - run:
+          name: Fetch the data
+          command: |
+            tox -e fetch_data
+      - run:
+          name: Test the model
+          command: |
+            tox
+      - run:
+          name: Publish model to Gemfury
+          command: |
+            tox -e publish_model
+
   test_regression_model_py36:
     docker:
       - image: circleci/python:3.6.9
@@ -154,15 +196,6 @@ jobs:
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests -m differential
 
-  section_10_deploy_to_heroku:
-    <<: *defaults
-    steps:
-      - checkout
-      - run:
-          name: Deploy to Heroku
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-
   section_11_build_and_push_to_heroku_docker:
     <<: *defaults
     steps:
@@ -227,36 +260,54 @@ jobs:
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/neural_network_model/
 
+
+tags_only: &tags_only
+  filters:
+    branches:
+      ignore: /.*/
+    tags:
+      only: /^.*/
+
 workflows:
   version: 2
-  test-all:
+  section_07:
     jobs:
-      - test_regression_model_py36
-      - test_regression_model_py37
-      - test_regression_model_py38
-      - test_ml_api_py36
-      - test_ml_api_py37
-      # - test_ml_api_py38 pending NN model update
-      - section_9_differential_tests
-      - train_and_upload_regression_model:
+      - section_07_test_app
+      - section_07_deploy_app_to_heroku:
           requires:
-            - test_regression_model_py36
-            - test_regression_model_py37
-            - test_regression_model_py38
-            - test_ml_api_py36
-            - test_ml_api_py37
-            - section_9_differential_tests
-          filters:
-            branches:
-              only:
-                - master
-      # - section_10_deploy_to_heroku:
-      #     requires:
-      #       - train_and_upload_regression_model
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+            - section_07_test_app
+      # upload after git tags are created
+      - section_07_test_and_upload_regression_model:
+          <<: *tags_only
+
+#  test-all:
+#    jobs:
+#      - test_regression_model_py36
+#      - test_regression_model_py37
+#      - test_regression_model_py38
+#      - test_ml_api_py36
+#      - test_ml_api_py37
+#      # - test_ml_api_py38 pending NN model update
+#      - section_9_differential_tests
+#      - train_and_upload_regression_model:
+#          requires:
+#            - test_regression_model_py36
+#            - test_regression_model_py37
+#            - test_regression_model_py38
+#            - test_ml_api_py36
+#            - test_ml_api_py37
+#            - section_9_differential_tests
+#          filters:
+#            branches:
+#              only:
+#                - master
+#       - section_10_deploy_to_heroku:
+#           requires:
+#             - train_and_upload_regression_model
+#           filters:
+#             branches:
+#               only:
+#                 - master
 #      - section_11_build_and_push_to_heroku_docker:
 #          requires:
 #            - train_and_upload_regression_model
@@ -264,20 +315,20 @@ workflows:
 #            branches:
 #              only:
 #                - master
-      # - section_12_publish_docker_image_to_aws:
-      #     requires:
-      #       - train_and_upload_regression_model
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+#       - section_12_publish_docker_image_to_aws:
+#           requires:
+#             - train_and_upload_regression_model
+#           filters:
+#             branches:
+#               only:
+#                 - master
 #      - section_13_train_and_upload_neural_network_model:
 #          requires:
 #            - test_regression_model
 #            - test_ml_api
 #            - section_9_differential_tests
-            # - train_and_upload_regression_model
-          # filters:
-          #   branches:
-          #     only:
-          #       - master
+#             - train_and_upload_regression_model
+#           filters:
+#             branches:
+#               only:
+#                 - master

@@ -129,6 +129,7 @@ packages/neural_network_model/neural_network_model/trained_models/*.pkl
 packages/neural_network_model/neural_network_model/trained_models/*.h5
 *.h5
 packages/neural_network_model/neural_network_model/datasets/training_data_reference.txt
+*.pkl
 
 .DS_Store
 
