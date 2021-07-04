@@ -1,5 +1,5 @@
 heroku-login:
-	HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+	HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
 
 build-ml-api-heroku: heroku-login
 	docker build --build-arg PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL} -t registry.heroku.com/${HEROKU_APP_NAME}/web .
