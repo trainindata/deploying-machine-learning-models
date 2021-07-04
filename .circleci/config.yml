@@ -75,6 +75,9 @@ jobs:
   section_08_deploy_app_container_in_heroku:
     <<: *defaults
     steps:
+      - setup_remote_docker:
+          # Supported versions: https://circleci.com/docs/2.0/building-docker-images/#docker-version
+          version: 20.10.6
       - checkout:
           path: ~/project
       - run:
