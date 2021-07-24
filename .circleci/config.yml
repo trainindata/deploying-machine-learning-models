@@ -71,6 +71,30 @@ jobs:
           command: |
             tox -e publish_model
 
+
+  section_08_deploy_app_container_in_heroku:
+    <<: *defaults
+    steps:
+      - setup_remote_docker:
+          # Supported versions: https://circleci.com/docs/2.0/building-docker-images/#docker-version
+          version: 20.10.6
+      - checkout:
+          path: ~/project
+      - run:
+          name: Build image
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            cd section-08-deploying-with-containers && make build-ml-api-heroku
+      - run:
+          name: Push Image to Heroku
+          command: |
+            # Push the built container to the Heroku image registry
+            cd section-08-deploying-with-containers && make push-ml-api-heroku
+      - run:
+          name: Release to Heroku
+          command: |
+            cd section-08-deploying-with-containers && make release-heroku
+
   test_regression_model_py36:
     docker:
       - image: circleci/python:3.6.9
@@ -283,6 +307,11 @@ workflows:
       # upload after git tags are created
       - section_07_test_and_upload_regression_model:
           <<: *tags_only
+      - section_08_deploy_app_container_in_heroku:
+          filters:
+            branches:
+              only:
+                - master
 
 #  test-all:
 #    jobs:
