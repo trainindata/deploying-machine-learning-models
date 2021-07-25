@@ -11,7 +11,7 @@ prepare_venv: &prepare_venv
     command: |
       python3 -m venv venv
       source venv/bin/activate
-      pip install --upgrade pip
+      pip install --upgrade pip==19.2.2
 
 prepare_tox: &prepare_tox
   run:
