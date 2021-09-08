@@ -320,7 +320,7 @@ workflows:
       - test_regression_model_py38
       - test_ml_api_py36
       - test_ml_api_py37
-      - test_ml_api_py38 pending NN model update
+      #- test_ml_api_py38 pending NN model update
       - section_9_differential_tests
       - train_and_upload_regression_model:
           requires:
