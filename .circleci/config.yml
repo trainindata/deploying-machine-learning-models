@@ -329,11 +329,11 @@ workflows:
 #            - test_regression_model_py38
 #            - test_ml_api_py36
 #            - test_ml_api_py37
-#            - section_9_differential_tests
-#          filters:
-#            branches:
-#              only:
-#                - master
+            - section_9_differential_tests
+          filters:
+            branches:
+              only:
+                - master
 #       - section_10_deploy_to_heroku:
 #           requires:
 #             - train_and_upload_regression_model
