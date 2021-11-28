@@ -19,4 +19,6 @@ USER ml-api-user
 
 EXPOSE 8001
 
+#EXTRA comment to test CircleCI deploy
+
 CMD ["bash", "./run.sh"]
