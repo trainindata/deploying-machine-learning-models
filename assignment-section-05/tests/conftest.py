@@ -1,7 +1,7 @@
 import pytest
 
-from regression_model.config.core import config
-from regression_model.processing.data_manager import load_dataset
+from classification_model.config.core import config
+from classification_model.processing.data_manager import load_dataset
 
 
 @pytest.fixture()
