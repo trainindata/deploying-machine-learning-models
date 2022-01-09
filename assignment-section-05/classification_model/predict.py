@@ -1,6 +1,5 @@
 import typing as t
 
-import numpy as np
 import pandas as pd
 
 from classification_model import __version__ as _version
@@ -27,7 +26,7 @@ def make_prediction(
             X=validated_data[config.model_config.features]
         )
         results = {
-            "predictions": predictions,  # type: ignore
+            "predictions": predictions,
             "version": _version,
             "errors": errors,
         }

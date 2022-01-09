@@ -7,7 +7,7 @@ class ExtractLetterTransformer(BaseEstimator, TransformerMixin):
     def __init__(self, variables):
 
         if not isinstance(variables, list):
-            raise ValueError('variables should be a list')
+            raise ValueError("variables should be a list")
 
         self.variables = variables
 

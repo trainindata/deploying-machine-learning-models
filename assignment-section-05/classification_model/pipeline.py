@@ -1,19 +1,21 @@
 # to persist the model and the scaler
 # for encoding categorical variables
-from feature_engine.encoding import (
-    RareLabelEncoder,
-    OneHotEncoder
-)
+from feature_engine.encoding import RareLabelEncoder, OneHotEncoder
+
 # for imputation
 from feature_engine.imputation import (
     CategoricalImputer,
     AddMissingIndicator,
-    MeanMedianImputer)
+    MeanMedianImputer,
+)
+
 # for the preprocessors
 # to build the models
 from sklearn.linear_model import LogisticRegression
+
 # pipeline
 from sklearn.pipeline import Pipeline
+
 # feature scaling
 from sklearn.preprocessing import StandardScaler
 
@@ -24,31 +26,48 @@ from classification_model.processing.features import ExtractLetterTransformer
 price_pipe = Pipeline(
     [
         # impute categorical variables with string missing
-        ('categorical_imputation', CategoricalImputer(
-            imputation_method='missing', variables=config.model_config.categorical_vars)),
-
+        (
+            "categorical_imputation",
+            CategoricalImputer(
+                imputation_method="missing",
+                variables=config.model_config.categorical_vars,
+            ),
+        ),
         # add missing indicator to numerical variables
-        ('missing_indicator', AddMissingIndicator(variables=config.model_config.numerical_vars)),
-
+        (
+            "missing_indicator",
+            AddMissingIndicator(variables=config.model_config.numerical_vars),
+        ),
         # impute numerical variables with the median
-        ('median_imputation', MeanMedianImputer(
-            imputation_method='median', variables=config.model_config.numerical_vars)),
-
+        (
+            "median_imputation",
+            MeanMedianImputer(
+                imputation_method="median", variables=config.model_config.numerical_vars
+            ),
+        ),
         # Extract letter from cabin
-        ('extract_letter', ExtractLetterTransformer(variables=config.model_config.cabin_vars)),
-
+        (
+            "extract_letter",
+            ExtractLetterTransformer(variables=config.model_config.cabin_vars),
+        ),
         # == CATEGORICAL ENCODING ======
         # remove categories present in less than 5% of the observations (0.05)
         # group them in one category called 'Rare'
-        ('rare_label_encoder', RareLabelEncoder(
-            tol=0.05, n_categories=1, variables=config.model_config.categorical_vars)),
-
+        (
+            "rare_label_encoder",
+            RareLabelEncoder(
+                tol=0.05, n_categories=1, variables=config.model_config.categorical_vars
+            ),
+        ),
         # encode categorical variables using one hot encoding into k-1 variables
-        ('categorical_encoder', OneHotEncoder(
-            drop_last=True, variables=config.model_config.categorical_vars)),
-
+        (
+            "categorical_encoder",
+            OneHotEncoder(
+                drop_last=True, variables=config.model_config.categorical_vars
+            ),
+        ),
         # scale
-        ('scaler', StandardScaler()),
-        ('Logit', LogisticRegression(C=0.0005, random_state=0)),
+        ("scaler", StandardScaler()),
+        ("Logit", LogisticRegression(C=0.0005, random_state=0)),
     ]
 )

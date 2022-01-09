@@ -1,10 +1,8 @@
-import numpy as np
 from sklearn.model_selection import train_test_split
 
 from config.core import config
 from pipeline import price_pipe
 from processing.data_manager import load_dataset, save_pipeline
-
 
 
 def run_training() -> None:

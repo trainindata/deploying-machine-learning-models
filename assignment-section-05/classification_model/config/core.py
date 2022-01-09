@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, List, Sequence
+from typing import Sequence
 
 from pydantic import BaseModel
 from strictyaml import YAML, load
@@ -33,13 +33,13 @@ class ModelConfig(BaseModel):
     """
 
     target: str
-    unused_fields: List[str]
-    features: List[str]
+    unused_fields: Sequence[str]
+    features: Sequence[str]
     test_size: float
     random_state: int
-    numerical_vars: List[str]
-    categorical_vars: List[str]
-    cabin_vars: List[str]
+    numerical_vars: Sequence[str]
+    categorical_vars: Sequence[str]
+    cabin_vars: Sequence[str]
 
 
 class Config(BaseModel):
