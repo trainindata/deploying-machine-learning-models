@@ -15,8 +15,7 @@ from classification_model.config.core import DATASET_DIR, TRAINED_MODEL_DIR, con
 def get_first_cabin(row):
     try:
         return row.split()[0]
-    # TODO: catch specific exception
-    except:
+    except AttributeError:
         return np.nan
 
 
