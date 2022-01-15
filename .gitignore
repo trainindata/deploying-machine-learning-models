@@ -112,6 +112,7 @@ packages/regression_model/regression_model/datasets/*.zip
 packages/regression_model/regression_model/datasets/*.txt
 train.csv
 test.csv
+raw.csv
 data_description.txt
 house-prices-advanced-regression-techniques.zip
 sample_submission.csv
