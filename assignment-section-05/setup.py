@@ -11,12 +11,13 @@ DESCRIPTION = "Example Titanic dataset classification model package from Train I
 URL = "https://github.com/trainindata/deploying-machine-learning-models"
 EMAIL = "christopher.samiullah@protonmail.com"
 AUTHOR = "ChristopherGS"
-REQUIRES_PYTHON = ">=3.6.0"
+REQUIRES_PYTHON = ">=3.7.0"
 
 
 # The rest you shouldn't have to touch too much :)
 # ------------------------------------------------
 # Except, perhaps the License and Trove Classifiers!
+# Trove Classifiers: https://pypi.org/classifiers/
 # If you do change the License, remember to change the
 # Trove Classifier for that!
 long_description = DESCRIPTION
@@ -59,7 +60,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
