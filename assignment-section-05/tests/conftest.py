@@ -24,8 +24,3 @@ def sample_input_data():
     )
 
     return X_test
-
-
-@pytest.fixture
-def first_twenty_expected_predictions():
-    return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0]
