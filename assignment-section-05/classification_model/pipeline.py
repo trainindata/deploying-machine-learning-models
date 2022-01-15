@@ -1,29 +1,20 @@
-# to persist the model and the scaler
 # for encoding categorical variables
-from feature_engine.encoding import RareLabelEncoder, OneHotEncoder
+from feature_engine.encoding import OneHotEncoder, RareLabelEncoder
 
 # for imputation
 from feature_engine.imputation import (
-    CategoricalImputer,
     AddMissingIndicator,
+    CategoricalImputer,
     MeanMedianImputer,
 )
-
-# for the preprocessors
-# to build the models
 from sklearn.linear_model import LogisticRegression
-
-# pipeline
 from sklearn.pipeline import Pipeline
-
-# feature scaling
 from sklearn.preprocessing import StandardScaler
 
 from classification_model.config.core import config
 from classification_model.processing.features import ExtractLetterTransformer
 
-
-price_pipe = Pipeline(
+titanic_pipe = Pipeline(
     [
         # impute categorical variables with string missing
         (

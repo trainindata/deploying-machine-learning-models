@@ -1,8 +1,9 @@
-import typing as t
+import logging
+import re
 from pathlib import Path
+from typing import Any, List, Union
 
 import joblib
-import re
 import numpy as np
 import pandas as pd
 from sklearn.pipeline import Pipeline
@@ -10,9 +11,11 @@ from sklearn.pipeline import Pipeline
 from classification_model import __version__ as _version
 from classification_model.config.core import DATASET_DIR, TRAINED_MODEL_DIR, config
 
+logger = logging.getLogger(__name__)
 
-# TODO: type hints
-def get_first_cabin(row):
+
+# float type for np.nan
+def get_first_cabin(row: Any) -> Union[str, float]:
     try:
         return row.split()[0]
     except AttributeError:
@@ -86,11 +89,10 @@ def load_pipeline(*, file_name: str) -> Pipeline:
     """Load a persisted pipeline."""
 
     file_path = TRAINED_MODEL_DIR / file_name
-    trained_model = joblib.load(filename=file_path)
-    return trained_model
+    return joblib.load(filename=file_path)
 
 
-def remove_old_pipelines(*, files_to_keep: t.List[str]) -> None:
+def remove_old_pipelines(*, files_to_keep: List[str]) -> None:
     """
     Remove old model pipelines.
     This is to ensure there is a simple one-to-one

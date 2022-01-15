@@ -7,10 +7,10 @@ def test_temporal_variable_transformer(sample_input_data):
     transformer = ExtractLetterTransformer(
         variables=config.model_config.cabin_vars,  # cabin
     )
-    assert sample_input_data["cabin"].iat[9] == "G6"
+    assert sample_input_data["cabin"].iat[6] == "E12"
 
     # When
     subject = transformer.fit_transform(sample_input_data)
 
     # Then
-    assert subject["cabin"].iat[9] == "G"
+    assert subject["cabin"].iat[6] == "E"
