@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            git subtree push --prefix section-07-ci-and-publishing/house-prices-api https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git example-new-deploy:master
+            git subtree push --prefix section-07-ci-and-publishing/house-prices-api https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
   section_07_test_and_upload_regression_model:
     <<: *defaults
