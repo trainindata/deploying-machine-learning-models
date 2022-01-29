@@ -6,7 +6,7 @@ import os
 ACCEPTABLE_MODEL_DIFFERENCE = float(os.environ.get('ACCEPTABLE_MODEL_DIFFERENCE'))
 
 
-def test_make_prediction(sample_input_data):
+def test_difference_between_current_and_candidate_models(sample_input_data):
     # Given
     persisted_results_dir = Path(__file__).resolve().parent.parent
     with open(persisted_results_dir / "current_predictions.txt", "r") as handler:
