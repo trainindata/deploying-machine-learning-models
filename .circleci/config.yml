@@ -101,6 +101,7 @@ jobs:
     steps:
       - checkout:
           path: ~/project
+      - *prepare_tox
       - run:
           name: Prep Current Prod Model Predictions
           command: |
