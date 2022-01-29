@@ -103,6 +103,10 @@ jobs:
           path: ~/project
       - *prepare_tox
       - run:
+          name: Fetch the data
+          command: |
+            tox -e fetch_data
+      - run:
           name: Prep Current Prod Model Predictions
           command: |
             tox -e diff_tests_generate_current
