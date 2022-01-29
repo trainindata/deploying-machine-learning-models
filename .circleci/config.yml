@@ -97,21 +97,22 @@ jobs:
 
   section_09_differential_tests:
     <<: *defaults
+    working_directory: ~/project/section-09-differential-testing/model-package
     steps:
       - checkout:
           path: ~/project
       - run:
           name: Prep Current Prod Model Predictions
           command: |
-            cd section-09-differential_testing && tox -e diff_tests_generate_current
+            tox -e diff_tests_generate_current
       - run:
           name: Prep Candidate Model Predictions
           command: |
-            cd section-09-differential_testing && tox -e diff_tests_generate_candidate
+            tox -e diff_tests_generate_candidate
       - run:
           name: Differential test
           command: |
-            cd section-09-differential_testing && tox -e diff_tests_summary
+            tox -e diff_tests_summary
 
   test_regression_model_py36:
     docker:
