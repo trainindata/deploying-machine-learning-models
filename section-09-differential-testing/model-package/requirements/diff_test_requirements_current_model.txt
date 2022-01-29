@@ -1,0 +1,4 @@
+-r test_requirements.txt
+
+# Install the current prod model
+tid-regression-model==3.0.3

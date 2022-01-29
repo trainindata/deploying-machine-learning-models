@@ -136,3 +136,9 @@ packages/neural_network_model/neural_network_model/datasets/training_data_refere
 
 kaggle.json
 packages/ml_api/uploads/*
+
+# diff testing
+candidate_version.txt
+current_version.txt
+current_predictions.txt
+candidate_predictions.txt
