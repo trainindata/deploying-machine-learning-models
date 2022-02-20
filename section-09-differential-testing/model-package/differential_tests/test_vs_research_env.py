@@ -8,7 +8,9 @@ from regression_model.predict import make_prediction
 ACCEPTABLE_MODEL_DIFFERENCE = float(os.environ.get("ACCEPTABLE_MODEL_DIFFERENCE"))
 
 
-def test_make_prediction(research_model_results, sample_input_data):
+def test_compare_against_research_environment_predictions(
+    research_model_results, sample_input_data
+):
     # Given
     expected_no_predictions = len(research_model_results)
 
