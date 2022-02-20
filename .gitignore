@@ -142,3 +142,5 @@ candidate_version.txt
 current_version.txt
 current_predictions.txt
 candidate_predictions.txt
+
+section-09-differential-testing/research-notebook/price_pipe.joblib

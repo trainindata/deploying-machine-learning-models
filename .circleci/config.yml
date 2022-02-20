@@ -118,6 +118,11 @@ jobs:
           name: Differential test
           command: |
             tox -e diff_tests_summary
+      - run:
+          name: Research model comparison test
+          command: |
+            tox -e diff_test_model_upgrade
+
 
   test_regression_model_py36:
     docker:
