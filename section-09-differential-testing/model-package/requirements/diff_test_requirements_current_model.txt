@@ -1,4 +1,7 @@
+--extra-index-url=${PIP_EXTRA_INDEX_URL}
+
 -r test_requirements.txt
 
-# Install the current prod model
-tid-regression-model==3.0.3
+# Install the current prod model (from Gemfury)
+# Format: https://my-secret-token@repo.fury.io/username/
+tid-regression-model==4.0.3
