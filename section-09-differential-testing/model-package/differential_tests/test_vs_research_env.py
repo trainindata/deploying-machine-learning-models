@@ -2,10 +2,10 @@ import math
 import os
 
 import numpy as np
+
 from regression_model.predict import make_prediction
 
-
-ACCEPTABLE_MODEL_DIFFERENCE = float(os.environ.get('ACCEPTABLE_MODEL_DIFFERENCE'))
+ACCEPTABLE_MODEL_DIFFERENCE = float(os.environ.get("ACCEPTABLE_MODEL_DIFFERENCE"))
 
 
 def test_make_prediction(research_model_results, sample_input_data):

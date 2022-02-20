@@ -1,4 +1,4 @@
-files: (^src|^differential_tests|^\.github/)
+files: (^section-09-differential-testing/model-package/differential_tests|^section-09-differential-testing/model-package/tests|^\.github/)
 repos:
 - repo: https://github.com/psf/black
   rev: 21.12b0

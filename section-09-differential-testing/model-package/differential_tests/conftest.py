@@ -1,13 +1,12 @@
+import os
 from pathlib import Path
 
+import pandas as pd
 import pytest
 
+from regression_model import __version__ as model_version
 from regression_model.config.core import config
 from regression_model.processing.data_manager import load_dataset
-from regression_model import __version__ as model_version
-import os
-
-import pandas as pd
 
 PWD = Path.cwd()
 
@@ -27,4 +26,4 @@ def persist_results():
 
 @pytest.fixture
 def research_model_results() -> pd.DataFrame:
-    return pd.read_csv(PWD / "differential_tests"/ "research_model_test_results.csv")
+    return pd.read_csv(PWD / "differential_tests" / "research_model_test_results.csv")

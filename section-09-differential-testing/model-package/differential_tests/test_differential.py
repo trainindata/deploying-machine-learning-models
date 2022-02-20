@@ -1,9 +1,8 @@
 import math
-from pathlib import Path
 import os
+from pathlib import Path
 
-
-ACCEPTABLE_MODEL_DIFFERENCE = float(os.environ.get('ACCEPTABLE_MODEL_DIFFERENCE'))
+ACCEPTABLE_MODEL_DIFFERENCE = float(os.environ.get("ACCEPTABLE_MODEL_DIFFERENCE"))
 
 
 def test_difference_between_current_and_candidate_models(sample_input_data):

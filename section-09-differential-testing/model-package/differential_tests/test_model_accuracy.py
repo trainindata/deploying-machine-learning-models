@@ -1,12 +1,12 @@
 import os
 
 import numpy as np
+
 from regression_model.predict import make_prediction
 
 
 def test_make_prediction(sample_input_data, persist_results):
     # Given
-    expected_first_prediction_value = 113422
     expected_no_predictions = 1449
 
     # When
