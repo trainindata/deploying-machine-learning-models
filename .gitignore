@@ -83,7 +83,7 @@ celerybeat-schedule
 
 # Environments
 .env
-.venv
+.venv*
 env/
 venv/
 ENV/
@@ -110,8 +110,7 @@ venv.bak/
 packages/regression_model/regression_model/datasets/*.csv
 packages/regression_model/regression_model/datasets/*.zip
 packages/regression_model/regression_model/datasets/*.txt
-train.csv
-test.csv
+data/*
 raw.csv
 data_description.txt
 house-prices-advanced-regression-techniques.zip
@@ -119,6 +118,8 @@ sample_submission.csv
 test_data_predictions.csv
 v2-plant-seedlings-dataset/
 v2-plant-seedlings-dataset.zip
+
+*.joblib
 
 # all logs
 logs/
