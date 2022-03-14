@@ -8,3 +8,4 @@ black==20.8b1
 flake8>=3.9.0,<3.10.0
 mypy==0.812
 isort==5.8.0
+setuptools<60.0.0
