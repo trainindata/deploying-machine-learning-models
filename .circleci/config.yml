@@ -41,9 +41,9 @@ jobs:
     steps:
       - *starter
       - run:
-        name: Print It's working!
-        command: |
-          echo "it's working!!!!!"
+          name: Print It's working!
+          command: |
+            echo "it's working!!!!!"
 
   section_07_test_app:
     <<: *defaults
