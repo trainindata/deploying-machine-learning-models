@@ -312,6 +312,7 @@ workflows:
   version: 2
   section_07:
     jobs:
+      - section_starter
       - section_07_test_app
       - section_07_deploy_app_to_heroku:
           requires:
