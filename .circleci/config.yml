@@ -41,9 +41,13 @@ jobs:
     steps:
       - *starter
       - run:
-          name: Print It's working!
+          name: Echo Enviroment Variables!
           command: |
-            echo "it's working!!!!!"
+            echo "$HEROKU_API_KEY"
+            echo "$HEROKU_APP_NAME"
+            echo "$KAGGLE_KEY"
+            echo "$KAGGLE_USERNAME"
+            echo "$PIP_EXTRA_INDEX_URL"
 
   section_07_test_app:
     <<: *defaults
