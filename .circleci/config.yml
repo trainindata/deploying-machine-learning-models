@@ -28,7 +28,27 @@ fetch_data: &fetch_data
       chmod +x ./scripts/fetch_kaggle_dataset.sh
       ./scripts/fetch_kaggle_dataset.sh
 
+print_start: &starter
+  run:
+    name: Print hello world!
+    command:
+      echo "hello world!!!!"
+
+
 jobs:
+  section_starter:
+    <<: *defaults
+    steps:
+      - *starter
+      - run:
+          name: Echo Enviroment Variables!
+          command: |
+            echo "$HEROKU_API_KEY"
+            echo "$HEROKU_APP_NAME"
+            echo "$KAGGLE_KEY"
+            echo "$KAGGLE_USERNAME"
+            echo "$PIP_EXTRA_INDEX_URL"
+
   section_07_test_app:
     <<: *defaults
     working_directory: ~/project/section-07-ci-and-publishing/house-prices-api
@@ -296,6 +316,7 @@ workflows:
   version: 2
   section_07:
     jobs:
+      - section_starter
       - section_07_test_app
       - section_07_deploy_app_to_heroku:
           requires:
