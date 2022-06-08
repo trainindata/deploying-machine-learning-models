@@ -1,0 +1,17 @@
+include *.txt
+include *.md
+include *.pkl
+recursive-include ./regression_model/*
+
+include regression_model/datasets/titanic-passengers.csv
+include regression_model/trained_models/*.pkl
+include regression_model/VERSION
+include regression_model/config.yml
+
+include ./requirements/requirements.txt
+include ./requirements/test_requirements.txt
+exclude *.log
+exclude *.cfg
+
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]

@@ -1,0 +1,47 @@
+# # Package Overview
+package_name: titanic_regression_model
+
+# Data Files
+train_test_data_file: titanic-passengers.csv
+
+# set train/test split
+test_size: 0.2
+
+# to set the random seed
+random_state: 0
+
+C: 0.0005
+
+# Variables
+# The variable we are attempting to predict (sale price)
+target: survived
+
+# pipeline_name: regression_model
+pipeline_save_file: regression_model_output_v
+
+features:
+  - pclass
+  - sex
+  - age
+  - sibsp
+  - parch
+  - fare
+  - cabin
+  - embarked
+  - title
+
+# # categorical variables with NA in train set
+categorical_variables:
+  - sex
+  - cabin
+  - embarked
+  - title
+
+single_letter_variables:
+  - cabin
+
+name_variable: name
+
+numerical_variables:
+  - age
+  - fare
