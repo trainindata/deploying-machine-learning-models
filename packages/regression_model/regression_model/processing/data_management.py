@@ -1,15 +1,16 @@
 import pandas as pd
 import joblib
-import skelarn.pipeline
+from  sklearn.pipeline import Pipeline
 
 from regression_model.config import config
 
-def load_dataset(*, file_name: str) -> pd.DataFame:
+def load_dataset(*, file_name: str) -> pd.DataFrame:
     """
     loads the data set from the file name 
-    params:
-    file_name: string
     """
+    print (f'{config.DATASET_DIR}/{file_name}')
+    print(file_name)
+    print('****')
     _data = pd.read_csv(f'{config.DATASET_DIR}/{file_name}')
     return _data
 

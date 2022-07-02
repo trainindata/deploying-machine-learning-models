@@ -1,8 +1,11 @@
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.externals import joblib
-from regression_modelprocessing.data_management import(
+import joblib
+import sys
+
+sys.path.append('..')
+from regression_model.processing.data_management import(
     load_dataset, save_pipeline)
 
 from regression_model.config import config
@@ -30,7 +33,7 @@ def run_training() -> None:
     y_train = np.log(y_train)
     y_test = np.log(y_test)
 
-    pipeline.price_pipe.fit(x_train[FEATURES], y_train)
+    pipeline.price_pipe.fit(x_train[config.FEATURES], y_train)
 
     save_pipeline(pipeline_to_persist=pipeline.price_pipe)
 
