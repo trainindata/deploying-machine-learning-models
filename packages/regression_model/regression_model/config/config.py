@@ -6,7 +6,7 @@ import pathlib
 PACKAGE_ROOT = pathlib.Path(__file__).resolve().parent.parent
 TRAINED_MODEL_DIR = PACKAGE_ROOT / 'trained_models'
 DATASET_DIR = PACKAGE_ROOT / 'datasets'
-
+LOG_DIR = PACKAGE_ROOT/'logs'
 TESTING_DATA_FILE = 'test.csv'
 TRAINING_DATA_FILE = 'train.csv'
 TARGET = 'SalePrice'
@@ -64,3 +64,5 @@ CATEGORICAL_NA_NOT_ALLOWED = [
 ]
 
 PIPELINE_NAME = 'lasso_regression'
+
+PIPELINE_SAVE_FILE = 'regression_model'

@@ -1,0 +1,8 @@
+# api
+
+flask==1.0.2
+
+# local regression_model package
+
+#update your local path
+-e "C:\Users\Tammaa\MLOps\deploying-machine-learning-models\packages\regression_model"
