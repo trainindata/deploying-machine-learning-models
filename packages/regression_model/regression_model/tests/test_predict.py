@@ -1,7 +1,9 @@
 import math
 import sys
 
-sys.path.append('..')
+import sys
+sys.path.append('/tf/packages/regression_model/')
+
 
 from regression_model.predict import make_prediction
 from regression_model.processing.data_management import load_dataset

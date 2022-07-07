@@ -3,14 +3,14 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import joblib
 import sys
-
-sys.path.append('..')
+sys.path.append('/tf/packages/regression_model/')
+#print(sys.path)
 from regression_model.processing.data_management import(
     load_dataset, save_pipeline)
 
 from regression_model.config import config
 
-import pipeline
+import regression_model.pipeline as pipeline
 
 
 
@@ -41,3 +41,4 @@ def run_training() -> None:
 
 if __name__ == '__main__':
     run_training()
+    print("model trained")

@@ -20,7 +20,7 @@ def make_prediction(*, input_data) -> dict:
     validated_data = validate_inputs(input_data = data)
     prediction = _price_pipe.predict(validated_data[config.FEATURES])
     output = np.exp(prediction)
-    response = {'predictions': output}
+    response = {'predictions': output,'version': _version}
 
     _logger.info(
         f'Making predictions with model version: {_version}'

@@ -18,10 +18,12 @@ REQUIRES_PYTHON = '>=3.6.0'
 
 # Packages that are required for this module to be executed
 def list_reqs(fname='requirements.txt'):
-    print(Path(__file__))
-    print(os.listdir())
-    here = os.path.abspath(os.path.dirname(__file__)+'/'+fname)
-    with open(here) as fd:
+    #print(Path(__file__))
+    #print(os.listdir())
+    here_ = os.path.abspath(os.path.dirname(__file__)+'/'+fname)
+    #print(here)
+    with open(here_) as fd:
+        print(fd.read().splitlines())
         return fd.read().splitlines()
 
 
@@ -63,7 +65,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=('tests',)),
-    package_data={'regression_model': ['VERSION']},
+    package_data={'regression_model': ['VERSION','datasets/train.csv','datasets/test.csv', 'trained_models/regression_model_0.1.2.pkl']},
     install_requires=list_reqs(),
     extras_require={},
     include_package_data=True,

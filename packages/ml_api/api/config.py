@@ -3,13 +3,17 @@ import logging
 from logging.handlers import TimedRotatingFileHandler
 import sys
 import os
-from regression_model.config import config
+import pathlib
+
+PACKAGE_ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 FORMATTER  = logging.Formatter(
     "%(asctime)s - %(name)s - %(levelname) s -"
     "%(funcName)s:%(lineno)d - %(message)s")
 
-LOG_FILE = config.LOG_DIR / 'ml_models.log'
+LOG_DIR = PACKAGE_ROOT / 'logs'
+
+LOG_FILE = LOG_DIR / 'ml_api.log'
 
 def get_console_handler():
 
@@ -20,23 +24,23 @@ def get_console_handler():
     return console_handler
 
 def get_file_handler():
-    isExist = os.path.exists(config.LOG_DIR)
+    isExist = os.path.exists(LOG_DIR)
     if (not isExist):
-        os.makedirs(config.LOG_DIR)
+        os.makedirs(LOG_DIR)
 
     #print("Error here lol")
     file_handler = TimedRotatingFileHandler(LOG_FILE, when ='midnight')
 
     file_handler.setFormatter(FORMATTER)
 
-    file_handler.setLevel(logging.WARNING)
+    file_handler.setLevel(logging.INFO)
 
     return file_handler
 
 def get_logger(logger_name):
-    isExist = os.path.exists(config.LOG_DIR)
+    isExist = os.path.exists(LOG_DIR)
     if (not isExist):
-        os.makedirs(config.LOG_DIR)
+        os.makedirs(LOG_DIR)
     logger = logging.getLogger(logger_name)
 
     logger.setLevel(logging.DEBUG)
@@ -48,4 +52,22 @@ def get_logger(logger_name):
 
     return logger
 
+class Config:
+    DEBUG = False
+    TESTING = False
+    CSRF_ENABLED = True
+    SECRET_KEY = 'TOP-SECERT'
+    SERVER_PORT = 5000
 
+class ProductionConfig(Config):
+    DEBUG =  False
+    SERVER_PORT = os.environ.get('PORT', 5000)
+
+class DevelopmentConfig(Config):
+    DEVELOPMENT = True
+    DEBUG = True
+
+class TestingConfig(Config):
+    TESTING = True
+
+    
