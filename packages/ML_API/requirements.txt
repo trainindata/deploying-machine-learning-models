@@ -2,6 +2,6 @@
 flask==1.0.2
 
 # local regression_model package
-marshmellow==2.17.0
+marshmallow==2.17.0
 # update with your local path
 /tf/packages/regression_model

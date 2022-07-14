@@ -42,7 +42,7 @@ def test_prediction_endpoint_returns_prediction(flask_test_client):
     prediction = response_json['prediction']
     response_version = response_json['version']
 
-    assert math.ceil(prediction) == 112476
+    assert math.ceil(prediction[0]) == 112476
     assert response_version == _version
 
 
