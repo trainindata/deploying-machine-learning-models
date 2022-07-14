@@ -1,4 +1,6 @@
+from sklearn.linear_model import Lasso
 from sklearn.pipeline import Pipeline
+
 from sklearn.linear_model import Lasso
 from sklearn.preprocessing import MinMaxScaler
 #import sys
@@ -28,4 +30,5 @@ price_pipe = Pipeline(
         MinMaxScaler()),
         ('linear_model', Lasso(alpha=0.005, random_state=0))
     ])
+
 

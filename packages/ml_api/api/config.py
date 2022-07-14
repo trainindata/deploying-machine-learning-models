@@ -48,20 +48,24 @@ def get_logger(logger_name):
     logger.addHandler(get_console_handler())
     logger.addHandler(get_file_handler())
 
+
     logger.propagate = False
 
     return logger
+
 
 class Config:
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
+
     SECRET_KEY = 'TOP-SECERT'
     SERVER_PORT = 5000
 
 class ProductionConfig(Config):
     DEBUG =  False
     SERVER_PORT = os.environ.get('PORT', 5000)
+
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True

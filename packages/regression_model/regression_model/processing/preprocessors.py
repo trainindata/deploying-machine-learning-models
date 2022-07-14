@@ -1,6 +1,8 @@
+
 import pandas as pd
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
+
 
 class CategoricalImputer(BaseEstimator, TransformerMixin):
     """Categorical data missing value imputer."""
@@ -22,8 +24,9 @@ class CategoricalImputer(BaseEstimator, TransformerMixin):
         X = X.copy()
         for feature in self.variables:
             X[feature] = X[feature].fillna("Missing")
+
         #print("Done 1")
-        return X
+
 
 
 class NumericalImputer(BaseEstimator, TransformerMixin):
@@ -46,8 +49,9 @@ class NumericalImputer(BaseEstimator, TransformerMixin):
         X = X.copy()
         for feature in self.variables:
             X[feature].fillna(self.imputer_dict_[feature], inplace=True)
+
         #print("Done 2")
-        return X
+
 
 
 class TemporalVariableEstimator(BaseEstimator, TransformerMixin):
@@ -68,10 +72,11 @@ class TemporalVariableEstimator(BaseEstimator, TransformerMixin):
     def transform(self, X):
         X = X.copy()
         for feature in self.variables:
+
            
             X[feature] = X[self.reference_variables] - X[feature]
         #print("Done 3")
-        return X
+
 
 
 class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
@@ -90,7 +95,9 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
 
         for var in self.variables:
             # the encoder will learn the most frequent categories
+
            # print(var)
+
             t = pd.Series(X[var].value_counts() / np.float(len(X)))
             # frequent labels:
             self.encoder_dict_[var] = list(t[t >= self.tol].index)
@@ -100,12 +107,13 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
     def transform(self, X):
         X = X.copy()
         for feature in self.variables:
+
            # print(feature)
             X[feature] = np.where(
                 X[feature].isin(self.encoder_dict_[feature]), X[feature], "Rare"
             )
         #print("Done 4")
-        return X
+
 
 
 class CategoricalEncoder(BaseEstimator, TransformerMixin):
@@ -125,7 +133,9 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
         self.encoder_dict_ = {}
 
         for var in self.variables:
+
             #print(var)
+
             t = temp.groupby([var])["target"].mean().sort_values(ascending=True).index
             self.encoder_dict_[var] = {k: i for i, k in enumerate(t, 0)}
 
@@ -143,12 +153,14 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
             vars_ = {
                 key: value for (key, value) in null_counts.items() if value is True
             }
+
             raise ValueError(
                 f"Categorical encoder has introduced NaN when "
                 f"transforming categorical variables: {vars_.keys()}"
             )
         #print("Done 5")
         return X
+
 
 
 
@@ -164,5 +176,7 @@ class DropUnecessaryFeatures(BaseEstimator, TransformerMixin):
         # encode labels
         X = X.copy()
         X = X.drop(self.variables, axis=1)
+
         #print("Done 7")
         return X
+

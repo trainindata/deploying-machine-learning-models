@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
 from regression_model.predict import make_prediction
+
 from api.validation import validate_inputs
 from api.config import get_logger
 from api import __version__ as api_version
@@ -11,9 +12,11 @@ import json
 @prediction_app.route('/health', methods=['GET'])
 def health():
     #print('asdfgagre')
+
     if request.method == 'GET':
         _logger.info('health status OK')
         return 'ok'
+
 
 @prediction_app.route('/version', methods=['GET'])
 
@@ -44,3 +47,4 @@ def predict():
         return jsonify({'prediction': predictions,
         'version': version,
         'errors': errors})
+

@@ -4,7 +4,9 @@ from marshmallow import Schema, fields
 from marshmallow import ValidationError
 
 from api import config
+
 import json
+
 
 class InvalidInputError(Exception):
     """Invalid model input."""
@@ -99,6 +101,7 @@ class HouseDataRequestSchema(Schema):
     SecondFlrSF = fields.Integer()
     ThreeSsnPortch = fields.Integer()
 
+
 def _filter_error_rows(*, errors: dict, validated_input: t.List[dict]) -> t.List[dict]:
     """remove input data rows wit errors."""
     indexes = errors.keys()
@@ -120,15 +123,20 @@ def validate_inputs(*, input_json):
     
     errors = None
 
+
     try:
         schema.load(input_data)
     except ValidationError as exc:
         errors = exc.messages
+
     
+
+
     for dict in input_data:
         for key, value in SYNTAX_ERROR_FIELD_MAP.items():
             dict[key] = dict[value]
             del dict[value]
+
         
     if errors:
         validated_input = _filter_error_rows(errors=errors, validated_input= input_data)
@@ -136,5 +144,6 @@ def validate_inputs(*, input_json):
         validated_input = input_data
     
     return json.dumps(validated_input), errors
+
 
 

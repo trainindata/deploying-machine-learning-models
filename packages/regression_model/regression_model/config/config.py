@@ -1,5 +1,6 @@
 import pathlib
 
+
 #$import regression_model
 
 
@@ -44,6 +45,8 @@ CATEGORICAL_VARS = ['MSZoning',
                     'GarageFinish',
                     'PavedDrive']
 
+
+
 CATEGORICAL_VARS_WITH_NA = [
     "MasVnrType",
     "BsmtQual",
@@ -53,15 +56,18 @@ CATEGORICAL_VARS_WITH_NA = [
     "GarageFinish",
 ]
 
+
 NUMERICAL_NA_NOT_ALLOWED = [
     feature
     for feature in FEATURES
     if feature not in CATEGORICAL_VARS + NMERICAL_VARS_WITH_NA
+
 ]
 
 CATEGORICAL_NA_NOT_ALLOWED = [
     feature for feature in CATEGORICAL_VARS if feature not in CATEGORICAL_VARS_WITH_NA
 ]
+
 
 PIPELINE_NAME = 'lasso_regression'
 

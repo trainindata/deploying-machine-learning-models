@@ -33,4 +33,4 @@ class LogTransformer(BaseEstimator, TransformerMixin):
             X[feature] = np.log(X[feature])
 
        # print("Done 6")
-        return X
+

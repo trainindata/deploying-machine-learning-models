@@ -1,4 +1,5 @@
 import numpy as np
+
 import pandas as pd
 from sklearn.model_selection import train_test_split
 import joblib
@@ -12,6 +13,9 @@ from regression_model.config import config
 
 import regression_model.pipeline as pipeline
 
+
+
+_logger = logging.getLogger(__name__)
 
 
 def run_training() -> None:
@@ -39,6 +43,7 @@ def run_training() -> None:
 
 
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     run_training()
     print("model trained")

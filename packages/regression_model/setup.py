@@ -1,5 +1,7 @@
+
 import io
 import os
+
 
 from pathlib import Path
 
@@ -24,6 +26,7 @@ def list_reqs(fname='requirements.txt'):
     #print(here)
     with open(here_) as fd:
         print(fd.read().splitlines())
+
         return fd.read().splitlines()
 
 
@@ -65,7 +68,9 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=('tests',)),
+
     package_data={'regression_model': ['VERSION','datasets/train.csv','datasets/test.csv', 'trained_models/regression_model_0.1.2.pkl']},
+
     install_requires=list_reqs(),
     extras_require={},
     include_package_data=True,
@@ -82,4 +87,6 @@ setup(
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy'
     ],
+
 )
+

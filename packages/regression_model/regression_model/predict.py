@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+
 import math
 from regression_model.processing.data_management import load_pipeline
 from regression_model.processing.validate_inputs import validate_inputs
@@ -28,3 +29,4 @@ def make_prediction(*, input_data) -> dict:
         f'Predictions: {response}'
     )
     return response
+
