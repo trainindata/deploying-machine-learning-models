@@ -28,7 +28,7 @@ class MeanImputer(BaseEstimator, TransformerMixin):
 class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
     """Groups infrequent categories into a single string"""
 
-    def __init__(self, tol=0.05, variables):
+    def __init__(self, variables, tol=0.05):
 
         if not isinstance(variables, list):
             raise ValueError('variables should be a list')
@@ -42,7 +42,7 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
 
         for var in self.variables:
             # the encoder will learn the most frequent categories
-            t = pd.Series(X[var].value_counts(normalize=True) 
+            t = pd.Series(X[var].value_counts(normalize=True))
             # frequent labels:
             self.encoder_dict_[var] = list(t[t >= self.tol].index)
 
