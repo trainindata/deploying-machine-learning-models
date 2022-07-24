@@ -1,0 +1,20 @@
+2022-07-04 23:06:03,893 - test - INFO -save_pipeline:29 - saved pipeline: regression_model_0.1.0.pkl
+2022-07-04 23:06:07,911 - regression_model.predict - INFO -make_prediction:25 - Making predictions with model version: 0.1.0Inputs:      Id  MSSubClass MSZoning  ...  YrSold  SaleType SaleCondition
+0  1461          20       RH  ...    2010        WD        Normal
+
+[1 rows x 80 columns]Predictions: {'predictions': array([112475.83215879])}
+2022-07-04 23:06:08,184 - regression_model.predict - INFO -make_prediction:25 - Making predictions with model version: 0.1.0Inputs:         Id  MSSubClass MSZoning  ...  YrSold  SaleType SaleCondition
+0     1461          20       RH  ...    2010        WD        Normal
+1     1462          20       RL  ...    2010        WD        Normal
+2     1463          60       RL  ...    2010        WD        Normal
+3     1464          60       RL  ...    2010        WD        Normal
+4     1465         120       RL  ...    2010        WD        Normal
+...    ...         ...      ...  ...     ...       ...           ...
+1454  2915         160       RM  ...    2006        WD        Normal
+1455  2916         160       RM  ...    2006        WD       Abnorml
+1456  2917          20       RL  ...    2006        WD       Abnorml
+1457  2918          85       RL  ...    2006        WD        Normal
+1458  2919          60       RL  ...    2006        WD        Normal
+
+[1451 rows x 80 columns]Predictions: {'predictions': array([112475.83215879, 142145.79629676, 174633.20683671, ...,
+       150166.3660361 , 119710.17239124, 208026.64668382])}

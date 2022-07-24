@@ -1,4 +1,5 @@
 import numpy as np
+
 from sklearn.base import BaseEstimator, TransformerMixin
 
 from regression_model.processing.errors import InvalidModelInputError
@@ -31,4 +32,5 @@ class LogTransformer(BaseEstimator, TransformerMixin):
         for feature in self.variables:
             X[feature] = np.log(X[feature])
 
-        return X
+       # print("Done 6")
+

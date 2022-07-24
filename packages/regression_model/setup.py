@@ -1,25 +1,32 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 
 import io
 import os
+
+
 from pathlib import Path
 
 from setuptools import find_packages, setup
 
-
-# Package meta-data.
 NAME = 'regression_model'
-DESCRIPTION = 'Regression model for using in the Train In Data online course "Deployment of Machine Learning Models".'
-URL = 'https://github.com/trainindata/deploying-machine-learning-models'
-EMAIL = 'christopher.samiullah@protonmail.com'
-AUTHOR = 'ChristopherGS'
-REQUIRES_PYTHON = '>=3.6.0'
 
+DESCRIPTION = 'Train and deploy regression model'
+
+URL = 'https://github.com/AhmedTammaa/deploying-machine-learning-models'
+
+EMAIL = 'ahmedtammaa101@hotmail.com'
+AUTHOR = 'Ahmed Tammaa'
+
+REQUIRES_PYTHON = '>=3.6.0'
 
 # Packages that are required for this module to be executed
 def list_reqs(fname='requirements.txt'):
-    with open(fname) as fd:
+    #print(Path(__file__))
+    #print(os.listdir())
+    here_ = os.path.abspath(os.path.dirname(__file__)+'/'+fname)
+    #print(here)
+    with open(here_) as fd:
+        print(fd.read().splitlines())
+
         return fd.read().splitlines()
 
 
@@ -61,7 +68,9 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=('tests',)),
-    package_data={'regression_model': ['VERSION']},
+
+    package_data={'regression_model': ['VERSION','datasets/train.csv','datasets/test.csv', 'trained_models/regression_model_0.1.2.pkl']},
+
     install_requires=list_reqs(),
     extras_require={},
     include_package_data=True,
@@ -78,4 +87,6 @@ setup(
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy'
     ],
+
 )
+

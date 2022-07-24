@@ -1,6 +1,9 @@
 class BaseError(Exception):
-    """Base package error."""
-
+    """
+    Base Package Erorr.
+    """
 
 class InvalidModelInputError(BaseError):
-    """Model input contains an error."""
+    """
+    ModelInput contains an error.
+    """

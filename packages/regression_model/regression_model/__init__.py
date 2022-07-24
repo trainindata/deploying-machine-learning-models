@@ -1,17 +1,12 @@
-import logging
+import os
+import sys
+import sys
 
+sys.path.append('/tf/packages/regression_model/')
+print(sys.path)
 from regression_model.config import config
-from regression_model.config import logging_config
 
+with open(os.path.join(config.PACKAGE_ROOT, 'VERSION')) as version_file:
 
-VERSION_PATH = config.PACKAGE_ROOT / 'VERSION'
-
-# Configure logger for use in package
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-logger.addHandler(logging_config.get_console_handler())
-logger.propagate = False
-
-
-with open(VERSION_PATH, 'r') as version_file:
     __version__ = version_file.read().strip()
+
