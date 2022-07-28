@@ -95,6 +95,35 @@ jobs:
           command: |
             cd section-08-deploying-with-containers && make release-heroku
 
+  section_09_differential_tests:
+    <<: *defaults
+    working_directory: ~/project/section-09-differential-testing/model-package
+    steps:
+      - checkout:
+          path: ~/project
+      - *prepare_tox
+      - run:
+          name: Fetch the data
+          command: |
+            tox -e fetch_data
+      - run:
+          name: Prep Current Prod Model Predictions
+          command: |
+            tox -e diff_tests_generate_current
+      - run:
+          name: Prep Candidate Model Predictions
+          command: |
+            tox -e diff_tests_generate_candidate
+      - run:
+          name: Differential test
+          command: |
+            tox -e diff_tests_summary
+      - run:
+          name: Research model comparison test
+          command: |
+            tox -e diff_test_model_upgrade
+
+
   test_regression_model_py36:
     docker:
       - image: circleci/python:3.6.9
@@ -202,43 +231,6 @@ jobs:
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/regression_model/
 
-  section_9_differential_tests:
-    <<: *defaults
-    steps:
-      - checkout
-      - *prepare_venv
-      - run:
-          name: Capturing previous model predictions
-          command: |
-            . venv/bin/activate
-            pip install -r packages/ml_api/diff_test_requirements.txt
-            PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
-      - run:
-          name: Runnning differential tests
-          command: |
-            . venv/bin/activate
-            pip install -r packages/ml_api/requirements.txt
-            py.test -vv packages/ml_api/tests -m differential
-
-  section_11_build_and_push_to_heroku_docker:
-    <<: *defaults
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run: docker login --username=$HEROKU_EMAIL --password=$HEROKU_API_KEY registry.heroku.com
-      - run:
-          name: Setup Heroku CLI
-          command: |
-            wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
-      - run: 
-          name: Build and Push Image
-          command: |
-            make build-ml-api-heroku push-ml-api-heroku
-      - run: 
-          name: Release to Heroku
-          command: |
-            heroku container:release web --app $HEROKU_APP_NAME
 
   section_12_publish_docker_image_to_aws:
     <<: *defaults
@@ -312,6 +304,7 @@ workflows:
             branches:
               only:
                 - master
+      - section_09_differential_tests
 
 #  test-all:
 #    jobs:
@@ -321,7 +314,6 @@ workflows:
 #      - test_ml_api_py36
 #      - test_ml_api_py37
 #      # - test_ml_api_py38 pending NN model update
-#      - section_9_differential_tests
 #      - train_and_upload_regression_model:
 #          requires:
 #            - test_regression_model_py36
