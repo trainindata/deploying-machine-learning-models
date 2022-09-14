@@ -6,7 +6,7 @@ from pathlib import Path
 from setuptools import find_packages, setup
 
 # Package meta-data.
-NAME = 'tid-regression-model'
+NAME = 'abiaessien-regression-model'
 DESCRIPTION = "Example regression model package from Train In Data."
 URL = "https://github.com/trainindata/testing-and-monitoring-ml-deployments"
 EMAIL = "christopher.samiullah@protonmail.com"
