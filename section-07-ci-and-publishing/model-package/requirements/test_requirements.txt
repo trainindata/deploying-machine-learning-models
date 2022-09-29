@@ -1,0 +1,13 @@
+-r requirements.txt
+
+# testing requirements
+pytest>=6.2.3,<6.3.0
+
+# repo maintenance tooling
+black>=22.0.0,<23.0.0
+flake8>=3.9.0,<3.10.0
+mypy==0.812
+isort==5.8.0
+
+# new in section 7: for fetching data in CI
+kaggle>=1.5.12,<1.6.0
