@@ -1,0 +1,63 @@
+# Package Overview
+package_name: classification_model
+
+# Data Files
+raw_data_file: raw.csv
+
+# Variables
+# The variable we are attempting to predict (sale price)
+target: survived
+
+pipeline_name: classification_model
+pipeline_save_file: classification_model_output_v
+
+# Will cause syntax errors since they begin with numbers
+cabin_variable_parse:
+  - cabin
+
+title_from_name:
+  name: title
+
+numerical_variables:
+  - fare
+  - age
+
+dropped_cols:
+  - name
+  - ticket
+  - boat
+  - body
+  - home.dest
+
+categorical_variables:
+  - sex
+  - cabin
+  - embarked
+  - title
+
+features:
+  - sibsp
+  - parch
+  - pclass
+  # categorical
+  - sex
+  - cabin # parsed accordingly
+  - embarked
+  - title # from name
+  # numerical
+  - age
+  - fare
+
+# set train/test split
+test_size: 0.2
+
+# to set the random seed
+random_state: 0
+C: 0.005
+
+# pipeline config
+str_imputation_method: missing
+median_imputation_method: median
+rare_label_encoder_tol: 0.05
+rare_label_encoder_n_categories: 1
+oh_encoder_drop_last: True
