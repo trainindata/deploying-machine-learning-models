@@ -1,5 +1,5 @@
 # Package Overview
-package_name: regression_model
+package_name: classification_model
 
 # Data Files
 training_data_file: train.csv
@@ -9,7 +9,7 @@ test_data_file: test.csv
 # The variable we are attempting to predict (sale price)
 target: SalePrice
 
-pipeline_name: regression_model
+pipeline_name: classification_model
 pipeline_save_file: regression_model_output_v
 
 # Will cause syntax errors since they begin with numbers

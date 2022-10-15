@@ -1,5 +1,5 @@
 # Package Overview
-package_name: regression_model
+package_name: classification_model
 
 # Data Files
 raw_data_file: raw.csv

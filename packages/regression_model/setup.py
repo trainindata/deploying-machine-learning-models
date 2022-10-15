@@ -9,7 +9,7 @@ from setuptools import find_packages, setup
 
 
 # Package meta-data.
-NAME = 'regression_model'
+NAME = 'classification_model'
 DESCRIPTION = 'Regression model for using in the Train In Data online course "Deployment of Machine Learning Models".'
 URL = 'https://github.com/trainindata/deploying-machine-learning-models'
 EMAIL = 'christopher.samiullah@protonmail.com'
@@ -42,7 +42,7 @@ except FileNotFoundError:
 
 # Load the package's __version__.py module as a dictionary.
 ROOT_DIR = Path(__file__).resolve().parent
-PACKAGE_DIR = ROOT_DIR / 'regression_model'
+PACKAGE_DIR = ROOT_DIR / 'classification_model'
 about = {}
 with open(PACKAGE_DIR / 'VERSION') as f:
     _version = f.read().strip()
@@ -61,7 +61,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=('tests',)),
-    package_data={'regression_model': ['VERSION']},
+    package_data={'classification_model': ['VERSION']},
     install_requires=list_reqs(),
     extras_require={},
     include_package_data=True,

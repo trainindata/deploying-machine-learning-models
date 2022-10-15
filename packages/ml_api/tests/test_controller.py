@@ -32,7 +32,7 @@ def test_version_endpoint_returns_version(flask_test_client):
 
 def test_prediction_endpoint_returns_prediction(flask_test_client):
     # Given
-    # Load the test data from the regression_model package
+    # Load the test data from the classification_model package
     # This is important as it makes it harder for the test
     # data versions to get confused by not spreading it
     # across packages.

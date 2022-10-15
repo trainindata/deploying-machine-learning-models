@@ -98,7 +98,7 @@ jobs:
   test_regression_model_py36:
     docker:
       - image: circleci/python:3.6.9
-    working_directory: ~/project/packages/regression_model
+    working_directory: ~/project/packages/classification_model
     steps:
       - checkout:
           path: ~/project
@@ -112,7 +112,7 @@ jobs:
   test_regression_model_py37:
     docker:
       - image: circleci/python:3.7.6
-    working_directory: ~/project/packages/regression_model
+    working_directory: ~/project/packages/classification_model
     steps:
       - checkout:
           path: ~/project
@@ -126,7 +126,7 @@ jobs:
   test_regression_model_py38:
     docker:
       - image: circleci/python:3.8.0
-    working_directory: ~/project/packages/regression_model
+    working_directory: ~/project/packages/classification_model
     steps:
       - checkout:
           path: ~/project
