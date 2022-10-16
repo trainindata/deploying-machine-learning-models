@@ -40,7 +40,6 @@ class TitanticDataInputSchema(BaseModel):
     embarked: Optional[str]
     boat: Optional[Union[str, int]]
     body: Optional[int]
-    # TODO: home.dest?
 
 
 class MultipleTitanicDataInputs(BaseModel):
