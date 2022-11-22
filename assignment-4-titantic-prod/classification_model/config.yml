@@ -1,0 +1,39 @@
+# Package Overview
+package_name: classification_model
+
+# Data files:
+training_data_file: train.csv
+test_date_file: test.csv
+
+# Variables
+# The variable we are attempting to predict (survived)
+target: survived
+
+features:
+  - pclass
+  - sex
+  - age
+  - sibsp
+  - parch
+  - fare
+  - cabin
+  - embarked
+  - title
+
+
+# set train/test split
+test_size: 0.2
+
+# to sent the random seed
+random_state: 0
+
+# categorical variables with NA in train set
+categorical_vars_with_na:
+  - sex
+  - cabin
+  - embarked
+  - title
+
+numerical_vars_with_na:
+  - age
+  - fare
