@@ -2,7 +2,7 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/python:3.9.5
+    - image: circleci/python:3.9.15
   working_directory: ~/project
 
 prepare_venv: &prepare_venv
@@ -307,11 +307,11 @@ workflows:
       # upload after git tags are created
       - section_07_test_and_upload_regression_model:
           <<: *tags_only
-      - section_08_deploy_app_container_in_heroku:
-          filters:
-            branches:
-              only:
-                - master
+      # - section_08_deploy_app_container_in_heroku:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
 
 #  test-all:
 #    jobs:
