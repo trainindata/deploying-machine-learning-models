@@ -4,20 +4,19 @@ from typing import Dict, List, Sequence
 from pydantic import BaseModel
 from strictyaml import YAML, load
 
-import regression_model
+import classification_model
 
-# Project Directories
-PACKAGE_ROOT = Path(regression_model.__file__).resolve().parent
+# Project directories
+PACKAGE_ROOT = Path(classification_model.__file__).resolve().parent
 ROOT = PACKAGE_ROOT.parent
-CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yml"
+CONFIG_FILE_PATH = PACKAGE_ROOT / "config.yaml"
 DATASET_DIR = PACKAGE_ROOT / "datasets"
-TRAINED_MODEL_DIR = PACKAGE_ROOT / "trained_models"
+TRAINED_MODEL_DIR = PACKAGE_ROOT()
 
-print(PACKAGE_ROOT)
 
 class AppConfig(BaseModel):
     """
-    Application-level config.
+    Application-level config
     """
 
     package_name: str
@@ -41,9 +40,8 @@ class ModelConfig(BaseModel):
     categorical_vars_with_na_frequent: List[str]
     categorical_vars_with_na_missing: List[str]
     numerical_vars_with_na: List[str]
-    temporal_vars: List[str]
     ref_var: str
-    numericals_log_vars: Sequence[str]
+    numerical_log_vars: Sequence[str]
     binarize_vars: Sequence[str]
     qual_vars: List[str]
     exposure_vars: List[str]
@@ -84,11 +82,11 @@ def fetch_config_from_yaml(cfg_path: Path = None) -> YAML:
 
 
 def create_and_validate_config(parsed_config: YAML = None) -> Config:
-    """Run validation on config values."""
+    """Run validation on config values"""
     if parsed_config is None:
         parsed_config = fetch_config_from_yaml()
 
-    # specify the data attribute from the strictyaml YAML type.
+    # specify the data attribute from the strictyaml YAML type
     _config = Config(
         app_config=AppConfig(**parsed_config.data),
         model_config=ModelConfig(**parsed_config.data),
