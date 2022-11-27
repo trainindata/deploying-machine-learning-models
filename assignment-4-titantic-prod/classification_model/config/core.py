@@ -36,17 +36,16 @@ class ModelConfig(BaseModel):
     features: List[str]
     test_size: float
     random_state: int
-    alpha: float
-    categorical_vars_with_na_frequent: List[str]
-    categorical_vars_with_na_missing: List[str]
+    c: float
+    categorical_vars_with_na: List[str]
     numerical_vars_with_na: List[str]
     ref_var: str
-    numerical_log_vars: Sequence[str]
     binarize_vars: Sequence[str]
     qual_vars: List[str]
     exposure_vars: List[str]
     finish_vars: List[str]
     garage_vars: List[str]
+    numerical_vars: Sequence[str]
     categorical_vars: Sequence[str]
     qual_mappings: Dict[str, int]
     exposure_mappings: Dict[str, int]

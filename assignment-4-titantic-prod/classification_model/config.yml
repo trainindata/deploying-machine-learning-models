@@ -33,7 +33,7 @@ categorical_vars:
   - title
   - cabin
 
-numerica_vars:
+numerical_vars:
   - pclass
   - age
   - sibsp
@@ -53,3 +53,5 @@ categorical_vars_with_na:
 numerical_vars_with_na:
   - age
   - fare
+
+c: 0.005

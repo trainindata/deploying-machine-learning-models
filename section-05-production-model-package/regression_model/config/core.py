@@ -37,7 +37,7 @@ class ModelConfig(BaseModel):
     features: List[str]
     test_size: float
     random_state: int
-    alpha: float
+    c: float
     categorical_vars_with_na_frequent: List[str]
     categorical_vars_with_na_missing: List[str]
     numerical_vars_with_na: List[str]
