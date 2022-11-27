@@ -27,6 +27,22 @@ test_size: 0.2
 # to sent the random seed
 random_state: 0
 
+categorical_vars:
+  - sex
+  - embarked
+  - title
+  - cabin
+
+numerica_vars:
+  - pclass
+  - age
+  - sibsp
+  - parch
+  - fare
+
+cabin:
+  - cabin
+
 # categorical variables with NA in train set
 categorical_vars_with_na:
   - sex
