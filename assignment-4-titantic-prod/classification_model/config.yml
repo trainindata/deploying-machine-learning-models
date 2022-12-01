@@ -2,7 +2,7 @@
 package_name: classification_model
 
 # Data files:
-training_data_file: train.csv
+training_data_file: titanic.csv
 test_date_file: test.csv
 
 # Variables
