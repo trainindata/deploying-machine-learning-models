@@ -56,6 +56,7 @@ class ModelConfig(BaseModel):
     finish_mappings: Dict[str, int]
 
 
+
 class Config(BaseModel):
     """Master config object."""
 

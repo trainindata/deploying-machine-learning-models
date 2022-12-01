@@ -59,3 +59,10 @@ c: 0.005
 # RareLabelEncoder parameters
 tol: 0.05
 n_categories: 1
+
+vars_to_drop:
+  - name
+  - ticket
+  - boat
+  - body
+  - home.dest

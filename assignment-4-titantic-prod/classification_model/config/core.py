@@ -53,6 +53,7 @@ class ModelConfig(BaseModel):
     exposure_mappings: Dict[str, int]
     garage_mappings: Dict[str, int]
     finish_mappings: Dict[str, int]
+    vars_to_drop: List[str]
 
 
 class Config(BaseModel):
