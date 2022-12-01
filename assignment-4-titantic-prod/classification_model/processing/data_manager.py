@@ -25,7 +25,6 @@ def load_dataset(*, file_name: str) -> pd.DataFrame:
     data.drop(labes=["name", "ticket", "boat", "home.dest"], axis=1, inplace=True)
 
 
-
 def get_title(passenger):
     line = passenger
     if re.search('Mrs', line):
@@ -38,3 +37,12 @@ def get_title(passenger):
         return 'Master'
     else:
         return 'Other'
+
+
+def save_pipeline(*, pipeline_to_persist: Pipeline) -> None:
+    """Persist the pipeline.
+        Saves the versioned model, and overwrites any previous
+        saved models. This ensures that when the package is
+        published, there is only one trained model that can be
+        called, and we know exactly how it was built.
+        """

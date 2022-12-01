@@ -37,6 +37,8 @@ class ModelConfig(BaseModel):
     test_size: float
     random_state: int
     c: float
+    tol: float
+    n_categories: int
     categorical_vars_with_na: List[str]
     numerical_vars_with_na: List[str]
     ref_var: str

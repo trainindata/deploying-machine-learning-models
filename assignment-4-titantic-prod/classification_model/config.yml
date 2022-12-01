@@ -55,3 +55,7 @@ numerical_vars_with_na:
   - fare
 
 c: 0.005
+
+# RareLabelEncoder parameters
+tol: 0.05
+n_categories: 1

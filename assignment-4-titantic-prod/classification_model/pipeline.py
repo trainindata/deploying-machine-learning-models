@@ -10,10 +10,10 @@ from feature_engine.imputation import (
 
 from feature_engine.encoding import (
     RareLabelEncoder,
-    OrdinalEncoder,
     OneHotEncoder,
 )
 
+from classification_model.config.core import config
 from classification_model.processing import features as pp
 
 
@@ -44,7 +44,8 @@ titanic_pipe = Pipeline([
     # remove categories present in less than 5% of the obeservations
     # group thme into one category called 'Rare'
     ('rare_label_encoder', RareLabelEncoder(
-        tol=0.05,
+        tol=config.model_config.tol,
+        n_categories=config.model_config.n_categories,
         variables=config.model_config.categorical_vars,
     )
     ),
