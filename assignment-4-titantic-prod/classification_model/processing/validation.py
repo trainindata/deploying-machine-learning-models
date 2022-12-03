@@ -16,14 +16,18 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
     validated_data = validated_data.replace("?", np.nan)
     # cast numerical variables as floats
     for var in config.model_config.numerical_vars:
-        validated_data[var] = validated_data[var].astyope("float")
+        validated_data[var] = validated_data[var].astype("float")
+
+    # cast categorical variables as objects
+    for var in config.model_config.categorical_vars:
+        validated_data[var] = validated_data[var].astype("O")
 
     return validated_data
 
 
 class TitanicDataInputSchema(BaseModel):
     pclass: Optional[str]
-    survived: Optional[int]
+    survived: Optional[float]
     sex: Optional[str]
     age: Optional[int]
     sibsp: Optional[str]
