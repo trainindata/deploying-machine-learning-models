@@ -19,3 +19,16 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
         validated_data[var] = validated_data[var].astyope("float")
 
     return validated_data
+
+
+class TitanicDataInputSchema(BaseModel):
+    pclass: Optional[str]
+    survived: Optional[int]
+    sex: Optional[str]
+    age: Optional[int]
+    sibsp: Optional[str]
+    parch: Optional[str]
+    fare: Optional[float]
+    cabin: Optional[str]
+    embarked: Optional[str]
+    title: Optional[str]
