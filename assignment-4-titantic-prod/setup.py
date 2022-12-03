@@ -7,8 +7,8 @@ from setuptools import find_packages, setup
 
 # Package meta-data.
 NAME = 'titanic-classification-model'
-DESCRIPTION = "Example regression model package from Train In Data."
-URL = "https://github.com/trainindata/testing-and-monitoring-ml-deployments"
+DESCRIPTION = "Classification model for Titanic assignment."
+URL = "https://github.com/morgan-sell/deploying-machine-learning-models"
 EMAIL = "morganpsell@gmail.com"
 AUTHOR = "Morgan-Sell"
 REQUIRES_PYTHON = ">=3.6.0"
