@@ -22,17 +22,32 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
     for var in config.model_config.categorical_vars:
         validated_data[var] = validated_data[var].astype("O")
 
-    return validated_data
+    # What is this doing?
+    errors = None
+    try:
+        # replace numpy NaNs so pydantic can validate
+        MultipleTitanticDataInputSchema(
+            inputs=validated_data.replace({np.nan: None}).to_dict(orient="records")
+        )
+
+    except ValidationError as error:
+        errors = error.json()
+
+    return validated_data, errors
 
 
 class TitanicDataInputSchema(BaseModel):
     pclass: Optional[str]
     survived: Optional[float]
     sex: Optional[str]
-    age: Optional[int]
+    age: Optional[float]
     sibsp: Optional[str]
     parch: Optional[str]
     fare: Optional[float]
     cabin: Optional[str]
     embarked: Optional[str]
     title: Optional[str]
+
+
+class MultipleTitanticDataInputSchema(BaseModel):
+    inputs: List[TitanicDataInputSchema]
