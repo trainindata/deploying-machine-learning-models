@@ -32,7 +32,7 @@ class ModelConfig(BaseModel):
     """
 
     target: str
-    variables_to_rename: Dict
+    # variables_to_rename: Dict
     features: List[str]
     test_size: float
     random_state: int
@@ -41,19 +41,20 @@ class ModelConfig(BaseModel):
     n_categories: int
     categorical_vars_with_na: List[str]
     numerical_vars_with_na: List[str]
-    ref_var: str
-    binarize_vars: Sequence[str]
-    qual_vars: List[str]
-    exposure_vars: List[str]
-    finish_vars: List[str]
-    garage_vars: List[str]
+    # ref_var: str
+    # binarize_vars: Sequence[str]
+    # qual_vars: List[str]
+    # exposure_vars: List[str]
+    # finish_vars: List[str]
+    # garage_vars: List[str]
     numerical_vars: Sequence[str]
     categorical_vars: Sequence[str]
-    qual_mappings: Dict[str, int]
-    exposure_mappings: Dict[str, int]
-    garage_mappings: Dict[str, int]
-    finish_mappings: Dict[str, int]
+    # qual_mappings: Dict[str, int]
+    # exposure_mappings: Dict[str, int]
+    # garage_mappings: Dict[str, int]
+    # finish_mappings: Dict[str, int]
     vars_to_drop: List[str]
+    cabin: str
 
 
 class Config(BaseModel):

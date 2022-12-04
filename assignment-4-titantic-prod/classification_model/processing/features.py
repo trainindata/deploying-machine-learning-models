@@ -7,7 +7,7 @@ class ExtractLetterTransformer(BaseEstimator, TransformerMixin):
     Extracts the first letter of a variable.
     """
 
-    def __init__(self, varialbes):
+    def __init__(self, variables):
         if not isinstance(variables, list):
             raise ValueError(
                 f"variables should be a list. Got {variables} instead."
@@ -15,8 +15,9 @@ class ExtractLetterTransformer(BaseEstimator, TransformerMixin):
 
         self.variables = variables
 
-    def fit(sel, X, y=None):
+    def fit(sel, X: pd.DataFrame, y: pd.Series = None):
         # need to meet sklearn pipeline requirements
+        return self
 
     def transform(self, X):
         X = X.copy()

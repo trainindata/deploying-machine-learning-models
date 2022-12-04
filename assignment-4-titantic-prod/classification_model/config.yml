@@ -3,11 +3,14 @@ package_name: classification_model
 
 # Data files:
 training_data_file: titanic.csv
-test_date_file: test.csv
+test_data_file: test.csv
 
 # Variables
 # The variable we are attempting to predict (survived)
 target: survived
+
+pipeline_name: classification_model
+pipeline_save_file: classification_model_output_v
 
 features:
   - pclass

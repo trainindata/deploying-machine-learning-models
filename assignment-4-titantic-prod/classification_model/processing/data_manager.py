@@ -1,7 +1,10 @@
+import re
+
 import typing as t
 from pathlib import Path
 
 import joblib
+import numpy as np
 import pandas as pd
 from sklearn.pipeline import Pipeline
 
@@ -10,19 +13,22 @@ from classification_model.config.core import DATASET_DIR, TRAINED_MODEL_DIR, con
 
 
 def load_dataset(*, file_name: str) -> pd.DataFrame:
-    data = pd.read_csv(Path(f"{DATASET_DIR}/{file_name}"))
+    data = pd.read_csv('https://www.openml.org/data/get_csv/16826755/phpMYEkMl')
 
     data = data.replace("?", np.nan)
 
-    # extract the title (Mr, Ms, etc) from the name variable
-    data["title"] = data["name"].apply(get_title)
+    # Get Mr, Mrs, Miss, etc
+    data['title'] = data['name'].apply(get_title)
+
+    # get the cabin's letter
+    data["cabin"] = data["cabin"].apply(get_first_cabin)
 
     # cast numerical variables as floats
     data["fare"] = data["fare"].astype("float")
     data["age"] = data["age"].astype("float")
 
     # drop unnecessary variables
-    data.drop(labes=["name", "ticket", "boat", "home.dest"], axis=1, inplace=True)
+    data.drop(labels=config.model_config.vars_to_drop, axis=1, inplace=True)
 
 
 def get_title(passenger):
@@ -37,6 +43,13 @@ def get_title(passenger):
         return 'Master'
     else:
         return 'Other'
+
+
+def get_first_cabin(row):
+    try:
+        return row.split()[0]
+    except:
+        return np.nan
 
 
 def save_pipeline(*, pipeline_to_persist: Pipeline) -> None:
