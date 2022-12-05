@@ -30,6 +30,8 @@ def load_dataset(*, file_name: str) -> pd.DataFrame:
     # drop unnecessary variables
     data.drop(labels=config.model_config.vars_to_drop, axis=1, inplace=True)
 
+    return data
+
 
 def get_title(passenger):
     line = passenger

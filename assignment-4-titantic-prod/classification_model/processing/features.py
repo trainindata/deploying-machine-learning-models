@@ -15,7 +15,7 @@ class ExtractLetterTransformer(BaseEstimator, TransformerMixin):
 
         self.variables = variables
 
-    def fit(sel, X: pd.DataFrame, y: pd.Series = None):
+    def fit(self, X: pd.DataFrame, y: pd.Series = None):
         # need to meet sklearn pipeline requirements
         return self
 
@@ -23,6 +23,6 @@ class ExtractLetterTransformer(BaseEstimator, TransformerMixin):
         X = X.copy()
 
         for var in self.variables:
-            X[var] = X[feature].str[0]
+            X[var] = X[var].str[0]
 
         return X

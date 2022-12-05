@@ -54,7 +54,7 @@ class ModelConfig(BaseModel):
     # garage_mappings: Dict[str, int]
     # finish_mappings: Dict[str, int]
     vars_to_drop: List[str]
-    cabin: str
+    cabin: Sequence[str]
 
 
 class Config(BaseModel):
