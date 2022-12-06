@@ -17,12 +17,28 @@ def test_make_prediction(sample_input_data):
     result = make_prediction(input_data=sample_input_data)
 
     # Then
+    # get predictions from dict
     predictions = result.get("predictions")
+
+    # check it's a numpy ndarray
     assert isinstance(predictions, np.ndarray)
+    # check that the first value predicted is an integer
     assert isinstance(predictions[0], np.int64)
+    # check that there are no errors
     assert result.get("errors") is None
+    # check that the expected number of predictions is as specified before
     assert len(predictions) == expected_no_predictions
+
     y_true = sample_input_data[config.model_config.target]
+
+    # test predictions
+    assert predictions[6] == 0
+    assert predictions[34] == 1
+    assert predictions[72] == 0
+    assert predictions[120] == 0
+    assert predictions[194] == 0
+
+    # test accuracy
     accuracy = accuracy_score(list(predictions), y_true)
     print(f"\n-------------\nACCURACY: {accuracy}")
     assert accuracy > config.model_config.expected_accuracy
