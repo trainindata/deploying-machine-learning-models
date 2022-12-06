@@ -1,0 +1,58 @@
+# Package Overview
+package_name: titanic_model
+
+# Data Files
+training_data_file: raw.csv
+
+# set train/test split
+test_size: 0.2
+
+# to set the random seed
+seed: 0
+
+# model regularization parameter
+logistic_regression_C: 0.0005
+
+# minimum expected accuracy
+expected_accuracy: 0.7
+
+# Variables
+# The variable we are attempting to predict
+target: survived
+
+pipeline_name: titanic_model
+pipeline_save_file: titanic_model_output_v
+
+categorical_vars:
+  - sex
+  - cabin
+  - embarked
+  - title
+
+numerical_vars:
+  - age
+  - fare
+
+extract_letter_vars:
+  - cabin
+
+vars:
+  - pclass
+  - sex
+  - age
+  - sibsp
+  - parch
+  - fare
+  - cabin
+  - embarked
+  - title
+
+vars_to_rename:
+  home.dest: home_dest
+
+vars_to_drop:
+  - name
+  - ticket
+  - boat
+  - body
+  - home_dest # renamed
