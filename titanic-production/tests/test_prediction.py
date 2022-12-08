@@ -20,12 +20,13 @@ def test_make_prediction(sample_input_data):
     # get predictions from dict
     predictions = result.get("predictions")
 
-    # check it's a numpy ndarray
+    # check that there are no errors
+    assert result.get("errors") is None
+
+    # check the predictions are a numpy ndarray
     assert isinstance(predictions, np.ndarray)
     # check that the first value predicted is an integer
     assert isinstance(predictions[0], np.int64)
-    # check that there are no errors
-    assert result.get("errors") is None
     # check that the expected number of predictions is as specified before
     assert len(predictions) == expected_no_predictions
 
