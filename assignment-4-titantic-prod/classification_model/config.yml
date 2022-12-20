@@ -1,0 +1,71 @@
+# Package Overview
+package_name: classification_model
+
+# Data files:
+training_data_file: titanic.csv
+test_data_file: test.csv
+
+# Variables
+# The variable we are attempting to predict (survived)
+target: survived
+
+pipeline_name: classification_model
+pipeline_save_file: classification_model_output_v
+
+features:
+  - pclass
+  - sex
+  - age
+  - sibsp
+  - parch
+  - fare
+  - cabin
+  - embarked
+  - title
+
+
+# set train/test split
+test_size: 0.2
+
+# to sent the random seed
+random_state: 0
+
+categorical_vars:
+  - sex
+  - embarked
+  - title
+  - cabin
+
+numerical_vars:
+  - pclass
+  - age
+  - sibsp
+  - parch
+  - fare
+
+cabin:
+  - cabin
+
+# categorical variables with NA in train set
+categorical_vars_with_na:
+  - sex
+  - cabin
+  - embarked
+  - title
+
+numerical_vars_with_na:
+  - age
+  - fare
+
+c: 0.005
+
+# RareLabelEncoder parameters
+tol: 0.05
+n_categories: 1
+
+vars_to_drop:
+  - name
+  - ticket
+  - boat
+  - body
+  - home.dest

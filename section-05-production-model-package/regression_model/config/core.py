@@ -14,6 +14,7 @@ DATASET_DIR = PACKAGE_ROOT / "datasets"
 TRAINED_MODEL_DIR = PACKAGE_ROOT / "trained_models"
 
 
+
 class AppConfig(BaseModel):
     """
     Application-level config.
@@ -36,7 +37,7 @@ class ModelConfig(BaseModel):
     features: List[str]
     test_size: float
     random_state: int
-    alpha: float
+    c: float
     categorical_vars_with_na_frequent: List[str]
     categorical_vars_with_na_missing: List[str]
     numerical_vars_with_na: List[str]
@@ -53,6 +54,7 @@ class ModelConfig(BaseModel):
     exposure_mappings: Dict[str, int]
     garage_mappings: Dict[str, int]
     finish_mappings: Dict[str, int]
+
 
 
 class Config(BaseModel):
