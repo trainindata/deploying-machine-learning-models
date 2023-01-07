@@ -9,7 +9,7 @@ prepare_venv: &prepare_venv
   run:
     name: Create venv
     command: |
-      python3 -m venv venv
+      python -m venv venv
       source venv/bin/activate
       pip install --upgrade pip
 
@@ -17,7 +17,7 @@ prepare_tox: &prepare_tox
   run:
     name: Install tox
     command: |
-      sudo pip install --upgrade pip
+      source venv/bin/activate
       pip install --user tox
 
 fetch_data: &fetch_data
