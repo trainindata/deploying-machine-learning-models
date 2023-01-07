@@ -17,7 +17,6 @@ prepare_tox: &prepare_tox
   run:
     name: Install tox
     command: |
-      source venv/bin/activate
       pip install --user tox
 
 fetch_data: &fetch_data
