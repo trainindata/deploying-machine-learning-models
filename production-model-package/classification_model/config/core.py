@@ -32,15 +32,18 @@ class ModelConfig(BaseModel):
     """
 
     target: str
-    features: List[str]
+    name: str
+    title: str
     test_size: float
     random_state: int
     C: float
-    categorical_variables: Sequence[str]
+    features: List[str]
+    variables_to_drop: List[str]
     cabin: List[str]
+    categorical_variables: Sequence[str]
     numerical_variables: Sequence[str]
     
-
+   
 
 class Config(BaseModel):
     """Master config object."""

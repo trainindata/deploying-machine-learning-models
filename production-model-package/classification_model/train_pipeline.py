@@ -13,7 +13,7 @@ def run_training() -> None:
 
     # divide train and test
     X_train, X_test, y_train, y_test = train_test_split(
-        data[config.model_config.features],  # predictors
+        data[config.model_config.features + [config.model_config.title]],  # predictors
         data[config.model_config.target],
         test_size=config.model_config.test_size,
         # we are setting the random seed here

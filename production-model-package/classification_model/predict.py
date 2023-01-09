@@ -24,10 +24,14 @@ def make_prediction(
 
     if not errors:
         predictions = _titanic_pipe.predict(
-            X=validated_data[config.model_config.features]
+            X=validated_data[config.model_config.features + [config.model_config.title]]
         )
+        predict_proba = _titanic_pipe.predict_proba(
+            X=validated_data[config.model_config.features + [config.model_config.title]]
+        )[:, 1]
         results = {
-            "predictions": [pred for pred in predictions],  # type: ignore
+            "predictions": [pred for pred in predictions], 
+            "predict_proba":[pred for pred in predict_proba], # type: ignore
             "version": _version,
             "errors": errors,
         }

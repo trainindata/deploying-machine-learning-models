@@ -11,7 +11,7 @@ def test_extract_letter_transformer(sample_input_data):
         
     )
     # TO DO replace test value by true value
-    assert sample_input_data["cabin"].iat[0] == "C105"
+    assert sample_input_data.loc[414:, "Cabin"].iat[0] == "C105"
     #assert sample_input_data["cabin"].iat[1] == "C22"
 
     # When
@@ -19,5 +19,5 @@ def test_extract_letter_transformer(sample_input_data):
 
     # Then
   
-    assert subject["cabin"].iat[0] == "C"
+    assert subject.loc[414:, "Cabin"].iat[0] == "C"
     #assert sample_input_data["cabin"].iat[1] == "C"

@@ -2,18 +2,24 @@ import typing as t
 from pathlib import Path
 
 import joblib
+import numpy as np
 import pandas as pd
 from sklearn.pipeline import Pipeline
 
 from classification_model import __version__ as _version
 from classification_model.config.core import DATASET_DIR, TRAINED_MODEL_DIR, config
+from classification_model.processing.utils import get_first_cabin, get_title
 
 def load_dataset(*, file_name: str) -> pd.DataFrame:
     dataframe = pd.read_csv(Path(f"{DATASET_DIR}/{file_name}"))
-    dataframe["MSSubClass"] = dataframe["MSSubClass"].astype("O")
-
+    transformed = dataframe.replace('?', np.nan)
+    transformed['Fare'] = transformed['Fare'].astype('float')
+    transformed['Age'] = transformed['Age'].astype('float')
     # rename variables beginning with numbers to avoid syntax errors later
-    transformed = dataframe.rename(columns=config.model_config.variables_to_rename)
+     #rename(columns=config.model_config.variables_to_rename)
+    transformed[config.model_config.cabin[0]] = transformed[config.model_config.cabin[0]].apply(get_first_cabin)
+    transformed[config.model_config.title] = transformed[config.model_config.name].apply(get_title)
+
     return transformed
 
 
