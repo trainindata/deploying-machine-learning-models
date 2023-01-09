@@ -8,7 +8,7 @@ from setuptools import find_packages, setup
 # Package meta-data.
 NAME = 'tid-classificatio,-model'
 DESCRIPTION = "Example classifation model package from Titanic dataset."
-URL = "https://github.com/trainindata/testing-and-monitoring-ml-deployments"
+URL = "https://github.com/mamadcamzis/deploying-machine-learning-models/tree/master/production-model-package"
 EMAIL = "camara0388@gmail.com"
 AUTHOR = "Mamadou Camara"
 REQUIRES_PYTHON = ">=3.6.0"
