@@ -39,9 +39,6 @@ jobs:
       - run:
           name: Runnning app tests
           command: 
-            pip install pip -U
-            pip install pipenv -U
-            pip install virtualenv -U|
             tox
 
   section_07_deploy_app_to_heroku:
