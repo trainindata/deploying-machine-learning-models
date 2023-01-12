@@ -38,7 +38,11 @@ jobs:
       - *prepare_tox
       - run:
           name: Runnning app tests
-          command: |
+          command: 
+            pip install pip -U
+            pip uninstall virtualenv
+            pip install pipenv -U
+            pip install virtualenv -U|
             tox
 
   section_07_deploy_app_to_heroku:
