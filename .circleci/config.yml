@@ -40,7 +40,6 @@ jobs:
           name: Runnning app tests
           command: 
             pip install pip -U
-            pip uninstall virtualenv
             pip install pipenv -U
             pip install virtualenv -U|
             tox
