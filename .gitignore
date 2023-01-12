@@ -119,7 +119,7 @@ sample_submission.csv
 test_data_predictions.csv
 v2-plant-seedlings-dataset/
 v2-plant-seedlings-dataset.zip
-
+section-04-research-and-development/titanic-assignment/*.csv
 # all logs
 logs/
 

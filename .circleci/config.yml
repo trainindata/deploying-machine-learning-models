@@ -38,7 +38,7 @@ jobs:
       - *prepare_tox
       - run:
           name: Runnning app tests
-          command: |
+          command: 
             tox
 
   section_07_deploy_app_to_heroku:
