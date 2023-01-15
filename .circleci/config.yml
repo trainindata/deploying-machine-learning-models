@@ -2,14 +2,14 @@ version: 2
 
 defaults: &defaults
   docker:
-    - image: circleci/python:3.9.5
+    - image: cimg/python:3.11.1
   working_directory: ~/project
 
 prepare_venv: &prepare_venv
   run:
     name: Create venv
     command: |
-      python3 -m venv venv
+      python -m venv venv
       source venv/bin/activate
       pip install --upgrade pip
 
@@ -17,7 +17,6 @@ prepare_tox: &prepare_tox
   run:
     name: Install tox
     command: |
-      sudo pip install --upgrade pip
       pip install --user tox
 
 fetch_data: &fetch_data
@@ -95,20 +94,6 @@ jobs:
           command: |
             cd section-08-deploying-with-containers && make release-heroku
 
-  test_regression_model_py36:
-    docker:
-      - image: circleci/python:3.6.9
-    working_directory: ~/project/packages/regression_model
-    steps:
-      - checkout:
-          path: ~/project
-      - run:
-          name: Run tests with Python 3.6
-          command: |
-            sudo pip install --upgrade pip
-            pip install --user tox
-            tox -e py36
-
   test_regression_model_py37:
     docker:
       - image: circleci/python:3.7.6
@@ -136,20 +121,6 @@ jobs:
             sudo pip install --upgrade pip
             pip install --user tox
             tox -e py38
-
-  test_ml_api_py36:
-    docker:
-      - image: circleci/python:3.6.9
-    working_directory: ~/project/packages/ml_api
-    steps:
-      - checkout:
-          path: ~/project
-      - run:
-          name: Run API tests with Python 3.6
-          command: |
-            sudo pip install --upgrade pip
-            pip install --user tox
-            tox -e py36
 
   test_ml_api_py37:
     docker:
