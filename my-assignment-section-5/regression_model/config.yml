@@ -1,0 +1,55 @@
+# Package Overview
+package_name: regression_model
+
+# Data Files
+data_file: titanic.csv
+
+# Variables
+# The variable we are attempting to predict (sale price)
+target: survived
+
+pipeline_name: regression_model
+pipeline_save_file: regression_model_output_v
+
+# set train/test split
+test_size: 0.2
+
+# to set the random seed
+random_state: 0
+
+rare_label_encoder_threshold: 0.05
+
+rare_label_encoder_n_categories: 1
+
+# categorical encoder
+drop_last: True
+
+
+cast_variables:
+  fare: float
+  age: float
+
+logistic_regression_c: 0.0005
+
+numerical_variables:
+  - age
+  - fare
+
+categorical_variables:
+  - sex
+  - cabin
+  - embarked
+  - title
+
+cabin_variable: cabin
+
+features:
+  - pclass
+  - sex
+  - age
+  - sibsp
+  - parch
+  - fare
+  - cabin
+  - embarked
+  - title
