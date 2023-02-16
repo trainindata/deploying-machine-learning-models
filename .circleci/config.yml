@@ -1,6 +1,6 @@
 version: '2.1'
 orbs:
-  node: circleci/node@19.5
+  node: circleci/node@5.1.0
 
 defaults: &defaults
   docker:
