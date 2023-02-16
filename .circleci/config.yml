@@ -45,7 +45,7 @@ jobs:
     steps:
       - checkout:
           path: ~/project/section-07-ci-and-publishing/house-prices-api
-      - run: sudo curl -fsSL https://deb.nodesource.com/setup_19.4 | sudo -E bash - && sudo apt-get install -y nodejs
+      - run: sudo curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash - && sudo apt-get install -y nodejs
       - run:
           name: Install railway CLI
           command: |
