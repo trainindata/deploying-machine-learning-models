@@ -1,6 +1,4 @@
 version: '2.1'
-orbs:
-  node: circleci/node@5.1.0
 
 defaults: &defaults
   docker:
@@ -44,14 +42,10 @@ jobs:
 
   section_07_deploy_app_to_railway:
     <<: *defaults
-    executor: node/default
     steps:
       - checkout:
           path: ~/project/section-07-ci-and-publishing/house-prices-api
-      - run: sudo npm install -g npm@latest
-      - node/install-packages:
-          cache-path: ~/project/section-07-ci-and-publishing/house-prices-api/node_modules
-          override-ci-command: npm install
+      - run: sudo curl -fsSL https://deb.nodesource.com/setup_19.4 | sudo -E bash - && sudo apt-get install -y nodejs
       - run:
           name: Install railway CLI
           command: |
