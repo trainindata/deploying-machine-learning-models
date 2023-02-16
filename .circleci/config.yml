@@ -44,18 +44,20 @@ jobs:
 
   section_07_deploy_app_to_railway:
     <<: *defaults
+    executor: node/default
     steps:
       - checkout:
           path: ~/project/section-07-ci-and-publishing/house-prices-api
-      - node/install:
+      - run: sudo npm install -g npm@latest
+      - node/install-packages:
           cache-path: ~/project/section-07-ci-and-publishing/house-prices-api/node_modules
-          node-version: '16.13'
+          override-ci-command: npm install
       - run:
-          name: Install railway CLI (You must set RAILWAY_TOKEN env var)
+          name: Install railway CLI
           command: |
-            npm i @railway/cli
+            npm install @railway/cli
       - run:
-          name: Deploy to Railway App
+          name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
           command: |
             railway up --detach
 
