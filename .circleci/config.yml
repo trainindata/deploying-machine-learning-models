@@ -48,7 +48,7 @@ jobs:
       - run:
           name: Install railway CLI (You must set RAILWAY_TOKEN env var)
           command: |
-            sudo curl -fsSL https://railway.app/install.sh | sh
+            npm i -g @railway/cli
       - run:
           name: Deploy to Railway App
           command: |
