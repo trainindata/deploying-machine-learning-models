@@ -47,7 +47,7 @@ jobs:
     steps:
       - checkout:
           path: ~/project/section-07-ci-and-publishing/house-prices-api
-      - node/install-packages:
+      - node/install:
           cache-path: ~/project/section-07-ci-and-publishing/house-prices-api/node_modules
           node-version: '16.13'
       - run:
