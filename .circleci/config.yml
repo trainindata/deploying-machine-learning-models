@@ -49,11 +49,11 @@ jobs:
       - run:
           name: Install railway CLI
           command: |
-            npm install -g @railway/cli
+            sudo npm install -g @railway/cli
       - run:
           name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
           command: |
-            npm run railway up --detach
+            sudo npm run railway up --detach
 
   section_07_test_and_upload_regression_model:
     <<: *defaults
