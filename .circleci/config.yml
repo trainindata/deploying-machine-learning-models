@@ -40,15 +40,19 @@ jobs:
           command: |
             tox
 
-  section_07_deploy_app_to_heroku:
+  section_07_deploy_app_to_railway:
     <<: *defaults
     steps:
       - checkout:
-          path: ~/project
+          path: ~/project/section-07-ci-and-publishing/house-prices-api
       - run:
-          name: Deploy to Heroku
+          name: Install railway CLI (You must set RAILWAY_TOKEN env var)
           command: |
-            git subtree push --prefix section-07-ci-and-publishing/house-prices-api https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            sudo curl -fsSL https://railway.app/install.sh | sh
+      - run:
+          name: Deploy to Railway App
+          command: |
+            railway up --detach
 
   section_07_test_and_upload_regression_model:
     <<: *defaults
@@ -268,13 +272,13 @@ workflows:
   section_07:
     jobs:
       - section_07_test_app
-      - section_07_deploy_app_to_heroku:
+      - section_07_deploy_app_to_railway:
           requires:
             - section_07_test_app
-          filters:
-            branches:
-              only:
-                - master
+#          filters:
+#            branches:
+#              only:
+#                - master
       # upload after git tags are created
       - section_07_test_and_upload_regression_model:
           <<: *tags_only
