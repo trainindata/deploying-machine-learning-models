@@ -1,4 +1,6 @@
-version: 2
+version: '2.1'
+orbs:
+  node: circleci/node@19.5
 
 defaults: &defaults
   docker:
@@ -45,10 +47,13 @@ jobs:
     steps:
       - checkout:
           path: ~/project/section-07-ci-and-publishing/house-prices-api
+      - run: sudo npm install -g npm@latest
+      - node/install-packages:
+          cache-path: ~/project/section-07-ci-and-publishing/house-prices-api/node_modules
       - run:
           name: Install railway CLI (You must set RAILWAY_TOKEN env var)
           command: |
-            npm i -g @railway/cli
+            npm i @railway/cli
       - run:
           name: Deploy to Railway App
           command: |
