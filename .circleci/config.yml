@@ -45,15 +45,11 @@ jobs:
     steps:
       - checkout:
           path: ~/project/section-07-ci-and-publishing/house-prices-api
-      - run: sudo curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash - && sudo apt-get install -y nodejs
-      - run:
-          name: Install railway CLI
-          command: |
-            sudo npm install -g @railway/cli
+      - run: sudo curl -fsSL https://railway.app/install.sh | sh
       - run:
           name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
           command: |
-            sudo npm run railway up --detach
+            railway up --detach
 
   section_07_test_and_upload_regression_model:
     <<: *defaults
