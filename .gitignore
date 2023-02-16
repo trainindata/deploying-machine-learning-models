@@ -23,6 +23,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+production-model-package/dist/
 MANIFEST
 
 # PyInstaller

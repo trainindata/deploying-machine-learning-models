@@ -1,0 +1,60 @@
+# Package Overview
+package_name: classification_model
+
+# Data Files
+training_data_file: train.csv
+test_data_file: test.csv
+test_extract_letter_data_file: titanic_test.csv
+
+# Variables
+# The variable we are attempting to predict (titanic survived)
+target: Survived
+
+pipeline_name: classification_model
+pipeline_save_file: classification_model_output_v
+
+features:
+  - Pclass
+  - Sex
+  - Age
+  - SibSp
+  - Parch
+  - Fare
+  - Cabin
+  - Embarked
+
+# set train/test split
+test_size: 0.1
+
+# to set the random seed
+random_state: 0
+
+C: 0.0005
+
+categorical_variables:
+  - Sex
+  - Cabin
+  - Embarked
+  - Title
+
+
+cabin:
+ - Cabin
+
+numerical_variables:
+  - Age
+  - Fare
+
+# Get Title name
+name: Name
+
+title: Title
+
+# Variables to drop
+variables_to_drop:
+  - Name
+  - Ticket
+
+
+
+
