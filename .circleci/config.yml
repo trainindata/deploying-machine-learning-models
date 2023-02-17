@@ -45,7 +45,7 @@ jobs:
     steps:
       - checkout:
           path: ~/project/section-07-ci-and-publishing/house-prices-api
-      - run: sudo chown -R $USER:$USER /usr/local/bin/
+      - run: sudo chown -R $USER:USER . && sudo chown -R $USER:$USER /usr/local/bin/
       - run: sudo curl -fsSL https://railway.app/install.sh | sh
       - run:
           name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
