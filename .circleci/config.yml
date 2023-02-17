@@ -270,9 +270,9 @@ workflows:
   section_07:
     jobs:
 #      - section_07_test_app
-      - section_07_deploy_app_to_railway:
-          requires:
-            - section_07_test_app
+      - section_07_deploy_app_to_railway
+#          requires:
+#            - section_07_test_app
 #          filters:
 #            branches:
 #              only:
