@@ -1,11 +1,11 @@
-FROM python:3.11
+FROM python:3.9
 
 # Create the user that will run the app
 RUN adduser --disabled-password --gecos '' ml-api-user
 
 WORKDIR /opt/house-prices-api
 
-ARG $PIP_EXTRA_INDEX_URL
+ARG PIP_EXTRA_INDEX_URL
 
 # Install requirements, including from Gemfury
 ADD ./house-prices-api /opt/house-prices-api/
