@@ -2,7 +2,7 @@ heroku-login:
 	HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
 
 build-ml-api-heroku: heroku-login
-	docker build --build-arg PIP_EXTRA_INDEX_URL=${PIP_EXTRA_INDEX_URL} -t registry.heroku.com/${HEROKU_APP_NAME}/web .
+	docker build --build-arg PIP_EXTRA_INDEX_URL=https://pyzXsHagVvKmNSDCnxAj:@pypi.fury.io/demba/ -t registry.heroku.com/${HEROKU_APP_NAME}/web .
 
 push-ml-api-heroku: heroku-login
 	docker push registry.heroku.com/${HEROKU_APP_NAME}/web
