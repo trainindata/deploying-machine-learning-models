@@ -92,7 +92,7 @@ jobs:
       - run:
           name: Build and run Dockerfile (see https://docs.railway.app/deploy/dockerfiles)
           command: |
-            cd section-08-deploying-with-containers && railway run
+            cd section-08-deploying-with-containers && railway up --detach
 
   test_regression_model_py37:
     docker:
@@ -282,7 +282,7 @@ workflows:
 
 # Commenting out as using the Railway github repo integration.
 # However, this is a useful example for those who want to deploy directly.
-#      - section_08_deploy_app_container_via_railway:
+     - section_08_deploy_app_container_via_railway
 #          filters:
 #            branches:
 #              only:
