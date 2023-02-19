@@ -280,7 +280,7 @@ workflows:
       - section_07_test_and_upload_regression_model:
           <<: *tags_only
 
-      - section_08_deploy_app_container_via_railway
+      - section_08_deploy_app_container_via_railway:
          filters:
            branches:
              only:
