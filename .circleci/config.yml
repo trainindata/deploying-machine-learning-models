@@ -280,9 +280,9 @@ workflows:
       - section_07_test_and_upload_regression_model:
           <<: *tags_only
 
-# Commenting out as using the Railway github repo integration.
-# However, this is a useful example for those who want to deploy directly.
-     - section_08_deploy_app_container_via_railway
+      # Commenting out as using the Railway github repo integration.
+      # However, this is a useful example for those who want to deploy directly.
+      - section_08_deploy_app_container_via_railway
 #          filters:
 #            branches:
 #              only:
