@@ -1,4 +1,6 @@
-version: 2
+version: '2.1'
+orbs:
+  node: circleci/node@5.1.0
 
 defaults: &defaults
   docker:
@@ -40,15 +42,19 @@ jobs:
           command: |
             tox
 
-  section_07_deploy_app_to_heroku:
+  section_07_deploy_app_to_railway:
     <<: *defaults
     steps:
       - checkout:
-          path: ~/project
+          path: ~/project/
+      - node/install:
+          node-version: '16.13'
+      - run: node --version
+      - run: npm i -g @railway/cli
       - run:
-          name: Deploy to Heroku
+          name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
           command: |
-            git subtree push --prefix section-07-ci-and-publishing/house-prices-api https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            cd section-07-ci-and-publishing/house-prices-api && railway up --detach
 
   section_07_test_and_upload_regression_model:
     <<: *defaults
@@ -71,28 +77,22 @@ jobs:
             tox -e publish_model
 
 
-  section_08_deploy_app_container_in_heroku:
+  section_08_deploy_app_container_via_railway:
     <<: *defaults
     steps:
       - setup_remote_docker:
           # Supported versions: https://circleci.com/docs/2.0/building-docker-images/#docker-version
-          version: 20.10.6
+          version: 20.10.18
       - checkout:
-          path: ~/project
+          path: ~/project/
+      - node/install:
+          node-version: '16.13'
+      - run: node --version
+      - run: npm i -g @railway/cli
       - run:
-          name: Build image
+          name: Build and run Dockerfile (see https://docs.railway.app/deploy/dockerfiles)
           command: |
-            sudo curl https://cli-assets.heroku.com/install.sh | sh
-            cd section-08-deploying-with-containers && make build-ml-api-heroku
-      - run:
-          name: Push Image to Heroku
-          command: |
-            # Push the built container to the Heroku image registry
-            cd section-08-deploying-with-containers && make push-ml-api-heroku
-      - run:
-          name: Release to Heroku
-          command: |
-            cd section-08-deploying-with-containers && make release-heroku
+            cd section-08-deploying-with-containers && railway up --detach
 
   test_regression_model_py37:
     docker:
@@ -265,24 +265,27 @@ tags_only: &tags_only
 
 workflows:
   version: 2
-  section_07:
+  deploy_pipeline:
     jobs:
       - section_07_test_app
-      - section_07_deploy_app_to_heroku:
+      - section_07_deploy_app_to_railway:
           requires:
             - section_07_test_app
           filters:
             branches:
               only:
                 - master
+                - demo
       # upload after git tags are created
       - section_07_test_and_upload_regression_model:
           <<: *tags_only
-      - section_08_deploy_app_container_in_heroku:
-          filters:
-            branches:
-              only:
-                - master
+
+      - section_08_deploy_app_container_via_railway:
+         filters:
+           branches:
+             only:
+               - master
+               - demo
 
 #  test-all:
 #    jobs:
