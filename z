@@ -1,0 +1,345 @@
+[33mcommit ab0b12a7b00335ebb88510c6a5288689a84c9f96[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: MANMEET SINGH (AWM) <97391884+MANMEET75@users.noreply.github.com>
+Date:   Tue Mar 7 22:26:15 2023 +0530
+
+    updaste readme
+
+[33mcommit 692f15a44b75632e5e9ce8fd34e1f3b0f998ae23[m
+Author: MANMEET SINGH (AWM) <97391884+MANMEET75@users.noreply.github.com>
+Date:   Tue Mar 7 22:17:54 2023 +0530
+
+    Updated config.yml
+
+[33mcommit 9ea1f7aaf3973f67bad9e22ee768c0131afdef2b[m
+Author: Soledad Galli <solegalli@protonmail.com>
+Date:   Wed Mar 1 10:07:14 2023 +0100
+
+    update links (#866)
+
+[33mcommit 0ae1fb2182fcefc470b25daded3e9e28afa12e02[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Tue Feb 21 16:15:11 2023 +0800
+
+    tox publish fix (#862)
+
+[33mcommit ebe1e26a9e35ae70626776904e1dbd3505a4bba9[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Mon Feb 20 20:02:37 2023 +0800
+
+    update tox syntax for v4 (#861)
+
+[33mcommit 3954da8e24ee7e957eba101a8fe1803c605a5752[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Mon Feb 20 10:26:33 2023 +0800
+
+    switch to railway from heroku for section 06 - 08 (#857)
+    
+    * switch to railway for section 06-08
+
+[33mcommit 3de716bc0b52ae682f16d0757a917fc87d191f2f[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sun Jan 15 21:04:59 2023 +0000
+
+    Update deps for python311 (#853)
+    
+    * Update dependencies
+
+[33mcommit 3ce5d0f3c90e1a2d0ca07f0f11db70b9589f3b26[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun May 15 18:31:58 2022 +0100
+
+    update section08 deps
+
+[33mcommit 9639e80a2d8fb52ef3b0a0f41e51e08938605c4b[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun May 15 18:25:40 2022 +0100
+
+    fix section 07 deps
+
+[33mcommit f2c019eab763b92667602ff63ec44d46b2f2dd44[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun May 15 17:55:41 2022 +0100
+
+    update dependencies
+
+[33mcommit e05e031547fbada87a875fe7791e558744e52cd9[m
+Author: ChristopherGSA <chris.samiullah@angloamerican.com>
+Date:   Sun May 15 17:24:06 2022 +0100
+
+    update linting
+
+[33mcommit 8db5879d9a5e70bb7961d48633fd8bf5261833a0[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sun Feb 20 21:55:50 2022 +0000
+
+    update scipy version via sklearn (#804)
+
+[33mcommit 5e6560c3b62fb251aff78edc521a779405464979[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sat Jan 15 15:59:09 2022 +0000
+
+    Section5 assignment (#789)
+
+[33mcommit 08bfc7af8810915181f1753411fb76ec2976aaea[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sat Jan 15 15:56:03 2022 +0000
+
+    fix pandas dependency bug (#792)
+
+[33mcommit aaeb3e65d0a58ad583289aaa39b089f11d06a4eb[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sat Jul 24 19:40:59 2021 +0100
+
+    section 08 - deploy to heroku with containers (#759)
+
+[33mcommit ae92f2fb64966ffd3cbf68303fc183f124fd1cda[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sun Jun 20 21:37:28 2021 +0100
+
+    fix heroku deploy command (#755)
+
+[33mcommit 63cdc180aeb2843b18c534833b4aff022307c7a3[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sun Jun 20 10:30:17 2021 +0100
+
+    update tox file for model publishing (#752)
+
+[33mcommit 3ff59e7dd00817f14545fbc107fe0bac9ae04828[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Fri Jun 18 12:53:49 2021 +0100
+
+    section 07 update (#742)
+
+[33mcommit 7a3df30d652bfe575c72e497a0b210d82982ae0c[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Mon May 17 19:08:53 2021 +0100
+
+    Section 06 (#735)
+
+[33mcommit 8983db3d998f12de2df19ef62e6be6a0134be031[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Mon May 3 18:18:22 2021 +0100
+
+    Updates for section 05 (#727)
+
+[33mcommit 81282e27c7912783fc21ac6932b2b47e5957e406[m
+Author: Soledad Galli <solegalli@protonmail.com>
+Date:   Tue Apr 20 07:27:37 2021 +0200
+
+    new notebooks for research env (#723)
+    
+    * new notebooks for research env
+    
+    * fix typo
+    
+    * fixes typo
+    
+    * remove unnecessary import
+    
+    * final notebooks of section
+    
+    * add final assignment, fix some bugs
+    
+    * changed capitalization
+    
+    * adds requirements
+    
+    * fix bugs, adds comments to assignments
+    
+    * fix typo
+
+[33mcommit 7d9f27ccdda0690ca7c384ae3961c0a4e1da1f91[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sun Mar 15 18:20:30 2020 +0000
+
+    Update 2020 part 1
+
+[33mcommit 7605297a20efaadf3e680de4a0b925e2a63b0cb5[m
+Author: Soledad Galli <solegalli1@gmail.com>
+Date:   Wed May 29 22:56:00 2019 +0100
+
+    Update Jupyter Notebooks (#59)
+
+[33mcommit 6f35d7a0a6f58e39bf15502a0de3719fbe949e01[m
+Author: Soledad Galli <solegalli1@gmail.com>
+Date:   Sun May 12 00:04:11 2019 +0100
+
+    Logo and readme (#40)
+    
+    
+    
+    * Update README.md
+
+[33mcommit 16b5efa926feaf82b09b56fa51a75d624602abcb[m
+Author: Soledad Galli <solegalli1@gmail.com>
+Date:   Thu May 9 19:49:50 2019 +0100
+
+    Create LICENSE (#39)
+
+[33mcommit dcecdf410ce68b5a83c4d13776df4d6d2e8a6e42[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sun Feb 10 19:38:56 2019 +0000
+
+    Section 13.9 - Update API with classification endpoint
+
+[33mcommit a314f0573c5d46d21d5e506a7c41cd31ba36cc75[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Sun Feb 10 12:42:56 2019 +0000
+
+    Section 13.8 - Publish Neural Network Model
+
+[33mcommit 6f56a463b951a436f4683c9b1cf7cd5c8ceda196[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sat Jan 26 23:44:08 2019 -0800
+
+    Section 12.14 - Deploying to ECS via CI Pipeline
+
+[33mcommit fbea252bfd5a82678dc6f9fcad7ef1218a74d231[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sat Jan 26 10:39:46 2019 -0800
+
+    Section 11.5 - Using Docker with Heroku
+
+[33mcommit 3f25370a1b464014419ac49a1e4eeee6b19cbe09[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sat Jan 26 05:25:26 2019 -0800
+
+    Section 11.3 - Dockerfile Setup
+
+[33mcommit bd602b23a80e184babf0f1abb6c8222f4356549a[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Fri Jan 25 09:42:11 2019 -0800
+
+    Section 10.5 - Deploy to Heroku with CircleCI
+
+[33mcommit 07ca7ea23b36b67c915e6688d260f146658c1f03[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Fri Jan 25 09:20:46 2019 -0800
+
+    Section 10.4 - Test Deployed API
+
+[33mcommit 87215a1455727ffa1730c61cc61690ef542837dd[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Fri Jan 25 07:05:31 2019 -0800
+
+    Section 10.3 - Heroku Deployment Config
+
+[33mcommit 6cd3645cbf7e42e62355fe98569d485126ef0802[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Fri Jan 25 05:51:19 2019 -0800
+
+    Section 9.4 - Differential Tests in CI Part 2
+
+[33mcommit e8f6dc411c14a629160b7d3868db14d139d91eb2[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Mon Jan 21 12:40:13 2019 -0800
+
+    Section 9.3 - Differential Tests in CI Part 1
+
+[33mcommit c267000079f464f132043767810f3968558392ee[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun Jan 20 13:31:35 2019 -0800
+
+    Section 9.2 - Setup Differential Tests
+
+[33mcommit fa819c2bc9de6cfd4f06c3e5e7b12f01a88b4b10[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun Jan 20 06:29:23 2019 -0800
+
+    Section 8.5 - Testing the CI Pipeline
+
+[33mcommit a5c6752ae4c6b727aa33322d7b499bc4fa1fb2b5[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun Jan 20 05:21:11 2019 -0800
+
+    Section 8.4 - Publishing the model in CI
+
+[33mcommit 653581a0159d0e6f80748fb2983adb73d04d837f[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun Jan 20 02:24:46 2019 -0800
+
+    Section 8.3 - Setup to CircleCI Config
+
+[33mcommit cc2e92e92adb16203a9dfbb332b9e8bd7e9efc3f[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sat Jan 19 09:02:29 2019 -0800
+
+    Section 7.6 - API Schema Validation
+
+[33mcommit 0d47e30867cf79775ff8efb872e0586204569004[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sat Jan 19 04:08:54 2019 -0800
+
+    Section 7.5 - API Versioning
+
+[33mcommit b02a1560db3fa8b50cbb36cdd6522a2320f5b512[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sat Jan 19 02:32:56 2019 -0800
+
+    Section 7.4 - Prediction Endpoint
+
+[33mcommit 17948c1e3d851fc8d79bc604f17d8331a15ddbf7[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Fri Jan 18 13:16:07 2019 -0800
+
+    Section 7.3 - Setup Config and Logging
+
+[33mcommit 349a9e5f30e02b6fff35ab19a74cf8aa909d1d7c[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Thu Jan 17 13:15:36 2019 -0800
+
+    Section 7.2 - REST API Skeleton
+
+[33mcommit 2469000be088bc63dce6c20b988b3b27ef52ae33[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Wed Jan 16 13:52:43 2019 -0800
+
+    Section 6.8 - Package Building
+
+[33mcommit ddb8d533fb8675453f19cccb52994c9964045f9d[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Tue Jan 15 13:48:08 2019 -0800
+
+    Section 6.7 - Versioning and Logging
+
+[33mcommit 3e50d9ccfa6a47a3abacdda828d0ce2abbba4adc[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Tue Jan 15 10:53:23 2019 -0800
+
+    Section 6.6 - Features
+
+[33mcommit f3bd11d7acd876ffc985484cb411388b7a27ab3f[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun Jan 13 09:52:20 2019 -0800
+
+    Section 6.5 - Data Validation
+
+[33mcommit e3f0893fcfad84cf95601e7a317fd9ca4dc5b068[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun Jan 13 08:31:53 2019 -0800
+
+    Section 6.4 - Predictions and Testing Skeleton
+
+[33mcommit 53bc67c6a94e01f3fdaf05cbfa2b49465a0c7a1f[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Sun Jan 13 06:56:28 2019 -0800
+
+    Section 6.3 Connecting the Pipeline
+
+[33mcommit 75b48f55a9b6dd94c40846f5a66c7f217a1f580b[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Wed Jan 9 21:17:22 2019 +0000
+
+    Section 6.2 - Initial setup
+
+[33mcommit 8e925bf7ba81b4da239c309cb48c2b5793e3c114[m
+Author: ChristopherGS <christopher.samiullah@gmail.com>
+Date:   Wed Jan 9 20:42:32 2019 +0000
+
+    Add section 2 jupyter notebooks(deprecated)
+
+[33mcommit 324bc0a8b9015e7d95643602ce23163949857a8c[m
+Author: Christopher Samiullah <ChristopherGS@users.noreply.github.com>
+Date:   Wed Jan 9 20:30:47 2019 +0000
+
+    Initial commit
