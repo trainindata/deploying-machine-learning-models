@@ -32,7 +32,7 @@ def test_model_prediction_differential(
     current_model_predictions = current_result.get('predictions')
 
     # Then
-    # diff the current model vs. the old model
+    # diff the current model vs. the old model for testing
     assert len(previous_model_predictions) == len(
         current_model_predictions)
 
