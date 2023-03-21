@@ -268,7 +268,6 @@ jobs:
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/neural_network_model/
 
-
 tags_only: &tags_only
   filters:
     branches:
