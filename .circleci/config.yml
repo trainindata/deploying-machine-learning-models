@@ -50,8 +50,10 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-#            git subtree push --prefix section-07-ci-and-publishing https://heroku:$HEROKU_API_KEY@git.heroku.com/arez-test-app.git main
             git subtree push --prefix section-07-ci-and-publishing https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
+            
+
+  #             git subtree push --prefix section-07-ci-and-publishing https://heroku:$HEROKU_API_KEY@git.heroku.com/arez-test-app.git main
 
   section_07_deploy_app_to_railway:
     <<: *defaults
