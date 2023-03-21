@@ -1,23 +1,26 @@
-version: 2
+version: '2.1'
+orbs:
+  node: circleci/node@5.1.0
 
 defaults: &defaults
   docker:
-    - image: circleci/python:3.9.5
+    - image: cimg/python:3.11.1
   working_directory: ~/project
 
 prepare_venv: &prepare_venv
   run:
     name: Create venv
     command: |
-      python3 -m venv venv
+      python -m venv venv
       source venv/bin/activate
       pip install --upgrade pip
+
 prepare_tox: &prepare_tox
   run:
     name: Install tox
     command: |
-      sudo pip install --upgrade pip
       pip install --user tox
+
 fetch_data: &fetch_data
   run:
     name: Set script permissions and fetch data
@@ -25,6 +28,7 @@ fetch_data: &fetch_data
       source venv/bin/activate
       chmod +x ./scripts/fetch_kaggle_dataset.sh
       ./scripts/fetch_kaggle_dataset.sh
+
 jobs:
   section_07_test_app:
     <<: *defaults
@@ -37,6 +41,7 @@ jobs:
           name: Runnning app tests
           command: |
             tox
+
   section_07_deploy_app_to_heroku:
     <<: *defaults
     steps:
@@ -45,7 +50,25 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            git subtree push --prefix section-07-ci-and-publishing https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+            git subtree push --prefix section-07-ci-and-publishing https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
+            
+
+  #             git subtree push --prefix section-07-ci-and-publishing https://heroku:$HEROKU_API_KEY@git.heroku.com/arez-test-app.git main
+
+  section_07_deploy_app_to_railway:
+    <<: *defaults
+    steps:
+      - checkout:
+          path: ~/project/
+      - node/install:
+          node-version: '16.13'
+      - run: node --version
+      - run: npm i -g @railway/cli
+      - run:
+          name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
+          command: |
+            cd section-07-ci-and-publishing/house-prices-api && railway up --detach
+
   section_07_test_and_upload_regression_model:
     <<: *defaults
     working_directory: ~/project/section-07-ci-and-publishing/model-package
@@ -65,19 +88,25 @@ jobs:
           name: Publish model to Gemfury
           command: |
             tox -e publish_model
-  test_regression_model_py36:
-    docker:
-      - image: circleci/python:3.6.9
-    working_directory: ~/project/packages/regression_model
+
+
+  section_08_deploy_app_container_via_railway:
+    <<: *defaults
     steps:
+      - setup_remote_docker:
+          # Supported versions: https://circleci.com/docs/2.0/building-docker-images/#docker-version
+          version: 20.10.18
       - checkout:
-          path: ~/project
+          path: ~/project/
+      - node/install:
+          node-version: '16.13'
+      - run: node --version
+      - run: npm i -g @railway/cli
       - run:
-          name: Run tests with Python 3.6
+          name: Build and run Dockerfile (see https://docs.railway.app/deploy/dockerfiles)
           command: |
-            sudo pip install --upgrade pip
-            pip install --user tox
-            tox -e py36
+            cd section-08-deploying-with-containers && railway up --detach
+
   test_regression_model_py37:
     docker:
       - image: circleci/python:3.7.6
@@ -91,6 +120,7 @@ jobs:
             sudo pip install --upgrade pip
             pip install --user tox
             tox -e py37
+
   test_regression_model_py38:
     docker:
       - image: circleci/python:3.8.0
@@ -104,19 +134,7 @@ jobs:
             sudo pip install --upgrade pip
             pip install --user tox
             tox -e py38
-  test_ml_api_py36:
-    docker:
-      - image: circleci/python:3.6.9
-    working_directory: ~/project/packages/ml_api
-    steps:
-      - checkout:
-          path: ~/project
-      - run:
-          name: Run API tests with Python 3.6
-          command: |
-            sudo pip install --upgrade pip
-            pip install --user tox
-            tox -e py36
+
   test_ml_api_py37:
     docker:
       - image: circleci/python:3.7.6
@@ -130,6 +148,7 @@ jobs:
             sudo pip install --upgrade pip
             pip install --user tox
             tox -e py37
+
   test_ml_api_py38:
     docker:
       - image: circleci/python:3.8.1
@@ -143,6 +162,7 @@ jobs:
             sudo pip install --upgrade pip
             pip install --user tox
             tox -e py38
+
   train_and_upload_regression_model:
     <<: *defaults
     steps:
@@ -165,6 +185,7 @@ jobs:
             . venv/bin/activate
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/regression_model/
+
   section_9_differential_tests:
     <<: *defaults
     steps:
@@ -182,6 +203,7 @@ jobs:
             . venv/bin/activate
             pip install -r packages/ml_api/requirements.txt
             py.test -vv packages/ml_api/tests -m differential
+
   section_11_build_and_push_to_heroku_docker:
     <<: *defaults
     steps:
@@ -201,6 +223,7 @@ jobs:
           name: Release to Heroku
           command: |
             heroku container:release web --app $HEROKU_APP_NAME
+
   section_12_publish_docker_image_to_aws:
     <<: *defaults
     working_directory: ~/project/packages/ml_models
@@ -214,6 +237,7 @@ jobs:
             eval $(aws ecr get-login --no-include-email --region us-east-1)
             make build-ml-api-aws tag-ml-api push-ml-api-aws
             aws ecs update-service --cluster ml-api-cluster --service custom-service --task-definition  first-run-task-definition --force-new-deployment
+
   section_13_train_and_upload_neural_network_model:
     docker:
       - image: circleci/python:3.6.4-stretch
@@ -243,6 +267,7 @@ jobs:
             . venv/bin/activate
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/neural_network_model/
+
 tags_only: &tags_only
   filters:
     branches:
@@ -252,15 +277,35 @@ tags_only: &tags_only
 
 workflows:
   version: 2
-  section_07:
+  deploy_pipeline:
     jobs:
       - section_07_test_app
       - section_07_deploy_app_to_heroku:
           requires:
             - section_07_test_app
+          filters:
+            branches:
+              only:
+                - master
+
+#      - section_07_deploy_app_to_railway:
+#          requires:
+#            - section_07_test_app
+#          filters:
+#            branches:
+#              only:
+#                - master
+#                - demo
       # upload after git tags are created
       - section_07_test_and_upload_regression_model:
           <<: *tags_only
+
+      - section_08_deploy_app_container_via_railway:
+         filters:
+           branches:
+             only:
+               - master
+               - demo
 
 #  test-all:
 #    jobs:
@@ -314,4 +359,3 @@ workflows:
 #             branches:
 #               only:
 #                 - master
-
