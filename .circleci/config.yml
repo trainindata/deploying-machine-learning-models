@@ -276,6 +276,7 @@ workflows:
               only:
                 - master
                 - demo
+		- example-pr
       # upload after git tags are created
       - section_07_test_and_upload_regression_model:
           <<: *tags_only
