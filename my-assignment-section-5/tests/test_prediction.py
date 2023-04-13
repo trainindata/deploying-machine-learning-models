@@ -26,7 +26,6 @@ def test_make_prediction(sample_input_data):
 def test_accuracy(sample_input_data):
 
     result = make_prediction(input_data=sample_input_data)
-
     predictions = result.get("predictions")
 
     target = np.exp(sample_input_data[config.model_config.target].values)
