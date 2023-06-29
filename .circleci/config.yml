@@ -62,9 +62,6 @@ jobs:
           command: |
             tox -e publish_model
 
-
-
-
   section_08_deploy_app_container_via_railway:
     <<: *defaults
     steps:
