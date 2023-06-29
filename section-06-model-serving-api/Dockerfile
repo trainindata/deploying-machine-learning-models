@@ -16,4 +16,5 @@ COPY ./house-prices-api/app /section-06-model-serving-api/app
 #
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001"]
 
+#
 EXPOSE 8001/tcp
