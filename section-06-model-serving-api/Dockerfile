@@ -5,7 +5,7 @@ FROM python:3.9
 WORKDIR /house-prices-api
 
 #
-COPY ./app/requirements.txt /house-prices-api/requirements.txt
+COPY ./requirements.txt /house-prices-api/requirements.txt
 
 #
 RUN pip install --no-cache-dir --upgrade -r /house-prices-api/requirements.txt
