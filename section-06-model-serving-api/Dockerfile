@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir --upgrade -r /section-06-model-serving-api/requir
 COPY ./house-prices-api/app /section-06-model-serving-api/app
 
 #
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8001"]
