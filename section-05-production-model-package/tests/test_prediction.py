@@ -2,9 +2,12 @@ import math
 
 import numpy as np
 
+from regression_model.config.core import config
+from regression_model.processing.data_manager import load_dataset
+
 from regression_model.predict import make_prediction
 
-
+sample_input_data=load_dataset(file_name=config.app_config.test_data_file)
 def test_make_prediction(sample_input_data):
     # Given
     expected_first_prediction_value = 113422
