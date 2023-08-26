@@ -1,4 +1,3 @@
-# Deployment of Machine Learning Models
-Accompanying repo for the online course Deployment of Machine Learning Models.
+# Embarking on a Machine Learning Deployment Adventure!
 
-For the documentation, visit the [course on Udemy](https://www.udemy.com/deployment-of-machine-learning-models/?couponCode=TIDREPO).
+Welcome to my exhilarating journey into the captivating world of Machine Learning Model Deployments! 👩‍💻🌟
