@@ -20,7 +20,7 @@ jobs:
   test_ml_api:
     working_directory: ~/project
     docker:
-      - image: circleci/python:3.7.2
+      - image: circleci/python:3.8
     steps:
       - checkout
       - run:
