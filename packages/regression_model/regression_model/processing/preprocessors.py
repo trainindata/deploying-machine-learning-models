@@ -91,7 +91,7 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
 
         for var in self.variables:
             # the encoder will learn the most frequent categories
-            t = pd.Series(X[var].value_counts() / np.float(len(X)))
+            t = pd.Series(X[var].value_counts() / np.float64(len(X)))
             # frequent labels:
             self.encoder_dict_[var] = list(t[t >= self.tol].index)
 
