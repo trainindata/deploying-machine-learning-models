@@ -10,7 +10,7 @@ def test_temporal_variable_transformer(sample_input_data):
     )
     assert sample_input_data["YearRemodAdd"].iat[0] == 1961
 
-    # When
+    # When ()
     subject = transformer.fit_transform(sample_input_data)
 
     # Then
