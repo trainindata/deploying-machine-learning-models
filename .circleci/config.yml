@@ -274,7 +274,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
                 - demo
       # upload after git tags are created
       - section_07_test_and_upload_regression_model:
@@ -284,7 +284,7 @@ workflows:
          filters:
            branches:
              only:
-               - master
+               - main
                - demo
 
 #  test-all:
@@ -307,28 +307,28 @@ workflows:
 #          filters:
 #            branches:
 #              only:
-#                - master
+#                - main
 #       - section_10_deploy_to_heroku:
 #           requires:
 #             - train_and_upload_regression_model
 #           filters:
 #             branches:
 #               only:
-#                 - master
+#                 - main
 #      - section_11_build_and_push_to_heroku_docker:
 #          requires:
 #            - train_and_upload_regression_model
 #          filters:
 #            branches:
 #              only:
-#                - master
+#                - main
 #       - section_12_publish_docker_image_to_aws:
 #           requires:
 #             - train_and_upload_regression_model
 #           filters:
 #             branches:
 #               only:
-#                 - master
+#                 - main
 #      - section_13_train_and_upload_neural_network_model:
 #          requires:
 #            - test_regression_model
@@ -338,4 +338,4 @@ workflows:
 #           filters:
 #             branches:
 #               only:
-#                 - master
+#                 - main
