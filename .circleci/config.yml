@@ -54,7 +54,7 @@ jobs:
       - run:
           name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
           command: |
-            cd section-07-ci-and-publishing/house-prices-api && railway up --detach
+            cd section-07-ci-and-publishing/house-prices-api && railway up --detach -s overconfident-substance -e production
 
   section_07_test_and_upload_regression_model:
     <<: *defaults
@@ -92,7 +92,7 @@ jobs:
       - run:
           name: Build and run Dockerfile (see https://docs.railway.app/deploy/dockerfiles)
           command: |
-            cd section-08-deploying-with-containers && railway up --detach
+            cd section-08-deploying-with-containers && railway up --detach -s overconfident-substance -e production
 
   test_regression_model_py37:
     docker:
