@@ -1,0 +1,1 @@
+gemfury_push_url - https://gxpw8hV5RQwZ8qY9s69t:@pypi.fury.io/samsontontoye/
