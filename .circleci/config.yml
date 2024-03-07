@@ -275,7 +275,6 @@ workflows:
             branches:
               only:
                 - master
-                - exemple-pr
                 - demo
       # upload after git tags are created
       - section_07_test_and_upload_regression_model:
@@ -286,7 +285,6 @@ workflows:
            branches:
              only:
                - master
-               - exemple-pr
                - demo
 
 #  test-all:
