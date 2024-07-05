@@ -43,18 +43,19 @@ jobs:
             tox
 
   section_07_deploy_app_to_railway:
-    <<: *defaults
-    steps:
-      - checkout:
-          path: ~/project/
-      - node/install:
-          node-version: '16.13'
-      - run: node --version
-      - run: npm i -g @railway/cli
-      - run:
-          name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
-          command: |
-            cd section-07-ci-and-publishing/house-prices-api && railway up --detach
+  <<: *defaults
+  steps:
+    - checkout:
+        path: ~/project/
+    - node/install:
+        node-version: '16.13'
+    - run: node --version
+    - run: npm i -g @railway/cli
+    - run:
+        name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
+        command: |
+          cd section-07-ci-and-publishing/house-prices-api && railway up --detach --service shimmering-reverence
+
 
   section_07_test_and_upload_regression_model:
     <<: *defaults
