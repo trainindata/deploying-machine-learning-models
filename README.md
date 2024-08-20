@@ -1,4 +1,6 @@
-# Deployment of Machine Learning Models
-Accompanying repo for the online course Deployment of Machine Learning Models.
+# Deployment of Machine Learning Models - Custom Adaptation
 
-For the documentation, visit the [course on Udemy](https://www.udemy.com/deployment-of-machine-learning-models/?couponCode=TIDREPO).
+This repository is a customized adaptation of the course [deployment-of-machine-learning-models](https://www.udemy.com/deployment-of-machine-learning-models/?couponCode=TIDREPO). I have made modifications in the 'custom-course' branch to tailor to the content and objectives of my own course.
+
+## Notes on Modifications
+
