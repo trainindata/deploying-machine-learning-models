@@ -38,7 +38,7 @@ jobs:
           path: ~/project
       - *prepare_tox
       - run:
-          name: Runnning app tests
+          name: Running app tests
           command: |
             tox
 
@@ -52,10 +52,17 @@ jobs:
       - run: node --version
       - run: npm i -g @railway/cli
       - run:
-          name: Deploy to Railway App (You must set RAILWAY_TOKEN env var)
+          name: Verify Railway CLI Installation
+          command: railway --version
+      - run: 
+          name: Railway token link
+          command: RAILWAY_TOKEN=fc1f0cdb-a81d-402e-9677-049f531d04a0 railway run
+      - run:
+          name: Deploy to Railway
           command: |
-            cd section-07-ci-and-publishing/house-prices-api && railway up --detach
-
+              cd section-07-ci-and-publishing/house-prices-api
+              railway up --detach
+  
   section_07_test_and_upload_regression_model:
     <<: *defaults
     working_directory: ~/project/section-07-ci-and-publishing/model-package
@@ -76,12 +83,10 @@ jobs:
           command: |
             tox -e publish_model
 
-
   section_08_deploy_app_container_via_railway:
     <<: *defaults
     steps:
       - setup_remote_docker:
-          # Supported versions: https://circleci.com/docs/2.0/building-docker-images/#docker-version
           version: 20.10.18
       - checkout:
           path: ~/project/
@@ -185,7 +190,7 @@ jobs:
             pip install -r packages/ml_api/diff_test_requirements.txt
             PYTHONPATH=./packages/ml_api python3 packages/ml_api/tests/capture_model_predictions.py
       - run:
-          name: Runnning differential tests
+          name: Running differential tests
           command: |
             . venv/bin/activate
             pip install -r packages/ml_api/requirements.txt
@@ -218,12 +223,12 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Publishing docker image to aws ECR
+          name: Publishing docker image to AWS ECR
           command: |
             sudo pip install awscli
             eval $(aws ecr get-login --no-include-email --region us-east-1)
             make build-ml-api-aws tag-ml-api push-ml-api-aws
-            aws ecs update-service --cluster ml-api-cluster --service custom-service --task-definition  first-run-task-definition --force-new-deployment
+            aws ecs update-service --cluster ml-api-cluster --service custom-service --task-definition first-run-task-definition --force-new-deployment
 
   section_13_train_and_upload_neural_network_model:
     docker:
@@ -255,7 +260,6 @@ jobs:
             chmod +x ./scripts/publish_model.sh
             ./scripts/publish_model.sh ./packages/neural_network_model/
 
-
 tags_only: &tags_only
   filters:
     branches:
@@ -271,71 +275,20 @@ workflows:
       - section_07_deploy_app_to_railway:
           requires:
             - section_07_test_app
+      - section_07_test_and_upload_regression_model:
+          <<: *tags_only
+      - section_08_deploy_app_container_via_railway:
           filters:
             branches:
               only:
-                - master
-                - demo
-      # upload after git tags are created
-      - section_07_test_and_upload_regression_model:
-          <<: *tags_only
-
-      - section_08_deploy_app_container_via_railway:
-         filters:
-           branches:
-             only:
-               - master
-               - demo
-
-#  test-all:
-#    jobs:
-#      - test_regression_model_py36
-#      - test_regression_model_py37
-#      - test_regression_model_py38
-#      - test_ml_api_py36
-#      - test_ml_api_py37
-#      # - test_ml_api_py38 pending NN model update
-#      - section_9_differential_tests
-#      - train_and_upload_regression_model:
-#          requires:
-#            - test_regression_model_py36
-#            - test_regression_model_py37
-#            - test_regression_model_py38
-#            - test_ml_api_py36
-#            - test_ml_api_py37
-#            - section_9_differential_tests
-#          filters:
-#            branches:
-#              only:
-#                - master
-#       - section_10_deploy_to_heroku:
-#           requires:
-#             - train_and_upload_regression_model
-#           filters:
-#             branches:
-#               only:
-#                 - master
-#      - section_11_build_and_push_to_heroku_docker:
-#          requires:
-#            - train_and_upload_regression_model
-#          filters:
-#            branches:
-#              only:
-#                - master
-#       - section_12_publish_docker_image_to_aws:
-#           requires:
-#             - train_and_upload_regression_model
-#           filters:
-#             branches:
-#               only:
-#                 - master
-#      - section_13_train_and_upload_neural_network_model:
-#          requires:
-#            - test_regression_model
-#            - test_ml_api
-#            - section_9_differential_tests
-#             - train_and_upload_regression_model
-#           filters:
-#             branches:
-#               only:
-#                 - master
+                - main
+      - section_11_build_and_push_to_heroku_docker:
+          filters:
+            branches:
+              only:
+                - main
+      - section_12_publish_docker_image_to_aws:
+          filters:
+            branches:
+              only:
+                - main
