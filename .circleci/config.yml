@@ -81,8 +81,8 @@ jobs:
     <<: *defaults
     steps:
       - setup_remote_docker:
-          # Supported versions: https://circleci.com/docs/2.0/building-docker-images/#docker-version
-          version: 20.10.18
+          # Specify a valid Docker version compatible with your resource class
+          version: 23.0.0  # Change this to a compatible version based on CircleCI's supported versions
       - checkout:
           path: ~/project/
       - node/install:
