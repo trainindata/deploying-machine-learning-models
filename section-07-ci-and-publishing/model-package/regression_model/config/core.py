@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, List, Sequence
+from typing import Dict, List, Sequence, Optional
 
 from pydantic import BaseModel
 from strictyaml import YAML, load
@@ -69,7 +69,7 @@ def find_config_file() -> Path:
     raise Exception(f"Config not found at {CONFIG_FILE_PATH!r}")
 
 
-def fetch_config_from_yaml(cfg_path: Path = None) -> YAML:
+def fetch_config_from_yaml(cfg_path: Optional[Path] = None) -> YAML:
     """Parse YAML containing the package configuration."""
 
     if not cfg_path:
