@@ -28,7 +28,7 @@ def health() -> dict:
 
 
 @api_router.post("/predict", response_model=schemas.PredictionResults, status_code=200)
-async def predict(input_data: schemas.MultipleHouseDataInputs) -> Any:
+async def predict(input_data: schemas.MultipleTitanicDataInputs) -> Any:
     """
     Make house price predictions with the TID regression model
     """

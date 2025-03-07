@@ -1,0 +1,50 @@
+# Package Overview
+package_name: classification_model
+
+# Data Files
+data_file: raw.csv
+
+# Variables
+# The variable we are attempting to predict (sale price)
+target: survived
+
+pipeline_name: classification_model
+pipeline_save_file: classification _model_output_v
+
+# Will cause syntax errors since they begin with numbers
+variables_to_rename:
+  home.dest: home_dest
+
+features:
+  - pclass
+  - survived
+  - sex
+  - age
+  - sibsp
+  - parch
+  - fare
+  - cabin
+  - embarked
+  - title
+
+
+# set train/test split
+test_size: 0.1
+
+# to set the random seed
+random_state: 0
+
+alpha: 0.001
+
+numerical_vars:
+  - age
+  - fare
+
+cabin:
+  - cabin
+
+categorical_vars:
+  - sex
+  - cabin
+  - embarked
+  - title

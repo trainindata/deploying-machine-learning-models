@@ -4,7 +4,7 @@ orbs:
 
 defaults: &defaults
   docker:
-    - image: cimg/python:3.11.1
+    - image: cimg/python:3.9.18
   working_directory: ~/project
 
 prepare_venv: &prepare_venv
@@ -82,7 +82,7 @@ jobs:
     steps:
       - setup_remote_docker:
           # Supported versions: https://circleci.com/docs/2.0/building-docker-images/#docker-version
-          version: 20.10.18
+          version: default
       - checkout:
           path: ~/project/
       - node/install:

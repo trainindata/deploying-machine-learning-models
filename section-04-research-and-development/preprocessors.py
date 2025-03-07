@@ -6,7 +6,7 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
-	# Temporal elapsed time transformer
+    # Temporal elapsed time transformer
 
     def __init__(self, variables, reference_variable):
         
@@ -22,7 +22,7 @@ class TemporalVariableTransformer(BaseEstimator, TransformerMixin):
 
     def transform(self, X):
 
-    	# so that we do not over-write the original dataframe
+        # so that we do not over-write the original dataframe
         X = X.copy()
         
         for feature in self.variables:

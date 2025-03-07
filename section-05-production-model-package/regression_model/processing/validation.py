@@ -36,7 +36,7 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
 
     try:
         # replace numpy nans so that pydantic can validate
-        MultipleHouseDataInputs(
+        MultipleTitanicDataInputs(
             inputs=validated_data.replace({np.nan: None}).to_dict(orient="records")
         )
     except ValidationError as error:
@@ -45,7 +45,7 @@ def validate_inputs(*, input_data: pd.DataFrame) -> Tuple[pd.DataFrame, Optional
     return validated_data, errors
 
 
-class HouseDataInputSchema(BaseModel):
+class TitanicDataInputSchema(BaseModel):
     Alley: Optional[str]
     BedroomAbvGr: Optional[int]
     BldgType: Optional[str]
@@ -128,5 +128,5 @@ class HouseDataInputSchema(BaseModel):
     ThreeSsnPortch: Optional[int]  # renamed
 
 
-class MultipleHouseDataInputs(BaseModel):
-    inputs: List[HouseDataInputSchema]
+class MultipleTitanicDataInputs(BaseModel):
+    inputs: List[TitanicDataInputSchema]
