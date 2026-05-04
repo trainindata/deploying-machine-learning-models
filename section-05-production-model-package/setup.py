@@ -6,7 +6,7 @@ from pathlib import Path
 from setuptools import find_packages, setup
 
 # Package meta-data.
-NAME = 'tid-regression-model'
+NAME = 'tid-regression-model-guangfei01'
 DESCRIPTION = "Example regression model package from Train In Data."
 URL = "https://github.com/trainindata/testing-and-monitoring-ml-deployments"
 EMAIL = "christopher.samiullah@protonmail.com"
@@ -48,7 +48,7 @@ setup(
     python_requires=REQUIRES_PYTHON,
     url=URL,
     packages=find_packages(exclude=("tests",)),
-    package_data={"regression_model": ["VERSION"]},
+    package_data={"regression_model": ["VERSION", "trained_models/*.pkl", "datasets/*.csv", "config.yml"]},
     install_requires=list_reqs(),
     extras_require={},
     include_package_data=True,

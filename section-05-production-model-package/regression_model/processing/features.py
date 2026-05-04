@@ -51,3 +51,24 @@ class Mapper(BaseEstimator, TransformerMixin):
             X[feature] = X[feature].map(self.mappings)
 
         return X
+
+
+class CastVariablesAsObject(BaseEstimator, TransformerMixin):
+    """Cast selected variables to object dtype."""
+
+    def __init__(self, variables: List[str]):
+
+        if not isinstance(variables, list):
+            raise ValueError("variables should be a list")
+
+        self.variables = variables
+
+    def fit(self, X: pd.DataFrame, y: pd.Series = None):
+        return self
+
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+        X = X.copy()
+        for feature in self.variables:
+            X[feature] = X[feature].astype("O")
+
+        return X

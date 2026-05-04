@@ -1,8 +1,9 @@
 import numpy as np
-from config.core import config
-from pipeline import price_pipe
-from processing.data_manager import load_dataset, save_pipeline
 from sklearn.model_selection import train_test_split
+
+from regression_model.config.core import config
+from regression_model.pipeline import price_pipe
+from regression_model.processing.data_manager import load_dataset, save_pipeline
 
 
 def run_training() -> None:
@@ -13,12 +14,12 @@ def run_training() -> None:
 
     # divide train and test
     X_train, X_test, y_train, y_test = train_test_split(
-        data[config.model_config.features],  # predictors
-        data[config.model_config.target],
-        test_size=config.model_config.test_size,
+        data[config.model_settings.features],  # predictors
+        data[config.model_settings.target],
+        test_size=config.model_settings.test_size,
         # we are setting the random seed here
         # for reproducibility
-        random_state=config.model_config.random_state,
+        random_state=config.model_settings.random_state,
     )
     y_train = np.log(y_train)
 

@@ -14,7 +14,12 @@ def load_dataset(*, file_name: str) -> pd.DataFrame:
     dataframe["MSSubClass"] = dataframe["MSSubClass"].astype("O")
 
     # rename variables beginning with numbers to avoid syntax errors later
-    transformed = dataframe.rename(columns=config.model_config.variables_to_rename)
+    transformed = dataframe.rename(columns=config.model_settings.variables_to_rename)
+
+    # Feature-engine 1.9 enforces categorical dtypes more strictly.
+    for var in config.model_settings.categorical_vars:
+        transformed[var] = transformed[var].astype("O")
+
     return transformed
 
 
