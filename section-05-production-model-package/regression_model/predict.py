@@ -21,7 +21,7 @@ def make_prediction(
     data = pd.DataFrame(input_data)
     validated_data, errors = validate_inputs(input_data=data)
     results = {"predictions": None, "version": _version, "errors": errors}
-
+ 
     if not errors:
         predictions = _price_pipe.predict(
             X=validated_data[config.model_config.features]

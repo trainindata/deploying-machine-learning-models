@@ -1,0 +1,48 @@
+package_name: regression_model
+
+train_data_file: train.csv
+test_data_file: test.csv
+
+target: survived
+
+pipeline_name: regression_model_pipeline
+pipeline_save_file: regression_model_output_v
+
+variables_to_rename:
+  home.dest: home_dest
+
+features:
+  - pclass
+  - sex
+  - age
+  - sibsp
+  - parch
+  - fare
+  - cabin
+  - embarked
+  - title
+
+# set train/test split
+test_size: 0.1
+
+# to set the random seed
+random_state: 0
+
+alpha: 0.001
+
+categorical_vars:
+  - sex
+  - cabin
+  - embarked
+  - title
+
+numerical_vars:
+  - pclass
+  - age
+  - sibsp
+  - parch
+  - fare
+
+letter_extraction_vars:
+  - cabin
+

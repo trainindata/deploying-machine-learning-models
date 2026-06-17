@@ -1,38 +1,39 @@
-import numpy as np
 import pandas as pd
-from sklearn.base import BaseEstimator, TransformerMixin
+import numpy as np
 
+from sklearn.base import BaseEstimator, TransformerMixin
 
 class MeanImputer(BaseEstimator, TransformerMixin):
     """Numerical missing value imputer."""
 
     def __init__(self, variables):
         if not isinstance(variables, list):
-            raise ValueError('variables should be a list')
+            raise ValueError("Variables should be list.")
+
         self.variables = variables
 
     def fit(self, X, y=None):
-        # persist mean values in a dictionary
+        # persist mean value in dictionary
         self.imputer_dict_ = X[self.variables].mean().to_dict()
         return self
 
-    def transform(self, X):
+    def transform(self, X, y=None):
         X = X.copy()
-        for feature in self.variables:
-            X[feature].fillna(self.imputer_dict_[feature],
-                              inplace=True)
-        return X
 
+        for feature in self.variables:
+            # X[feature].fillna(self.imputer_dict_[feature], inplace=True)
+            X[feature] = X[feature].fillna(self.imputer_dict_[feature])
+
+        return X
 
 
 class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
     """Groups infrequent categories into a single string"""
 
-    def __init__(self, tol=0.05, variables):
-
+    def __init__(self, tol=0.5, variables):
         if not isinstance(variables, list):
-            raise ValueError('variables should be a list')
-        
+            raise ValueError("Variables should be list.")
+
         self.tol = tol
         self.variables = variables
 
@@ -42,7 +43,7 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
 
         for var in self.variables:
             # the encoder will learn the most frequent categories
-            t = pd.Series(X[var].value_counts(normalize=True) 
+            t = pd.Series(X[var].value_counts(normalize=True))
             # frequent labels:
             self.encoder_dict_[var] = list(t[t >= self.tol].index)
 
@@ -51,12 +52,10 @@ class RareLabelCategoricalEncoder(BaseEstimator, TransformerMixin):
     def transform(self, X):
         X = X.copy()
         for feature in self.variables:
-            X[feature] = np.where(
-                X[feature].isin(self.encoder_dict_[feature]),
-                                X[feature], "Rare")
+            X[feature] = np.where(X[feature].isin(self.encoder_dict_[feature]), X[feature], "Rare")
 
         return X
-
+        
 
 class CategoricalEncoder(BaseEstimator, TransformerMixin):
     """String to numbers categorical encoder."""
@@ -88,3 +87,8 @@ class CategoricalEncoder(BaseEstimator, TransformerMixin):
             X[feature] = X[feature].map(self.encoder_dict_[feature])
 
         return X
+
+
+
+
+
