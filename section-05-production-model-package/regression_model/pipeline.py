@@ -1,5 +1,9 @@
 from feature_engine.encoding import OrdinalEncoder, RareLabelEncoder
-from feature_engine.imputation import AddMissingIndicator, CategoricalImputer, MeanMedianImputer
+from feature_engine.imputation import (
+    AddMissingIndicator,
+    CategoricalImputer,
+    MeanMedianImputer,
+)
 from feature_engine.selection import DropFeatures
 from feature_engine.transformation import LogTransformer
 from feature_engine.wrappers import SklearnTransformerWrapper

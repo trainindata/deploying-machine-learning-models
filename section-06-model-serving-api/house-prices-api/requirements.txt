@@ -7,3 +7,4 @@ loguru>=0.5.3,<1.0.0
 # We will explain this in the course
 tid-regression-model>=3.2.0
 feature-engine>=1.0.2,<1.6.0  # breaking change in v1.6.0
+scikit-learn==1.5.2
