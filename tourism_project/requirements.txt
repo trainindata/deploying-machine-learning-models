@@ -1,0 +1,5 @@
+pandas==2.2.2
+scikit-learn==1.6.1
+xgboost==2.0.3
+joblib==1.4.2
+mlflow==3.0.1
